@@ -1,5 +1,7 @@
 body {
     background-color: #eaebf0ec;
+    font-family: 'Montserrat';
+    color: #22577A;
 }
 
 hr {
@@ -21,13 +23,21 @@ input:focus,
 
 .header-row {
     padding-top: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
     font-family: 'Montserrat', sans-serif;
 }
 
-.row {
+.secondary-header-row {
+    padding-top: 80px;
     padding-left: 40px;
     padding-right: 40px;
+}
+
+.regular-row {
     padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
 }
 
 .label {
@@ -43,11 +53,23 @@ input:focus,
     background-color: #C7F9CC;
 }
 
-.btn-success {
+.btn-green {
     color: #fff;
     background-color: #3AB795;
 }
 
-.btn-success:hover {
+.btn-green:hover {
     background-color: #31a37f;
+}
+
+.bg-request {
+    background-color: #3381B5;
+}
+
+.bg-ok {
+    background-color: #3AB795;
+}
+
+.btn-blue {
+    background-color: #22577A;
 }

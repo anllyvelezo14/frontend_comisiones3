@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { SolicitudesModule } from './modules/solicitudes/solicitudes.module';
 
 // ROUTES
+import { SubirCumplidoComponent } from './modules/cumplidos/subir-cumplido/subir-cumplido.component';
 import { VerPerfilComponent } from './modules/usuarios/pages/ver-perfil/ver-perfil.component';
 import { EditarPerfilComponent } from './modules/usuarios/pages/editar-perfil/editar-perfil.component';
 import { VerSolicitudComponent } from './modules/solicitudes/pages/ver-solicitud/ver-solicitud.component';
@@ -36,6 +37,7 @@ registerLocaleData(localeCl, 'es');
     LoginComponent,
     SidebarComponent,
     FooterComponent,
+    SubirCumplidoComponent,
   ],
   imports: [
     BrowserModule,
