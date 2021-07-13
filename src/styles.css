@@ -56,6 +56,7 @@ input:focus,
 .btn-green {
     color: #fff;
     background-color: #3AB795;
+    border-color: #3AB795;
 }
 
 .btn-green:hover {
@@ -67,9 +68,14 @@ input:focus,
 }
 
 .bg-ok {
-    background-color: #3AB795;
+    background-color: #070c0b;
 }
 
 .btn-blue {
     background-color: #22577A;
+    border-color: #22577A;
+}
+
+.btn-blue:hover {
+    background-color: #134771;
 }
