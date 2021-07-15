@@ -13,16 +13,15 @@ import { SolicitudesModule } from './modules/solicitudes/solicitudes.module';
 // ROUTES
 import { VerPerfilComponent } from './modules/usuarios/pages/ver-perfil/ver-perfil.component';
 import { EditarPerfilComponent } from './modules/usuarios/pages/editar-perfil/editar-perfil.component';
-import { VerSolicitudComponent } from './modules/solicitudes/pages/ver-solicitud/ver-solicitud.component';
-import { CrearSolicitudComponent } from './modules/solicitudes/pages/crear-solicitud/crear-solicitud.component';
-import { AsociarEstadoComponent } from './modules/estados/pages/asociar-estado/asociar-estado.component';
 import { LoginComponent } from './modules/auth/pages/login/login.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { registerLocaleData } from '@angular/common';
+import { registerLocaleData, CommonModule } from '@angular/common';
 import localeCl from '@angular/common/locales/es-CL';
+import { EstadosModule } from './modules/estados/estados.module';
+import { CumplidosModule } from './modules/cumplidos/cumplidos.module';
 registerLocaleData(localeCl, 'es');
 
 @NgModule({
@@ -30,9 +29,6 @@ registerLocaleData(localeCl, 'es');
     AppComponent,
     VerPerfilComponent,
     EditarPerfilComponent,
-    VerSolicitudComponent,
-    CrearSolicitudComponent,
-    AsociarEstadoComponent,
     LoginComponent,
     SidebarComponent,
     FooterComponent,
@@ -45,6 +41,8 @@ registerLocaleData(localeCl, 'es');
     ReactiveFormsModule,
     SharedModule,
     SolicitudesModule,
+    EstadosModule,
+    CumplidosModule,
     APP_ROUTING,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }], // en español
