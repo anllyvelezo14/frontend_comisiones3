@@ -1,1 +1,53 @@
-<p>ver-perfil works!</p>
+<div class="container shadow-sm pt-4 pl-2 pr-4 mb-5 bg-white rounded">
+    <div class="header-row"></div>
+    <div class="col">
+        <a class="text-secondary">PERFIL</a>
+    </div>
+    <hr>
+    <ul class="nav mt-4">
+        <li class="nav-item">
+            <a class="nav-link active label " aria-controls="perfil-user" href="#infouser">Información del Usuario
+        </a>
+        </li>
+
+        <li class="nav-item ml-5 ">
+            <a class="nav-link active label" href="#password">Editar Información
+        </a>
+        </li>
+    </ul>
+    <hr>
+
+    <div class="tab-pane fade" id="perfil-user" role="tabpanel" aria-labelledby="change-password">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-center" style="color: black">Se recomienda usar una contraseña segura que no uses en ningún otro sitio, debe contener más de cuatro caracteres</p>
+                <form action="/profile/changepassword" method="POST">
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="actpassword" placeholder="Contraseña Actual" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Nueva Contraseña" required />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="confirm_password" placeholder="Confirmar nueva contraseña" required />
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success btn-block" type="submit">Guardar cambios</button>
+                    </div>
+                </form>
+                <p class="text-center"><a href="/users/forgot">¿Olvidaste tu
+                    contraseña?</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="mx-5">nombre</div>
+</div>
+
+
+<!-- <nav class="nav-main">
+        <ul class="nav-menu">
+            <li><a href="#">Inicio</a></li>
+            <li><a href="#">Sobre nosotros</a></li>
+            <li><a href="#">Contacto</a></li>
+        </ul>
+        </nav> -->

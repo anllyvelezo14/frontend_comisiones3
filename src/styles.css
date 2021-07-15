@@ -51,3 +51,15 @@ input:focus,
 .btn-success:hover {
     background-color: #31a37f;
 }
+
+.span-a {
+    width: 100px;
+    height: 100px;
+    padding: 5px;
+    border: 1px solid blue;
+    background-color: yellow;
+}
+
+.li-pd {
+    padding: 2px;
+}
