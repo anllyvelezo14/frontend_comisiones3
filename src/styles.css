@@ -63,14 +63,6 @@ input:focus,
     background-color: #31a37f;
 }
 
-.bg-request {
-    background-color: #3381B5;
-}
-
-.bg-ok {
-    background-color: #070c0b;
-}
-
 .btn-blue {
     background-color: #22577A;
     border-color: #22577A;
@@ -78,4 +70,12 @@ input:focus,
 
 .btn-blue:hover {
     background-color: #134771;
+}
+
+.bg-request {
+    background-color: #3381B5;
+}
+
+.bg-ok {
+    background-color: #3AB795;
 }
