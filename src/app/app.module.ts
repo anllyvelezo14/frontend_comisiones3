@@ -11,6 +11,8 @@ import { AsociarEstadoComponent } from './modules/estados/pages/asociar-estado/a
 import { LoginComponent } from './modules/auth/pages/login/login.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
+import { ComisionesComponent } from './modules/comisiones/comisiones.component';
+import { NavegationComponent } from './layouts/navegation/navegation.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { FooterComponent } from './layouts/footer/footer.component';
     AsociarEstadoComponent,
     LoginComponent,
     SidebarComponent,
-    FooterComponent
+    FooterComponent,
+    ComisionesComponent,
+    NavegationComponent
   ],
   imports: [
     BrowserModule,
