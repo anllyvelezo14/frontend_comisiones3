@@ -1,1 +1,61 @@
-<p>asociar-estado works!</p>
+<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+  <div class="row header-row">
+    <div class="col">
+      <a class="text-secondary">ASOCIAR UN ESTADO A LA COMISIÓN</a>
+    </div>
+  </div>
+  <hr />
+  <div class="row regular-row">
+    <div class="col-3 label">id Comisión</div>
+    <div class="col-9">123393939</div>
+  </div>
+  <div class="row regular-row">
+    <div class="col-3 label">Solicitante</div>
+    <div class="col-3">Daniela Andrea Torres Gómez</div>
+    <div class="col-3 label">C.C</div>
+    <div class="col-3">123456789</div>
+  </div>
+  <div class="row regular-row">
+    <div class="col-3 label">Departamento</div>
+    <div class="col-3">Física</div>
+  </div>
+  <div class="row secondary-header-row">
+    <div class="col">
+      <a class="text-secondary">ESTADOS</a>
+    </div>
+  </div>
+  <hr />
+  <div class="container-fluid align-items-center">
+    <app-ver-estados-comision></app-ver-estados-comision>
+  </div>
+
+  <div class="row header-row">
+    <div class="col-3 label">Nuevo Estado</div>
+    <div class="col-9">
+      <select class="form-select">
+        <option>Seleccione una opción</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row regular-row">
+    <div class="col-3 label">Observación</div>
+    <div class="col-9">
+      <div class="form-group">
+        <textarea class="form-control" rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <hr />
+  <div class="row footer-row">
+    <div class="col-10">
+      <button type="button" class="btn btn-secondary float-right">
+        Cancelar
+      </button>
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-success btn-green">Enviar</button>
+    </div>
+  </div>
+</div>

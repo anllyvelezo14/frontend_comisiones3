@@ -1,1 +1,85 @@
-<p>crear-solicitud works!</p>
+<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+  <div class="row header-row">
+    <div class="col">
+      <a class="text-secondary">CREAR SOLICITUD</a>
+    </div>
+  </div>
+  <hr />
+  <form>
+    <div class="row regular-row">
+      <div class="col-3 label">Tipo de Solicitud</div>
+      <div class="col-9">
+        <select class="form-select">
+          <option>Seleccione una opción</option>
+        </select>
+      </div>
+    </div>
+    <hr />
+    <div class="alert alert-success" role="alert">
+      Tienes 3 días disponibles!
+    </div>
+    <div class="row regular-row">
+      <div class="col-3 label">Fechas *</div>
+      <div class="col-9">
+        <app-datepicker></app-datepicker>
+      </div>
+    </div>
+    <div class="row regular-row">
+      <div class="col-3 label">Lugar</div>
+      <div class="col-9">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control border-right-0"
+            placeholder="Lugar donde se realizará la comisión"
+            aria-label="from"
+            aria-describedby="from"
+          />
+          <div class="input-group-append">
+            <span class="input-group-text"
+              ><i class="fas fa-map-marker-alt"></i
+            ></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row regular-row">
+      <div class="col-3 label">Idioma</div>
+      <div class="col-9">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Idioma en se realizará la comisión"
+        />
+      </div>
+    </div>
+    <div class="row regular-row">
+      <div class="col-3 label">Justificación *</div>
+      <div class="col-9">
+        <div class="form-group">
+          <textarea class="form-control" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-3 label">Anexos</div>
+      <div class="col-9">
+        <div class="file-upload-wrapper">
+          <input type="file" id="input-file-now" class="file-upload" />
+        </div>
+      </div>
+    </div>
+  </form>
+  <hr />
+  <div class="row footer-row">
+    <div class="col-10">
+      <button type="button" class="btn btn-secondary float-right">
+        Cancelar
+      </button>
+    </div>
+    <div class="col-2">
+      <button type="button" class="btn btn-success btn-green">Enviar</button>
+    </div>
+  </div>
+</div>
