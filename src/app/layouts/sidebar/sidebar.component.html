@@ -1,1 +1,78 @@
-<p>sidebar works!</p>
+<ng-sidebar-container>
+ 
+    <!-- A sidebar -->
+    <ng-sidebar [(opened)]="_opened">
+      <div class="sidebar-header">
+        <div class="user-pic" style="align-content:center" >
+          <span style="font-size: 500%; color: #57CC99;"><i class="fas fa-user-circle"></i></span>
+          <!-- <img src="./icon.png" alt=""> -->
+        </div>
+        <div class="user-info" style="align-content:center">
+         <span class="user-name" style="text-align:center; align-content:center">{{Name}} <br> {{LastName}}
+          </span> <br>
+          <span class="user-role"> <span style="color: #FFCF56; font-size: 60%;"><i class="fa fa-circle"></i></span>{{Role}}</span>
+        </div>
+      </div>
+      <!-- sidebar-header  -->
+      <hr color="#f5f5f5">
+      <button type="button" class="btn btn-success" style="font-size: 10;align-content:center;text-emphasis-color:#ffff;border-radius:10 ;background-color:#57CC99; ">
+        <span style="color: #ffff; margin: 0;"><i class="fas fa-plus-circle"></i></span>
+        Crear Solicitud
+      </button>
+      <!-- sidebar-search  -->
+      <hr color="#f5f5f5">
+      <div class="sidebar-menu">
+        <ul style="list-style:none">
+          <li class="header-menu">
+            <span style="font-size: large; margin-left: -25px;">GENERAL</span>
+          </li>
+          <li>
+            <a href="#">
+              <span style="color:#57CC99 ;margin: 20"><i class="far fa-user"></i></span><span>Mi Perfil</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span style="color:#57CC99;margin: 20"><i class="far fa-file-alt"></i></span><span>Comisiones</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span style="color: #586569be;margin: 20"><i class="fas fa-info-circle"></i></span><span>Información</span>
+            </a>
+          </li>
+          <li><span style="font-size: large; margin-left: -20px ;margin: 10">ESPECÍFICO</span></li>
+          <li>
+            <a href="#">
+              <span style="color:#57CC99"><i class="fas fa-users"></i></span><span>Empleados</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span style="color: #586569be;"><i class="far fa-building"></i></span><span>Departamentos</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span style="color: #586569be;"><i class="fas fa-university"></i></span><span>Facultades</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- sidebar-menu  -->
+    <!-- sidebar-content  -->
+    <div class="sidebar-footer">
+      <hr>
+      <span><i class="fas fa-power-off"></i></span><a href="#">Cerrar Sesión</a>
+    </div>
+  </ng-sidebar>
+
+    <!-- Page content -->
+    <div ng-sidebar-content>
+      <a (click)="_toggleSidebar()"><i class="fas fa-times"></i></a>
+      <div class="sidebar-header">
+        .user-
+      </div>
+    </div>
+
+  </ng-sidebar-container>

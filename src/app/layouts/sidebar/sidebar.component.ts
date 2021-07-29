@@ -12,4 +12,14 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public _opened: boolean = false;
+ 
+  public _toggleSidebar() {
+    this._opened = !this._opened;
+    console.log(this._opened);
+  }
+  Name= "Daniela Andrea";
+  LastName = "Torres Gómez";
+  Role="Usuario";
+
 }

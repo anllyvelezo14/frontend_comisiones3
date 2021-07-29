@@ -2,6 +2,7 @@
         background-color: #eaebf0ec;
         font-family: 'Montserrat';
         color: #22577A;
+        height: 100vh;
     }
     
     hr {
@@ -86,4 +87,12 @@
     
     .bg-ok {
         background-color: #3AB795;
+    }
+
+/* sidebar */
+    .ng-sidebar {
+        background: #ffffff;
+        width: 20%;
+        margin-bottom: 50px;
+        margin-top: 30px;
     }

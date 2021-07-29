@@ -9,6 +9,7 @@ import { APP_ROUTING } from './app.routes';
 // MODULES
 import { SharedModule } from './shared/shared.module';
 import { SolicitudesModule } from './modules/solicitudes/solicitudes.module';
+import { SidebarModule } from 'ng-sidebar';
 
 // ROUTES
 import { VerPerfilComponent } from './modules/usuarios/pages/ver-perfil/ver-perfil.component';
@@ -48,6 +49,7 @@ registerLocaleData(localeCl, 'es');
     EstadosModule,
     CumplidosModule,
     APP_ROUTING,
+    SidebarModule.forRoot(),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }], // en español
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
