@@ -10,6 +10,7 @@ import { APP_ROUTING } from './app.routes';
 // MODULES
 import { SharedModule } from './shared/shared.module';
 import { SolicitudesModule } from './modules/solicitudes/solicitudes.module';
+import { SidebarModule } from 'ng-sidebar';
 
 // ROUTES
 import { VerPerfilComponent } from './modules/usuarios/pages/ver-perfil/ver-perfil.component';
@@ -17,6 +18,8 @@ import { EditarPerfilComponent } from './modules/usuarios/pages/editar-perfil/ed
 import { LoginComponent } from './modules/auth/pages/login/login.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
+import { ComisionesComponent } from './modules/comisiones/comisiones.component';
+import { NavegationComponent } from './layouts/navegation/navegation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { registerLocaleData, CommonModule } from '@angular/common';
@@ -33,6 +36,8 @@ registerLocaleData(localeCl, 'es');
     LoginComponent,
     SidebarComponent,
     FooterComponent,
+    ComisionesComponent,
+    NavegationComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +51,7 @@ registerLocaleData(localeCl, 'es');
     CumplidosModule,
     HttpClientModule,
     APP_ROUTING,
+    SidebarModule.forRoot(),
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }], // en español
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
