@@ -1,4 +1,4 @@
-.ng-sidebar {
+:host {
     background: #207000;
     width: 11rem;
     margin-bottom: 50px;
