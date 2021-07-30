@@ -21,10 +21,10 @@
   </div>
   <hr />
 
-  <div class="row regular-row">
-    <div class="form-group row">
-      <div class="col-sm-4 label">Destinatatios</div>
-      <div class="col-sm-8">
+  <form>
+    <div class="row regular-row">
+      <div class="col-4 label">Destinatarios</div>
+      <div class="col-8">
         <div class="form-check">
           <input
             class="form-check-input"
@@ -55,8 +55,7 @@
         </div>
       </div>
     </div>
-  </div>
-  <form>
+
     <div class="row regular-row">
       <div class="col-4 label">Otros Destinatarios</div>
       <div class="col-8">
@@ -71,13 +70,16 @@
     <div class="row regular-row">
       <div class="col-4 label">Anexos</div>
       <div class="col-8">
-        <div class="mb-3">
+        <div class="custom-file">
           <input
-            class="form-control"
             type="file"
-            id="formFileMultiple"
-            multiple
+            class="custom-file-input"
+            id="customFileLang"
+            lang="es"
           />
+          <label class="custom-file-label" for="customFileLang"
+            >Seleccionar Archivo</label
+          >
         </div>
       </div>
     </div>
