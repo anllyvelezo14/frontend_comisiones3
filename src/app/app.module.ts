@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { APP_ROUTING } from './app.routes';
@@ -43,6 +44,7 @@ registerLocaleData(localeCl, 'es');
     SolicitudesModule,
     EstadosModule,
     CumplidosModule,
+    HttpClientModule,
     APP_ROUTING,
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es' }], // en español

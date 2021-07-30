@@ -7,8 +7,8 @@
   <hr />
   <form>
     <div class="row regular-row">
-      <div class="col-3 label">Tipo de Solicitud</div>
-      <div class="col-9">
+      <div class="col-4 label">Tipo de Solicitud</div>
+      <div class="col-8">
         <select class="form-select">
           <option>Seleccione una opción</option>
         </select>
@@ -19,14 +19,14 @@
       Tienes 3 días disponibles!
     </div>
     <div class="row regular-row">
-      <div class="col-3 label">Fechas *</div>
-      <div class="col-9">
+      <div class="col-4 label">Fechas *</div>
+      <div class="col-8">
         <app-datepicker></app-datepicker>
       </div>
     </div>
     <div class="row regular-row">
-      <div class="col-3 label">Lugar</div>
-      <div class="col-9">
+      <div class="col-4 label">Lugar</div>
+      <div class="col-8">
         <div class="input-group">
           <input
             type="text"
@@ -44,8 +44,8 @@
       </div>
     </div>
     <div class="row regular-row">
-      <div class="col-3 label">Idioma</div>
-      <div class="col-9">
+      <div class="col-4 label">Idioma</div>
+      <div class="col-8">
         <input
           class="form-control"
           type="text"
@@ -54,8 +54,8 @@
       </div>
     </div>
     <div class="row regular-row">
-      <div class="col-3 label">Justificación *</div>
-      <div class="col-9">
+      <div class="col-4 label">Justificación *</div>
+      <div class="col-8">
         <div class="form-group">
           <textarea class="form-control" rows="3"></textarea>
         </div>
@@ -63,10 +63,15 @@
     </div>
 
     <div class="row regular-row">
-      <div class="col-3 label">Anexos</div>
-      <div class="col-9">
-        <div class="file-upload-wrapper">
-          <input type="file" id="input-file-now" class="file-upload" />
+      <div class="col-4 label">Anexos</div>
+      <div class="col-8">
+        <div class="mb-3">
+          <input
+            class="form-control"
+            type="file"
+            id="formFileMultiple"
+            multiple
+          />
         </div>
       </div>
     </div>
