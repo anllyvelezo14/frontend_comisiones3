@@ -15,7 +15,7 @@ import { SidebarModule } from 'ng-sidebar';
 // ROUTES
 import { VerPerfilComponent } from './modules/usuarios/pages/ver-perfil/ver-perfil.component';
 import { EditarPerfilComponent } from './modules/usuarios/pages/editar-perfil/editar-perfil.component';
-import { LoginComponent } from './modules/auth/pages/login/login.component';
+import { LoginComponent } from './core/auth/login/login.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { ComisionesComponent } from './modules/comisiones/comisiones.component';
@@ -26,6 +26,7 @@ import { registerLocaleData, CommonModule } from '@angular/common';
 import localeCl from '@angular/common/locales/es-CL';
 import { EstadosModule } from './modules/estados/estados.module';
 import { CumplidosModule } from './modules/cumplidos/cumplidos.module';
+
 registerLocaleData(localeCl, 'es');
 
 @NgModule({
@@ -33,14 +34,15 @@ registerLocaleData(localeCl, 'es');
     AppComponent,
     VerPerfilComponent,
     EditarPerfilComponent,
-    LoginComponent,
     SidebarComponent,
     FooterComponent,
     ComisionesComponent,
-    NavegationComponent
+    NavegationComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
