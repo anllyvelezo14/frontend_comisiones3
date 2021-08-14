@@ -2,15 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
-import { APP_ROUTING } from './app.routes';
 
 // MODULES
 import { SharedModule } from './shared/shared.module';
 import { SolicitudesModule } from './modules/solicitudes/solicitudes.module';
 import { SidebarModule } from 'ng-sidebar';
+
+// SERVICES
+import { AuthService } from './core/services/auth.service';
+//import { TokenInterceptor } from './core/interceptors/token.interceptor';
 
 // ROUTES
 import { VerPerfilComponent } from './modules/usuarios/pages/ver-perfil/ver-perfil.component';
@@ -52,10 +55,13 @@ registerLocaleData(localeCl, 'es');
     EstadosModule,
     CumplidosModule,
     HttpClientModule,
-    APP_ROUTING,
     SidebarModule.forRoot(),
   ],
-  providers: [{ provide: LOCALE_ID, useValue: 'es' }], // en español
+  providers: [
+    AuthService,
+    //{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'es' },
+  ], // en español
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
