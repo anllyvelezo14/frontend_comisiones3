@@ -1,13 +1,9 @@
-export class Usuario {
-  id: number;
-  tipo_identificacion: number;
-  identificacion: null;
-  nombre: string;
-  apellido: string;
+export interface Usuario {
   email: string;
-  estado: number;
   contrasena: string;
-  dia_dispobible: number;
-  departamentos_id: number;
-  roles_id: number;
+}
+
+export interface UsuarioResponse {
+  usuario: object;
+  token: string;
 }

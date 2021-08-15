@@ -13,7 +13,7 @@ import { SidebarModule } from 'ng-sidebar';
 
 // SERVICES
 import { AuthService } from './core/services/auth.service';
-//import { TokenInterceptor } from './core/interceptors/token.interceptor';
+// import { TokenInterceptor } from './core/interceptors/token.interceptor';
 
 // ROUTES
 import { VerPerfilComponent } from './modules/usuarios/ver-perfil/ver-perfil.component';
@@ -59,7 +59,7 @@ registerLocaleData(localeCl, 'es');
   ],
   providers: [
     AuthService,
-    //{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es' },
   ], // en español
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
