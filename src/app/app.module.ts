@@ -16,8 +16,8 @@ import { AuthService } from './core/services/auth.service';
 //import { TokenInterceptor } from './core/interceptors/token.interceptor';
 
 // ROUTES
-import { VerPerfilComponent } from './modules/usuarios/pages/ver-perfil/ver-perfil.component';
-import { EditarPerfilComponent } from './modules/usuarios/pages/editar-perfil/editar-perfil.component';
+import { VerPerfilComponent } from './modules/usuarios/ver-perfil/ver-perfil.component';
+import { EditarPerfilComponent } from './modules/usuarios/editar-perfil/editar-perfil.component';
 import { LoginComponent } from './core/auth/login/login.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { FooterComponent } from './layouts/footer/footer.component';

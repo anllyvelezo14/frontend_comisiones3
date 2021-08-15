@@ -6,8 +6,8 @@ import {
   VerEstadosComisionComponent,
   ModalHistorialEstados,
 } from './modals/ver-estados-comision/ver-estados-comision.component';
-import { VerSolicitudComponent } from './pages/ver-solicitud/ver-solicitud.component';
-import { CrearSolicitudComponent } from './pages/crear-solicitud/crear-solicitud.component';
+import { VerSolicitudComponent } from './ver-solicitud/ver-solicitud.component';
+import { CrearSolicitudComponent } from './crear-solicitud/crear-solicitud.component';
 
 @NgModule({
   declarations: [
