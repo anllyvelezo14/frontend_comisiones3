@@ -19,7 +19,7 @@ import { first, Subscription } from 'rxjs';
 export class LoginComponent implements OnInit, OnDestroy {
   // private subscription: Subscription;
 
-  private isEmailValid = /^[a-zA-Z0-9._%+-]+@udea.edu$/;
+  private isEmailValid = /^[a-zA-Z0-9._%+-]+@udea.edu.co$/;
   loading = false;
   submitted = false;
   usuario: Usuario;

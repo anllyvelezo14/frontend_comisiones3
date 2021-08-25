@@ -8,6 +8,7 @@ import {
 } from './modals/ver-estados-comision/ver-estados-comision.component';
 import { VerSolicitudComponent } from './ver-solicitud/ver-solicitud.component';
 import { CrearSolicitudComponent } from './crear-solicitud/crear-solicitud.component';
+import { TablaSolicitudesComponent } from './tabla-solicitudes/tabla-solicitudes.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CrearSolicitudComponent } from './crear-solicitud/crear-solicitud.compo
     VerSolicitudComponent,
     CrearSolicitudComponent,
     ModalHistorialEstados,
+    TablaSolicitudesComponent,
   ],
   imports: [CommonModule, SharedModule, NgbModule],
   exports: [

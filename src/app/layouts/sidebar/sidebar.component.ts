@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
 
   public _toggleSidebar() {
     this._opened = !this._opened;
-    console.log(this._opened);
+    // console.log(this._opened);
   }
 
   Name = 'Daniela Andrea';

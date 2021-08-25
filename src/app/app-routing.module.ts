@@ -3,10 +3,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './core/auth/login/login.component';
 import { CrearSolicitudComponent } from './modules/solicitudes/crear-solicitud/crear-solicitud.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { TablaSolicitudesComponent } from './modules/solicitudes/tabla-solicitudes/tabla-solicitudes.component';
 
 const routes: Routes = [
   { path: 'app-login', component: LoginComponent, canActivate: [AuthGuard] },
-  { path: 'app-crear-solicitud', component: CrearSolicitudComponent },
+  { path: 'app-tabla-solicitudes', component: TablaSolicitudesComponent },
   { path: '**', redirectTo: 'app-login', pathMatch: 'full' },
 ];
 

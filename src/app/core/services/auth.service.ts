@@ -27,17 +27,27 @@ export class AuthService {
 
   // Verifica token
   private checkToken(): void {
-    const userToken = localStorage.getItem('token');
-    const isExpired = helper.isTokenExpired(userToken);
-    console.log(isExpired);
+    const user = localStorage.getItem('ACCESS_USER_ROLE') || null;
+    const userToken = localStorage.getItem('ACCESS_TOKEN');
 
-    // Verifica si ha expirado el token
-    isExpired ? this.logout() : this.authSubject.next(true);
+    if (user) {
+      const isExpired = helper.isTokenExpired(userToken, 3600);
+      console.log('isExpired', isExpired);
+      // Verifica si ha expirado el token
+      if (isExpired) {
+        this.logout();
+      } else {
+        this.authSubject.next(true);
+        // FALTA AGREGAR ROLES
+      }
+    }
   }
 
   // guarda token en session storage
-  private saveToken(token: string): void {
+  private saveLocalStorage(user: UsuarioResponse): void {
+    const { token, usuario } = user;
     localStorage.setItem('ACCESS_TOKEN', token);
+    localStorage.setItem('ACCESS_USER_ROLE', usuario.roles_id.toString());
   }
 
   // LOGIN
@@ -49,7 +59,7 @@ export class AuthService {
           if (res) {
             console.log(res);
             // guarda token y dice que el user esta autenticado
-            this.saveToken(res.token);
+            this.saveLocalStorage(res);
             this.authSubject.next(true);
           }
           console.log('islogged', this.authSubject);
@@ -61,6 +71,7 @@ export class AuthService {
   // LOGOUT
   logout(): void {
     localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('ACCESS_USER_ROLE');
     this.authSubject.next(false);
     this.router.navigate(['/app-login']);
   }

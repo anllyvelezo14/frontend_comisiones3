@@ -21,7 +21,6 @@ import { EditarPerfilComponent } from './modules/usuarios/editar-perfil/editar-p
 import { LoginComponent } from './core/auth/login/login.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
-import { ComisionesComponent } from './modules/comisiones/comisiones.component';
 import { NavegationComponent } from './layouts/navegation/navegation.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -39,7 +38,6 @@ registerLocaleData(localeCl, 'es');
     EditarPerfilComponent,
     SidebarComponent,
     FooterComponent,
-    ComisionesComponent,
     NavegationComponent,
     LoginComponent,
   ],
