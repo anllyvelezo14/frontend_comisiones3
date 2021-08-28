@@ -3,10 +3,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbdSortableHeader } from './directives/sortable-header.directive';
 
 @NgModule({
-  declarations: [DatepickerComponent],
+  declarations: [DatepickerComponent, NgbdSortableHeader],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgbModule],
-  exports: [DatepickerComponent],
+  exports: [DatepickerComponent, NgbdSortableHeader],
 })
 export class SharedModule {}

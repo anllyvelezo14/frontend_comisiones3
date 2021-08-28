@@ -3,7 +3,6 @@ import { NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 import { AppRoutingModule } from './app-routing.module';
 
 // MODULES
@@ -16,9 +15,6 @@ import { AuthService } from './core/services/auth.service';
 // import { TokenInterceptor } from './core/interceptors/token.interceptor';
 
 // ROUTES
-import { VerPerfilComponent } from './modules/usuarios/ver-perfil/ver-perfil.component';
-import { EditarPerfilComponent } from './modules/usuarios/editar-perfil/editar-perfil.component';
-import { LoginComponent } from './core/auth/login/login.component';
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { NavegationComponent } from './layouts/navegation/navegation.component';
@@ -28,18 +24,22 @@ import { registerLocaleData, CommonModule } from '@angular/common';
 import localeCl from '@angular/common/locales/es-CL';
 import { EstadosModule } from './modules/estados/estados.module';
 import { CumplidosModule } from './modules/cumplidos/cumplidos.module';
+import { AuthGuard } from './core/guards/auth.guard';
+import { AuthModule } from './core/auth/auth.module';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
+import { UsuariosModule } from './modules/usuarios/usuarios.module';
 
 registerLocaleData(localeCl, 'es');
 
 @NgModule({
   declarations: [
     AppComponent,
-    VerPerfilComponent,
-    EditarPerfilComponent,
     SidebarComponent,
     FooterComponent,
     NavegationComponent,
-    LoginComponent,
+    AuthLayoutComponent,
+    ContentLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,16 +47,20 @@ registerLocaleData(localeCl, 'es');
     AppRoutingModule,
     NgbModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
+
     SharedModule,
     SolicitudesModule,
     EstadosModule,
     CumplidosModule,
-    HttpClientModule,
+    UsuariosModule,
+    AuthModule,
     SidebarModule.forRoot(),
   ],
   providers: [
     AuthService,
+    AuthGuard,
     // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es' },
   ], // en español

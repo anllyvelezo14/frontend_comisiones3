@@ -73,6 +73,7 @@ export class AuthService {
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('ACCESS_USER_ROLE');
     this.authSubject.next(false);
+    console.log('islogged', this.authSubject);
     this.router.navigate(['/app-login']);
   }
 }

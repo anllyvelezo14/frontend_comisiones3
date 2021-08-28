@@ -17,7 +17,7 @@ import { first, Subscription } from 'rxjs';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  // private subscription: Subscription;
+  private subscription: Subscription;
 
   private isEmailValid = /^[a-zA-Z0-9._%+-]+@udea.edu.co$/;
   loading = false;
@@ -36,19 +36,19 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {
     // redirect to home if already logged in
     if (!this.authenticationService.isLogged) {
-      this.router.navigate(['/app-crear-solicitud']);
+      this.router.navigate(['/home/solicitudes']);
     }
   }
 
   ngOnInit(): void {}
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   // convenience getter for easy access to form fields
   get f() {
     return this.loginForm.controls;
-  }
-
-  ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
   }
 
   onSubmit(): void {
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.loading = true;
 
     this.authenticationService.login(formValue).subscribe((res) => {
-      this.router.navigateByUrl('/app-crear-solicitud');
+      this.router.navigateByUrl('/home/solicitudes');
     });
   }
 }
