@@ -7,7 +7,7 @@ export interface UsuarioResponse {
   usuario: {
     id: number;
     tipo_identificacion: string;
-    identificacion: null;
+    identificacion: number;
     nombre: string;
     apellido: string;
     email: string;

@@ -9,6 +9,8 @@ import {
   SortDirection,
 } from '../../shared/directives/sortable-header.directive';
 import { Country } from '../models/country';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
 
 interface SearchResult {
   countries: Country[];
@@ -57,6 +59,9 @@ export class CountryService {
   private _search$ = new Subject<void>();
   private _countries$ = new BehaviorSubject<Country[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
+  private urlEndPoint: string = 'http://localhost:3000/api/comisiones';
+
+  // private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
   private _state: State = {
     page: 1,
@@ -66,7 +71,11 @@ export class CountryService {
     sortDirection: '',
   };
 
-  constructor(private pipe: DecimalPipe) {
+  constructor(
+    private pipe: DecimalPipe,
+    private authService: AuthService,
+    private http: HttpClient
+  ) {
     this._search$
       .pipe(
         tap(() => this._loading$.next(true)),

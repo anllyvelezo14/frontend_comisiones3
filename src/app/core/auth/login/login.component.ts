@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   loading = false;
   submitted = false;
   usuario: Usuario;
+  error = '';
 
   loginForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.pattern(this.isEmailValid)]],
@@ -33,17 +34,17 @@ export class LoginComponent implements OnInit, OnDestroy {
     private router: Router,
     private authenticationService: AuthService,
     private formBuilder: FormBuilder
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     // redirect to home if already logged in
-    if (!this.authenticationService.isLogged) {
-      this.router.navigate(['/home/solicitudes']);
+    if (this.authenticationService.isLogged()) {
+      this.router.navigate(['/home/solicitudes/tabla-solicitudes']);
     }
   }
 
-  ngOnInit(): void {}
-
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    // this.subscription.unsubscribe();
   }
 
   // convenience getter for easy access to form fields
@@ -61,8 +62,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     this.loading = true;
 
-    this.authenticationService.login(formValue).subscribe((res) => {
-      this.router.navigateByUrl('/home/solicitudes');
-    });
+    this.authenticationService.login(formValue).subscribe(
+      (res) => {
+        this.router.navigateByUrl('/home/solicitudes/tabla-solicitudes');
+        const usuario = this.authenticationService.tokenStorage;
+        console.log(`del storage ${usuario}`);
+      },
+      (err) => {
+        if (err.status === 404 || err.status === 401) {
+          this.error = 'Usuario o contraseña incorrectos';
+          this.loading = false;
+        }
+      }
+    );
   }
 }

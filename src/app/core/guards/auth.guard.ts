@@ -7,12 +7,13 @@ import {
 import { Observable, tap } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { map, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   // Controla el acceso a rutas para los usuarios
   canActivate(
@@ -20,12 +21,13 @@ export class AuthGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean {
     console.log(next);
-    if (this.authService.isLogged) {
+    if (this.authService.isLogged()) {
       console.log('paso el guard');
       // logged in so return true
       return true;
     } else {
       console.log('no pasó guard');
+      this.router.navigate(['/auth/login']);
       return false;
     }
   }

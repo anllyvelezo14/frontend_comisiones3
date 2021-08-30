@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
   {
     path: '',
     component: ContentLayoutComponent,
-    // canActivate: [NoAuthGuard], // Should be replaced with actual auth guard
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',

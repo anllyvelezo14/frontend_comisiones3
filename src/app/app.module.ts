@@ -4,31 +4,34 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 // MODULES
 import { SharedModule } from './shared/shared.module';
 import { SolicitudesModule } from './modules/solicitudes/solicitudes.module';
 import { SidebarModule } from 'ng-sidebar';
+import { EstadosModule } from './modules/estados/estados.module';
+import { CumplidosModule } from './modules/cumplidos/cumplidos.module';
+import { UsuariosModule } from './modules/usuarios/usuarios.module';
+import { AuthModule } from './core/auth/auth.module';
 
 // SERVICES
 import { AuthService } from './core/services/auth.service';
-// import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { TokenInterceptor } from './core/interceptors/token.interceptor';
+
+// GUARDS
+import { AuthGuard } from './core/guards/auth.guard';
 
 // ROUTES
 import { SidebarComponent } from './layouts/sidebar/sidebar.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { FooterComponent } from './layouts/footer/footer.component';
 import { NavegationComponent } from './layouts/navegation/navegation.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { registerLocaleData, CommonModule } from '@angular/common';
 import localeCl from '@angular/common/locales/es-CL';
-import { EstadosModule } from './modules/estados/estados.module';
-import { CumplidosModule } from './modules/cumplidos/cumplidos.module';
-import { AuthGuard } from './core/guards/auth.guard';
-import { AuthModule } from './core/auth/auth.module';
-import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
-import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
-import { UsuariosModule } from './modules/usuarios/usuarios.module';
+import { SolicitudService } from './core/services/solicitud.service';
 
 registerLocaleData(localeCl, 'es');
 
@@ -61,7 +64,8 @@ registerLocaleData(localeCl, 'es');
   providers: [
     AuthService,
     AuthGuard,
-    // { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    SolicitudService,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es' },
   ], // en español
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
