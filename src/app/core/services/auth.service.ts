@@ -13,7 +13,7 @@ const helper = new JwtHelperService();
   providedIn: 'root',
 })
 export class AuthService {
-  private authSubject = new BehaviorSubject<boolean>(false);
+  authSubject = new BehaviorSubject<boolean>(false);
   token: string;
   usuario: Usuario;
 
@@ -28,7 +28,7 @@ export class AuthService {
       console.log(`ya hizo login`);
       return true;
     } else {
-      console.log(`no hizo login`);
+      // console.log(`no hizo login`);
       return false;
     }
   }
@@ -40,7 +40,7 @@ export class AuthService {
 
     if (userToken) {
       const isExpired = helper.isTokenExpired(userToken, 3600);
-      console.log('isExpired', isExpired);
+      // console.log('isExpired', isExpired);
       // Verifica si ha expirado el token
       if (isExpired) {
         this.logout();
@@ -60,7 +60,7 @@ export class AuthService {
 
   public get tokenStorage(): string {
     const userToken = localStorage.getItem('ACCESS_TOKEN');
-    console.log(userToken);
+    // console.log(userToken);
     return userToken;
   }
 
@@ -76,7 +76,7 @@ export class AuthService {
             this.saveLocalStorage(res);
             this.authSubject.next(true);
           }
-          // console.log('islogged', this.authSubject);
+          console.log('islogged', this.authSubject);
           return res;
         })
       );
@@ -88,5 +88,11 @@ export class AuthService {
     localStorage.removeItem('ACCESS_USER_ROLE');
     this.authSubject.next(false);
     this.router.navigate(['/auth/login']);
+  }
+
+  forgotPassword(email: string) {
+    return this.http.post(`${environment.API_URL}/olvido-contrasena`, {
+      email,
+    });
   }
 }

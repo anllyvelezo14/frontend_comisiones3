@@ -16,7 +16,7 @@ export const routes: Routes = [
     component: SolicitudesComponent,
     children: [
       {
-        path: 'ver-solicitud',
+        path: 'ver-solicitud/:id',
         component: VerSolicitudComponent,
       },
       {

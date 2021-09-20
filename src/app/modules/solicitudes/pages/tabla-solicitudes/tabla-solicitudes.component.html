@@ -1,6 +1,6 @@
 <div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
   <form>
-    <!-- <div class="form-group form-inline">
+    <div class="form-group form-inline">
       Full text search:
       <input
         class="form-control ml-2"
@@ -8,14 +8,18 @@
         name="searchTerm"
         [(ngModel)]="solicitudService.searchTerm"
       />
-      <span class="ml-3" *ngIf="service.loading$ | async">Loading...</span>
-    </div> -->
+      <span class="ml-3" *ngIf="solicitudService.loading$ | async"
+        >Loading...</span
+      >
+    </div>
 
     <table class="table table-striped">
       <thead>
         <tr>
           <th scope="col">id</th>
-          <th scope="col">Tipo Solicitud</th>
+          <th scope="col" sortable="nombre" (sort)="onSort($event)">
+            Tipo Solicitud
+          </th>
           <th scope="col">Fecha Creación</th>
           <th scope="col">Solicitante</th>
           <th scope="col">Departamento</th>
@@ -24,12 +28,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let solicitud of solicitudes">
+        <tr *ngFor="let solicitud of solicitudes$ | async">
           <th scope="row">{{ solicitud.id }}</th>
           <td>
             <ngb-highlight
               [result]="solicitud.tipos_solicitud.nombre"
               [term]="solicitudService.searchTerm"
+              [routerLink]="['/home/solicitudes/ver-solicitud', solicitud.id]"
             ></ngb-highlight>
           </td>
           <td>
@@ -60,7 +65,7 @@
       </tbody>
     </table>
 
-    <!-- <div class="d-flex justify-content-between p-2">
+    <div class="d-flex justify-content-between p-2">
       <ngb-pagination
         [collectionSize]="(total$ | async)!"
         [(page)]="solicitudService.page"
@@ -78,6 +83,6 @@
         <option [ngValue]="4">4 items per page</option>
         <option [ngValue]="6">6 items per page</option>
       </select>
-    </div>-->
+    </div>
   </form>
 </div>

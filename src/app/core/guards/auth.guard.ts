@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
   ): boolean {
     console.log(next);
     if (this.authService.isLogged()) {
-      console.log('paso el guard');
+      // console.log('paso el guard');
       // logged in so return true
       return true;
     } else {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
-import { RegistroComponent } from './login/registro.component';
+import { OlvidoContrasenaComponent } from './olvido-contrasena/olvido-contrasena.component';
 
 const routes: Routes = [
   {
@@ -18,8 +18,8 @@ const routes: Routes = [
         component: LoginComponent,
       },
       {
-        path: 'register',
-        component: RegistroComponent,
+        path: 'olvido-contrasena',
+        component: OlvidoContrasenaComponent,
       },
     ],
   },

@@ -1,4 +1,4 @@
-export interface Solicitud {
+export class Solicitud {
   id: number;
   fecha_inicio: Date;
   fecha_fin: Date;

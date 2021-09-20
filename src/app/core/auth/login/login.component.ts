@@ -16,7 +16,7 @@ import { first, Subscription } from 'rxjs';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit {
   private subscription: Subscription;
 
   private isEmailValid = /^[a-zA-Z0-9._%+-]+@udea.edu.co$/;
@@ -43,9 +43,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
-    // this.subscription.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.subscription.unsubscribe();
+  // }
 
   // convenience getter for easy access to form fields
   get f() {
@@ -62,18 +62,18 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
     this.loading = true;
 
-    this.authenticationService.login(formValue).subscribe(
-      (res) => {
+    this.authenticationService.login(formValue).subscribe({
+      next: (res) => {
         this.router.navigateByUrl('/home/solicitudes/tabla-solicitudes');
         const usuario = this.authenticationService.tokenStorage;
         console.log(`del storage ${usuario}`);
       },
-      (err) => {
+      error: (err) => {
         if (err.status === 404 || err.status === 401) {
           this.error = 'Usuario o contraseña incorrectos';
           this.loading = false;
         }
-      }
-    );
+      },
+    });
   }
 }

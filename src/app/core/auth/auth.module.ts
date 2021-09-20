@@ -3,13 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
-import { RegistroComponent } from './login/registro.component';
 import { AuthRoutingModule } from './auth.routing';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OlvidoContrasenaComponent } from './olvido-contrasena/olvido-contrasena.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegistroComponent],
+  declarations: [LoginComponent, OlvidoContrasenaComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

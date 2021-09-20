@@ -32,6 +32,7 @@ import { NavegationComponent } from './layouts/navegation/navegation.component';
 import { registerLocaleData, CommonModule } from '@angular/common';
 import localeCl from '@angular/common/locales/es-CL';
 import { SolicitudService } from './core/services/solicitud.service';
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(localeCl, 'es');
 
@@ -59,12 +60,12 @@ registerLocaleData(localeCl, 'es');
     CumplidosModule,
     UsuariosModule,
     AuthModule,
+    // CoreModule,
     SidebarModule.forRoot(),
   ],
   providers: [
-    AuthService,
     AuthGuard,
-    SolicitudService,
+    AuthService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es' },
   ], // en español

@@ -31,4 +31,8 @@ export class SidebarComponent implements OnInit {
     this.router.navigate(['/login']);
     this.authenticationService.logout();
   }
+
+  irCrearSolicitud(): void {
+    this.router.navigateByUrl('/home/crear-solicitud');
+  }
 }

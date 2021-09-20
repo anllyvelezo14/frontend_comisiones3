@@ -5,86 +5,128 @@
     </div>
   </div>
   <hr />
-  <form>
+  <form [formGroup]="crearSolicitudForm" (ngSubmit)="crearSolicitud()">
     <div class="row regular-row">
       <div class="col-4 label">Tipo de Solicitud</div>
       <div class="col-8">
-        <select class="form-control">
-          <option>Seleccione una opción</option>
+        <select
+          formControlName="tipos_solicitud"
+          class="form-control"
+          (change)="onChangeSolicitud($event)"
+          [ngClass]="{ 'is-invalid': submitted && f.tipos_solicitud.errors }"
+        >
+          <option [value]="op.name" *ngFor="let op of options">
+            {{ op.name }}
+          </option>
         </select>
-      </div>
-    </div>
-    <hr />
-    <div class="alert alert-success" role="alert">
-      Tienes 3 días disponibles!
-    </div>
-    <div class="row regular-row">
-      <div class="col-4 label">Fechas *</div>
-      <div class="col-8">
-        <app-datepicker></app-datepicker>
-      </div>
-    </div>
-    <div class="row regular-row">
-      <div class="col-4 label">Lugar</div>
-      <div class="col-8">
-        <div class="input-group">
-          <input
-            type="text"
-            class="form-control border-right-0"
-            placeholder="Lugar donde se realizará la comisión"
-            aria-label="from"
-            aria-describedby="from"
-          />
-          <div class="input-group-append">
-            <span class="input-group-text"
-              ><i class="fas fa-map-marker-alt"></i
-            ></span>
+        <div
+          *ngIf="submitted && f.tipos_solicitud.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.tipos_solicitud.errors.required">
+            Elige un tipo de Solicitud
           </div>
         </div>
       </div>
     </div>
-    <div class="row regular-row">
-      <div class="col-4 label">Idioma</div>
-      <div class="col-8">
-        <input
-          class="form-control"
-          type="text"
-          placeholder="Idioma en se realizará la comisión"
-        />
+    <hr />
+    <div>
+      <div class="alert alert-success" role="alert" *ngIf="disponible">
+        Tienes 3 días disponibles!
       </div>
-    </div>
-    <div class="row regular-row">
-      <div class="col-4 label">Justificación *</div>
-      <div class="col-8">
-        <div class="form-group">
-          <textarea class="form-control" rows="3"></textarea>
+      <div class="row regular-row" *ngIf="fecha">
+        <div class="col-4 label">Fechas *</div>
+        <div class="col-8">
+          <app-datepicker></app-datepicker>
+        </div>
+      </div>
+      <div class="row regular-row" *ngIf="lugar">
+        <div class="col-4 label">Lugar</div>
+        <div class="col-8">
+          <div class="input-group">
+            <input
+              type="text"
+              class="form-control border-right-0"
+              placeholder="Lugar donde se realizará la comisión"
+              aria-label="from"
+              aria-describedby="from"
+              formControlName="lugar"
+            />
+            <div class="input-group-append">
+              <span class="input-group-text"
+                ><i class="fas fa-map-marker-alt"></i
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row regular-row" *ngIf="idioma">
+        <div class="col-4 label">Idioma</div>
+        <div class="col-8">
+          <input
+            class="form-control"
+            type="text"
+            placeholder="Idioma en se realizará la comisión"
+            formControlName="idioma"
+          />
+        </div>
+      </div>
+      <div class="row regular-row" *ngIf="justificacion">
+        <div class="col-4 label">Justificación *</div>
+        <div class="col-8">
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              rows="3"
+              formControlName="justificacion"
+              [ngClass]="{ 'is-invalid': submitted && f.justificacion.errors }"
+            ></textarea>
+            <div
+              *ngIf="submitted && f.justificacion.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.justificacion.errors.required">
+                La justificacion es requerida
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row regular-row" *ngIf="anexo">
+        <div class="col-4 label">Anexos</div>
+        <div class="col-8">
+          <div class="mb-3">
+            <input
+              class="form-control"
+              type="file"
+              id="formFileMultiple"
+              multiple
+            />
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="row regular-row">
-      <div class="col-4 label">Anexos</div>
-      <div class="col-8">
-        <div class="mb-3">
-          <input
-            class="form-control"
-            type="file"
-            id="formFileMultiple"
-            multiple
-          />
-        </div>
+    <hr />
+    <div class="row footer-row">
+      <div class="col-10">
+        <!--<button type="button" class="btn btn-secondary float-right">
+          Cancelar
+        </button>-->
+      </div>
+      <div class="col-2 form-group">
+        <button
+          [disabled]="loading"
+          class="btn btn-green btn-success btn-block"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Enviar
+        </button>
       </div>
     </div>
   </form>
-  <hr />
-  <div class="row footer-row">
-    <div class="col-10">
-      <button type="button" class="btn btn-secondary float-right">
-        Cancelar
-      </button>
-    </div>
-    <div class="col-2">
-      <button type="button" class="btn btn-success btn-green">Enviar</button>
-    </div>
-  </div>
 </div>

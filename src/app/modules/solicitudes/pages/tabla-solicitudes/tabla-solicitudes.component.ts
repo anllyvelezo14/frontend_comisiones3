@@ -2,10 +2,9 @@ import { DecimalPipe } from '@angular/common';
 import { Component, QueryList, ViewChildren, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Country } from 'src/app/core/models/country';
-import { CountryService } from '../../../../core/services/country.service';
 import { SolicitudService } from '../../../../core/services/solicitud.service';
 import { Solicitud } from '../../../../core/models/solicitud';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {
   NgbdSortableHeader,
@@ -16,28 +15,28 @@ import {
   selector: 'app-tabla-solicitudes',
   templateUrl: './tabla-solicitudes.component.html',
   styleUrls: ['./tabla-solicitudes.component.css'],
-  providers: [CountryService, DecimalPipe],
+  providers: [SolicitudService, DecimalPipe],
 })
-export class TablaSolicitudesComponent implements OnInit {
-  countries$: Observable<Country[]>;
+export class TablaSolicitudesComponent {
+  //implements OnInit {
+  solicitudes$: Observable<Solicitud[]>;
   total$: Observable<number>;
   solicitudes: Solicitud[];
+  // solicitudes: Solicitud[];
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
-    public service: CountryService,
-    public solicitudService: SolicitudService
+    public solicitudService: SolicitudService,
+    public router: Router
   ) {
-    this.countries$ = service.countries$;
-    this.total$ = service.total$;
+    this.solicitudes$ = solicitudService.getSolicitudes();
+    this.total$ = solicitudService.total$;
   }
 
-  ngOnInit(): void {
-    this.solicitudService
-      .getSolicitudes()
-      .subscribe((solicitudes) => (this.solicitudes = solicitudes));
-  }
+  // ngOnInit(): void {
+  //   this.solicitudService.getSolicitudes().subscribe((res)=> this.solicitudes = res)
+  // }
 
   onSort({ column, direction }: SortEvent) {
     // resetting other headers
@@ -47,7 +46,7 @@ export class TablaSolicitudesComponent implements OnInit {
       }
     });
 
-    this.service.sortColumn = column;
-    this.service.sortDirection = direction;
+    this.solicitudService.sortColumn = column;
+    this.solicitudService.sortDirection = direction;
   }
 }

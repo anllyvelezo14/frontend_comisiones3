@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   VerEstadosComisionComponent,
   ModalHistorialEstados,
@@ -12,6 +12,9 @@ import { CrearSolicitudComponent } from './pages/crear-solicitud/crear-solicitud
 import { TablaSolicitudesComponent } from './pages/tabla-solicitudes/tabla-solicitudes.component';
 import { SolicitudesComponent } from './pages/solicitudes.component';
 import { HomeRoutingModule } from './solicitudes.routes';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { SolicitudService } from '../../core/services/solicitud.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { HomeRoutingModule } from './solicitudes.routes';
     NgbModule,
     FormsModule,
     HomeRoutingModule,
+    ReactiveFormsModule,
   ],
   exports: [
     VerEstadosComisionComponent,
@@ -36,6 +40,7 @@ import { HomeRoutingModule } from './solicitudes.routes';
     TablaSolicitudesComponent,
     SolicitudesComponent,
   ],
+  providers: [SolicitudService],
   bootstrap: [],
 })
 export class SolicitudesModule {}

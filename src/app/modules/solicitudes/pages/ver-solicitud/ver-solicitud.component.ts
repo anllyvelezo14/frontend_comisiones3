@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SolicitudService } from '../../../../core/services/solicitud.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Solicitud } from '../../../../core/models/solicitud';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-ver-solicitud',
@@ -6,7 +10,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ver-solicitud.component.css'],
 })
 export class VerSolicitudComponent implements OnInit {
-  constructor() {}
+  solicitud: Solicitud; // = new Solicitud();
+  private subscription: Subscription;
 
-  ngOnInit(): void {}
+  constructor(
+    private solicitudService: SolicitudService,
+    private activateRoute: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    // this.verSolicitud();
+  }
+  // ngOnDestroy():void {
+  //   this.subscription.unsubscribe();
+  // }
+
+  verSolicitud(): void {
+    this.activateRoute.params.subscribe((params) => {
+      const id = params.id;
+      if (id) {
+        this.solicitudService
+          .getSolicitud(id)
+          .subscribe((response) => (this.solicitud = response));
+        console.log('solicitud: ', this.solicitud);
+      }
+    });
+  }
 }
