@@ -103,16 +103,34 @@ export class SolicitudService {
 
   // CRUD
 
-  getSolicitudes(): Observable<Solicitud[]> {
-    return this.http.get<Solicitud[]>(this.urlEndPoint);
+  getSolicitudes(): Observable<any> {
+    return this.http.get<Solicitud[]>(this.urlEndPoint).pipe(
+      map((res) => {
+        const solicitud = res as Solicitud[];
+        return solicitud.map((newSolicitud) => {
+          const lenEstados = newSolicitud.intermediate_comisiones.length;
+          const final_estado =
+            newSolicitud.intermediate_comisiones[lenEstados - 1][
+              'intermediate_estados'
+            ]['nombre'];
+          newSolicitud.intermediate_comisiones = final_estado;
+          return newSolicitud;
+        });
+      })
+    );
   }
 
   getSolicitud(id: string): Observable<any> {
-    return this.http.get<Solicitud>(
-      `${this.urlEndPoint}/${id}`
-      // {
-      //   headers: this.headers,
-      // }
+    return this.http.get<Solicitud>(`${this.urlEndPoint}/${id}`).pipe(
+      map((res) => {
+        const lenEstados = res.intermediate_comisiones.length;
+        const final_estado =
+          res.intermediate_comisiones[lenEstados - 1]['intermediate_estados'][
+            'nombre'
+          ];
+        res.intermediate_comisiones = final_estado;
+        return res;
+      })
     ); // Cast: json a tipo solicitud
   }
 

@@ -9,12 +9,12 @@ import {
 } from './pages/modals/ver-estados-comision/ver-estados-comision.component';
 import { VerSolicitudComponent } from './pages/ver-solicitud/ver-solicitud.component';
 import { CrearSolicitudComponent } from './pages/crear-solicitud/crear-solicitud.component';
-import { SolicitudesComponent } from './pages/solicitudes.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { HomeRoutingModule } from './solicitudes.routes';
 import { TablaSolicitudesComponent } from './pages/tabla-solicitudes.component';
+import { TipoSolicitudService } from '../../core/services/tipo-solicitud.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,6 @@ import { TablaSolicitudesComponent } from './pages/tabla-solicitudes.component';
     CrearSolicitudComponent,
     ModalHistorialEstados,
     TablaSolicitudesComponent,
-    SolicitudesComponent,
   ],
   imports: [
     CommonModule,
@@ -38,9 +37,8 @@ import { TablaSolicitudesComponent } from './pages/tabla-solicitudes.component';
     VerSolicitudComponent,
     CrearSolicitudComponent,
     TablaSolicitudesComponent,
-    SolicitudesComponent,
   ],
-  providers: [SolicitudService],
+  providers: [SolicitudService, TipoSolicitudService],
   bootstrap: [],
 })
 export class SolicitudesModule {}

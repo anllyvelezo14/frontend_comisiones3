@@ -61,6 +61,20 @@
             <ngb-highlight
               [result]="solicitud.intermediate_comisiones"
               [term]="solicitudService.searchTerm"
+              class="badge badge-pill pill"
+              [ngClass]="{
+                'bg-solicitada':
+                  solicitud.intermediate_comisiones === 'SOLICITADA',
+                'bg-aprobada': solicitud.intermediate_comisiones === 'APROBADA',
+                'bg-visto-bueno':
+                  solicitud.intermediate_comisiones === 'VISTO BUENO',
+                'bg-finalizada':
+                  solicitud.intermediate_comisiones === 'FINALIZADA',
+                'bg-rechazada-decanato':
+                  solicitud.intermediate_comisiones === 'RECHAZADA DECANATO',
+                'bg-rechazada-coordinacion':
+                  solicitud.intermediate_comisiones === 'RECHAZADA COORDINACIÓN'
+              }"
             ></ngb-highlight>
           </td>
         </tr>

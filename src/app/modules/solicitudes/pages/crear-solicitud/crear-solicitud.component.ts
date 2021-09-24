@@ -3,6 +3,9 @@ import { Validators, FormBuilder } from '@angular/forms';
 import { SolicitudService } from '../../../../core/services/solicitud.service';
 import { Solicitud } from '../../../../core/models/solicitud';
 import { Router } from '@angular/router';
+import { TipoSolicitudService } from '../../../../core/services/tipo-solicitud.service';
+import { Observable } from 'rxjs';
+import { TipoSolicitud } from '../../../../core/models/tipo-solicitud';
 
 @Component({
   selector: 'app-crear-solicitud',
@@ -19,19 +22,18 @@ export class CrearSolicitudComponent implements OnInit {
   fecha: boolean;
   anexo: boolean;
   disponible: boolean;
-
-  options = [
-    { name: 'comision', value: 1 },
-    { name: 'permiso', value: 2 },
-  ];
+  options$: Observable<TipoSolicitud[]>;
 
   constructor(
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
-    private service: SolicitudService,
+    private solicitudService: SolicitudService,
     private router: Router,
-    private ngZone: NgZone
-  ) {}
+    private ngZone: NgZone,
+    private tipoSolicitudService: TipoSolicitudService
+  ) {
+    this.options$ = this.tipoSolicitudService.getTipoSolicitud();
+  }
 
   crearSolicitudForm = this.formBuilder.group({
     tipos_solicitud: ['', Validators.required],
@@ -83,7 +85,7 @@ export class CrearSolicitudComponent implements OnInit {
 
     if (this.crearSolicitudForm.valid) {
       console.log('valid form');
-      return this.service
+      return this.solicitudService
         .createSolicitud(this.crearSolicitudForm.value)
         .subscribe((res) => {
           this.ngZone.run(() =>

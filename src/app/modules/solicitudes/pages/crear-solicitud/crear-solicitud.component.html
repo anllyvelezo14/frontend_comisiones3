@@ -15,8 +15,8 @@
           (change)="onChangeSolicitud($event)"
           [ngClass]="{ 'is-invalid': submitted && f.tipos_solicitud.errors }"
         >
-          <option [value]="op.name" *ngFor="let op of options">
-            {{ op.name }}
+          <option [value]="op.nombre" *ngFor="let op of options$ | async">
+            {{ op.nombre }}
           </option>
         </select>
         <div

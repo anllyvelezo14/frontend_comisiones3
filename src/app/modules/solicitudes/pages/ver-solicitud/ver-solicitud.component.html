@@ -24,9 +24,9 @@
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Fecha de Creación</div>
-    <div class="col-3">{{ solicitud.createdAt }}</div>
+    <div class="col-3">{{ solicitud.createdAt | date }}</div>
     <div class="col-3 label">Fecha de Actualización</div>
-    <div class="col-3">{{ solicitud.fecha_actualizacion }}</div>
+    <div class="col-3">{{ solicitud.fecha_actualizacion | date }}</div>
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Idioma</div>
@@ -46,7 +46,7 @@
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Fecha Resolución</div>
-    <div class="col-3">{{ solicitud.fecha_resolucion }}</div>
+    <div class="col-3">{{ solicitud.fecha_resolucion | date }}</div>
     <div class="col-3 label">Resolución</div>
     <div class="col-3"></div>
   </div>
@@ -64,7 +64,9 @@
   </div>
   <div class="row regular-row">
     <div class="col-4">
-      <span class="badge badge-pill badge-success bg-green">Visto bueno</span>
+      <span class="badge badge-pill badge-success bg-green">{{
+        solicitud.intermediate_comisiones
+      }}</span>
     </div>
     <div class="col-4">4 Nov 2020</div>
     <div class="col-4">

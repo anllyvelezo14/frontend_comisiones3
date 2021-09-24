@@ -27,22 +27,5 @@ export class VerSolicitudComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    // this.verSolicitud();
-  }
-  // ngOnDestroy():void {
-  //   this.subscription.unsubscribe();
-  // }
-
-  // verSolicitud(): void {
-  //   this.activateRoute.params.subscribe((params) => {
-  //     const id = params.id;
-  //     if (id) {
-  //       this.solicitudService
-  //         .getSolicitud(id)
-  //         .subscribe((response) => (this.solicitud = response));
-  //       console.log('solicitud: ', this.solicitud);
-  //     }
-  //   });
-  // }
+  ngOnInit(): void {}
 }
