@@ -67,7 +67,7 @@ export class AuthService {
   // LOGIN
   login(usuario: Usuario): Observable<UsuarioResponse | void> {
     return this.http
-      .post<UsuarioResponse>(`${environment.API_URL}/api/signin`, usuario)
+      .post<UsuarioResponse>(`http://localhost:3000/api/signin`, usuario)
       .pipe(
         map((res: UsuarioResponse) => {
           if (res) {
@@ -91,7 +91,7 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    return this.http.post(`${environment.API_URL}/olvido-contrasena`, {
+    return this.http.post(`http://localhost:3000/olvido-contrasena`, {
       email,
     });
   }

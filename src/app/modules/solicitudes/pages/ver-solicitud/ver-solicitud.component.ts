@@ -16,7 +16,16 @@ export class VerSolicitudComponent implements OnInit {
   constructor(
     private solicitudService: SolicitudService,
     private activateRoute: ActivatedRoute
-  ) {}
+  ) {
+    this.activateRoute.params.subscribe((params) => {
+      const id = params.id;
+      if (id) {
+        this.solicitudService
+          .getSolicitud(id)
+          .subscribe((resSolicitud) => (this.solicitud = resSolicitud));
+      }
+    });
+  }
 
   ngOnInit(): void {
     // this.verSolicitud();
@@ -25,15 +34,15 @@ export class VerSolicitudComponent implements OnInit {
   //   this.subscription.unsubscribe();
   // }
 
-  verSolicitud(): void {
-    this.activateRoute.params.subscribe((params) => {
-      const id = params.id;
-      if (id) {
-        this.solicitudService
-          .getSolicitud(id)
-          .subscribe((response) => (this.solicitud = response));
-        console.log('solicitud: ', this.solicitud);
-      }
-    });
-  }
+  // verSolicitud(): void {
+  //   this.activateRoute.params.subscribe((params) => {
+  //     const id = params.id;
+  //     if (id) {
+  //       this.solicitudService
+  //         .getSolicitud(id)
+  //         .subscribe((response) => (this.solicitud = response));
+  //       console.log('solicitud: ', this.solicitud);
+  //     }
+  //   });
+  // }
 }

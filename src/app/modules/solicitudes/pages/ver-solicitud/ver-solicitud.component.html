@@ -1,4 +1,7 @@
-<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+<div
+  *ngIf="solicitud"
+  class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded"
+>
   <div class="row header-row">
     <div class="col">
       <a class="text-secondary">COMISIÓN</a>
@@ -7,34 +10,34 @@
   <hr />
   <div class="row regular-row">
     <div class="col-3 label">id</div>
-    <!--<div class="col-9">{{ solicitud.id }}</div>-->
+    <div class="col-3">{{ solicitud.id }}</div>
+    <div class="col-3 label">Tipo de Solicitud</div>
+    <div class="col-3">{{ solicitud.tipos_solicitud.nombre }}</div>
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Solicitante</div>
-    <div class="col-3">Daniela Andrea Torres Gómez</div>
+    <div class="col-3">
+      {{ solicitud.usuarios.nombre }} {{ solicitud.usuarios.apellido }}
+    </div>
     <div class="col-3 label">C.C</div>
-    <div class="col-3">123456789</div>
+    <div class="col-3">{{ solicitud.usuarios.identificacion }}</div>
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Fecha de Creación</div>
-    <div class="col-3">20 Mar 2020</div>
+    <div class="col-3">{{ solicitud.createdAt }}</div>
     <div class="col-3 label">Fecha de Actualización</div>
-    <div class="col-3">20 Mar 2020</div>
+    <div class="col-3">{{ solicitud.fecha_actualizacion }}</div>
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Idioma</div>
-    <div class="col-3">Inglés</div>
+    <div class="col-3">{{ solicitud.idioma }}</div>
     <div class="col-3 label">Lugar</div>
-    <div class="col-3">USA</div>
+    <div class="col-3">{{ solicitud.lugar }}</div>
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Justificación</div>
     <div class="col-9">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur.
+      {{ solicitud.justificacion }}
     </div>
   </div>
   <div class="row regular-row">
@@ -43,7 +46,7 @@
   </div>
   <div class="row regular-row">
     <div class="col-3 label">Fecha Resolución</div>
-    <div class="col-3">3 Ene 2021</div>
+    <div class="col-3">{{ solicitud.fecha_resolucion }}</div>
     <div class="col-3 label">Resolución</div>
     <div class="col-3"></div>
   </div>
@@ -86,63 +89,4 @@
       <button type="button" class="btn btn-warning">Editar</button>
     </div>
   </div>
-</div>
-
-<div class="container shadow-sm pt-4 pl-5 pr-5 mb-5 bg-white rounded">
-  <div class="row header-row">
-    <div class="col">
-      <a class="text-secondary">COMISIÓN</a>
-    </div>
-  </div>
-  <hr />
-  <dl class="row">
-    <dt class="col-sm-3">id</dt>
-    <!--<dd class="col-sm-9">{{ solicitud.id }}</dd>-->
-
-    <dt class="col-sm-3">Solicitante</dt>
-    <dd class="col-sm-9">
-      <dl class="row">
-        <dd class="col-sm-4">Daniela andrea torres gomez</dd>
-        <dd class="col-sm-8">
-          <dl class="row">
-            <dt class="col-sm-6">C.C</dt>
-            <dd class="col-sm-6">13333123</dd>
-          </dl>
-        </dd>
-      </dl>
-    </dd>
-    <dt class="col-sm-3">Fecha Creación</dt>
-    <dd class="col-sm-9">
-      <dl class="row">
-        <dd class="col-sm-4">20 Jun 2020</dd>
-        <dd class="col-sm-8">
-          <dl class="row">
-            <dt class="col-sm-6">Fecha Actualización</dt>
-            <dd class="col-sm-6">20 Jun 2020</dd>
-          </dl>
-        </dd>
-      </dl>
-    </dd>
-    <dt class="col-sm-3">Idioma</dt>
-    <dd class="col-sm-9">
-      <dl class="row">
-        <dd class="col-sm-4">Inglés</dd>
-        <dd class="col-sm-8">
-          <dl class="row">
-            <dt class="col-sm-6">Lugar</dt>
-            <dd class="col-sm-6">USA</dd>
-          </dl>
-        </dd>
-      </dl>
-    </dd>
-
-    <dt class="col-sm-3">Justificación</dt>
-    <dd class="col-sm-9">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur.
-    </dd>
-  </dl>
 </div>

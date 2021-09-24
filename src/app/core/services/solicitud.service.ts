@@ -108,9 +108,12 @@ export class SolicitudService {
   }
 
   getSolicitud(id: string): Observable<any> {
-    return this.http.get<Solicitud>(`${this.urlEndPoint}/${id}`, {
-      headers: this.headers,
-    }); // Cast: json a tipo solicitud
+    return this.http.get<Solicitud>(
+      `${this.urlEndPoint}/${id}`
+      // {
+      //   headers: this.headers,
+      // }
+    ); // Cast: json a tipo solicitud
   }
 
   createSolicitud(solicitud: Solicitud): Observable<any> {

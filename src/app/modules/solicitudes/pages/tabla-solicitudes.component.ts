@@ -2,14 +2,14 @@ import { DecimalPipe } from '@angular/common';
 import { Component, QueryList, ViewChildren, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { SolicitudService } from '../../../../core/services/solicitud.service';
-import { Solicitud } from '../../../../core/models/solicitud';
+import { SolicitudService } from '../../../core/services/solicitud.service';
+import { Solicitud } from '../../../core/models/solicitud';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import {
   NgbdSortableHeader,
   SortEvent,
-} from '../../../../shared/directives/sortable-header.directive';
+} from '../../../shared/directives/sortable-header.directive';
 
 @Component({
   selector: 'app-tabla-solicitudes',

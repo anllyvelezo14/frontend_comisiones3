@@ -9,12 +9,12 @@ import {
 } from './pages/modals/ver-estados-comision/ver-estados-comision.component';
 import { VerSolicitudComponent } from './pages/ver-solicitud/ver-solicitud.component';
 import { CrearSolicitudComponent } from './pages/crear-solicitud/crear-solicitud.component';
-import { TablaSolicitudesComponent } from './pages/tabla-solicitudes/tabla-solicitudes.component';
 import { SolicitudesComponent } from './pages/solicitudes.component';
-import { HomeRoutingModule } from './solicitudes.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { SolicitudService } from '../../core/services/solicitud.service';
+import { HomeRoutingModule } from './solicitudes.routes';
+import { TablaSolicitudesComponent } from './pages/tabla-solicitudes.component';
 
 @NgModule({
   declarations: [

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     // redirect to home if already logged in
     if (this.authenticationService.isLogged()) {
-      this.router.navigate(['/home/solicitudes/tabla-solicitudes']);
+      this.router.navigate(['/home/solicitudes']);
     }
   }
 
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit {
 
     this.authenticationService.login(formValue).subscribe({
       next: (res) => {
-        this.router.navigateByUrl('/home/solicitudes/tabla-solicitudes');
+        this.router.navigateByUrl('/home/solicitudes');
         const usuario = this.authenticationService.tokenStorage;
         console.log(`del storage ${usuario}`);
       },
