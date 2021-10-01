@@ -36,7 +36,7 @@ export class CrearSolicitudComponent implements OnInit {
   }
 
   crearSolicitudForm = this.formBuilder.group({
-    tipos_solicitud: ['', Validators.required],
+    tipos_solicitud_id: ['', Validators.required],
     justificacion: ['', Validators.required],
     lugar: [''],
     idioma: [''],
@@ -58,7 +58,8 @@ export class CrearSolicitudComponent implements OnInit {
 
   onChangeSolicitud(e): void {
     const solicitud = e.target.value || null;
-    if (solicitud === 'comision') {
+    if (solicitud === '1') {
+      //comision
       this.lugar = true;
       this.idioma = true;
       this.disponible = false;
@@ -89,7 +90,7 @@ export class CrearSolicitudComponent implements OnInit {
         .createSolicitud(this.crearSolicitudForm.value)
         .subscribe((res) => {
           this.ngZone.run(() =>
-            this.router.navigate(['/home/crear-solicitud'])
+            this.router.navigate(['/home/solicitudes/tabla-solicitudes'])
           );
         });
     }

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CrearSolicitudComponent } from './pages/crear-solicitud/crear-solicitud.component';
 import { VerSolicitudComponent } from './pages/ver-solicitud/ver-solicitud.component';
 import { TablaSolicitudesComponent } from './pages/tabla-solicitudes.component';
+import { EditarSolicitudComponent } from './pages/editar-solicitud/editar-solicitud.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,10 @@ export const routes: Routes = [
       {
         path: 'crear-solicitud',
         component: CrearSolicitudComponent,
+      },
+      {
+        path: 'editar-solicitud/:id',
+        component: EditarSolicitudComponent,
       },
       { path: '**', redirectTo: 'solicitudes' },
     ],

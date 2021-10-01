@@ -15,6 +15,7 @@ import { SolicitudService } from '../../core/services/solicitud.service';
 import { HomeRoutingModule } from './solicitudes.routes';
 import { TablaSolicitudesComponent } from './pages/tabla-solicitudes.component';
 import { TipoSolicitudService } from '../../core/services/tipo-solicitud.service';
+import { EditarSolicitudComponent } from './pages/editar-solicitud/editar-solicitud.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TipoSolicitudService } from '../../core/services/tipo-solicitud.service
     CrearSolicitudComponent,
     ModalHistorialEstados,
     TablaSolicitudesComponent,
+    EditarSolicitudComponent,
   ],
   imports: [
     CommonModule,

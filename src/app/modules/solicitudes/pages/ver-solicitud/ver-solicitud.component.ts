@@ -15,7 +15,8 @@ export class VerSolicitudComponent implements OnInit {
 
   constructor(
     private solicitudService: SolicitudService,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private router: Router
   ) {
     this.activateRoute.params.subscribe((params) => {
       const id = params.id;

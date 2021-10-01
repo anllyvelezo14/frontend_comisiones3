@@ -88,7 +88,13 @@
       <button type="button" class="btn btn-danger">Eliminar</button>
     </div>
     <div class="col-2">
-      <button type="button" class="btn btn-warning">Editar</button>
+      <button
+        type="button"
+        class="btn btn-warning"
+        [routerLink]="['/home/editar-solicitud', solicitud.id]"
+      >
+        Editar
+      </button>
     </div>
   </div>
 </div>

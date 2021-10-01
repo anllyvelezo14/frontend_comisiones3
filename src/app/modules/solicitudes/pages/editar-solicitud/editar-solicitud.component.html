@@ -1,53 +1,37 @@
 <div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
   <div class="row header-row">
     <div class="col">
-      <a class="text-secondary">CREAR SOLICITUD</a>
+      <a class="text-secondary">EDITAR SOLICITUD</a>
     </div>
   </div>
   <hr />
-  <form [formGroup]="crearSolicitudForm" (ngSubmit)="crearSolicitud()">
+  <form [formGroup]="updateSolicitud" (ngSubmit)="onUpdate()">
     <div class="row regular-row">
       <div class="col-4 label">Tipo de Solicitud</div>
       <div class="col-8">
-        <select
-          formControlName="tipos_solicitud_id"
-          class="form-control"
-          (change)="onChangeSolicitud($event)"
-          [ngClass]="{ 'is-invalid': submitted && f.tipos_solicitud_id.errors }"
-        >
-          <option [value]="op.id | number" *ngFor="let op of options$ | async">
-            {{ op.nombre }}
-          </option>
+        <select formControlName="tipos_solicitud_id" class="form-control">
+          <option></option>
         </select>
-        <div
-          *ngIf="submitted && f.tipos_solicitud_id.errors"
-          class="invalid-feedback"
-        >
-          <div *ngIf="f.tipos_solicitud_id.errors.required">
-            Elige un tipo de Solicitud
-          </div>
-        </div>
       </div>
     </div>
     <hr />
     <div>
-      <div class="alert alert-success" role="alert" *ngIf="disponible">
+      <div class="alert alert-success" role="alert">
         Tienes 3 días disponibles!
       </div>
-      <div class="row regular-row" *ngIf="fecha">
+      <div class="row regular-row">
         <div class="col-4 label">Fechas *</div>
         <div class="col-8">
           <app-datepicker></app-datepicker>
         </div>
       </div>
-      <div class="row regular-row" *ngIf="lugar">
+      <div class="row regular-row">
         <div class="col-4 label">Lugar</div>
         <div class="col-8">
           <div class="input-group">
             <input
               type="text"
               class="form-control border-right-0"
-              placeholder="Lugar donde se realizará la comisión"
               aria-label="from"
               aria-describedby="from"
               formControlName="lugar"
@@ -60,18 +44,13 @@
           </div>
         </div>
       </div>
-      <div class="row regular-row" *ngIf="idioma">
+      <div class="row regular-row">
         <div class="col-4 label">Idioma</div>
         <div class="col-8">
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Idioma en se realizará la comisión"
-            formControlName="idioma"
-          />
+          <input class="form-control" type="text" formControlName="idioma" />
         </div>
       </div>
-      <div class="row regular-row" *ngIf="justificacion">
+      <div class="row regular-row">
         <div class="col-4 label">Justificación *</div>
         <div class="col-8">
           <div class="form-group">
@@ -79,21 +58,13 @@
               class="form-control"
               rows="3"
               formControlName="justificacion"
-              [ngClass]="{ 'is-invalid': submitted && f.justificacion.errors }"
             ></textarea>
-            <div
-              *ngIf="submitted && f.justificacion.errors"
-              class="invalid-feedback"
-            >
-              <div *ngIf="f.justificacion.errors.required">
-                La justificacion es requerida
-              </div>
-            </div>
+            <div></div>
           </div>
         </div>
       </div>
 
-      <div class="row regular-row" *ngIf="anexo">
+      <div class="row regular-row">
         <div class="col-4 label">Anexos</div>
         <div class="col-8">
           <div class="mb-3">
@@ -116,14 +87,8 @@
         </button>-->
       </div>
       <div class="col-2 form-group">
-        <button
-          [disabled]="loading"
-          class="btn btn-green btn-success btn-block"
-        >
-          <span
-            *ngIf="loading"
-            class="spinner-border spinner-border-sm mr-1"
-          ></span>
+        <button class="btn btn-green btn-success btn-block">
+          <span class="spinner-border spinner-border-sm mr-1"></span>
           Enviar
         </button>
       </div>
