@@ -9,14 +9,16 @@
     <div class="row regular-row">
       <div class="col-4 label">Tipo de Solicitud</div>
       <div class="col-8">
-        <select formControlName="tipos_solicitud_id" class="form-control">
-          <option></option>
-        </select>
+        <input
+          class="form-control"
+          formControlName="tipos_solicitud"
+          disabled="disabled"
+        />
       </div>
     </div>
     <hr />
     <div>
-      <div class="alert alert-success" role="alert">
+      <div class="alert alert-success" role="alert" *ngIf="disponible">
         Tienes 3 días disponibles!
       </div>
       <div class="row regular-row">
@@ -25,7 +27,7 @@
           <app-datepicker></app-datepicker>
         </div>
       </div>
-      <div class="row regular-row">
+      <div class="row regular-row" *ngIf="lugar">
         <div class="col-4 label">Lugar</div>
         <div class="col-8">
           <div class="input-group">
@@ -44,7 +46,7 @@
           </div>
         </div>
       </div>
-      <div class="row regular-row">
+      <div class="row regular-row" *ngIf="idioma">
         <div class="col-4 label">Idioma</div>
         <div class="col-8">
           <input class="form-control" type="text" formControlName="idioma" />
@@ -58,8 +60,16 @@
               class="form-control"
               rows="3"
               formControlName="justificacion"
+              [ngClass]="{ 'is-invalid': submitted && f.justificacion.errors }"
             ></textarea>
-            <div></div>
+            <div
+              *ngIf="submitted && f.justificacion.errors"
+              class="invalid-feedback"
+            >
+              <div *ngIf="f.justificacion.errors.required">
+                La justificacion es requerida
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,8 +97,14 @@
         </button>-->
       </div>
       <div class="col-2 form-group">
-        <button class="btn btn-green btn-success btn-block">
-          <span class="spinner-border spinner-border-sm mr-1"></span>
+        <button
+          [disabled]="loading"
+          class="btn btn-green btn-success btn-block"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
           Enviar
         </button>
       </div>
