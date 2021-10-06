@@ -23,14 +23,15 @@ export class CrearSolicitudComponent implements OnInit {
   anexo: boolean;
   disponible: boolean;
   options$: Observable<TipoSolicitud[]>;
+  error = '';
 
   constructor(
+    private solicitudService: SolicitudService,
+    private tipoSolicitudService: TipoSolicitudService,
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
-    private solicitudService: SolicitudService,
     private router: Router,
-    private ngZone: NgZone,
-    private tipoSolicitudService: TipoSolicitudService
+    private ngZone: NgZone
   ) {
     this.options$ = this.tipoSolicitudService.getTipoSolicitud();
   }
@@ -88,10 +89,18 @@ export class CrearSolicitudComponent implements OnInit {
       console.log('valid form');
       return this.solicitudService
         .createSolicitud(this.crearSolicitudForm.value)
-        .subscribe((res) => {
-          this.ngZone.run(() =>
-            this.router.navigate(['/home/solicitudes/tabla-solicitudes'])
-          );
+        .subscribe({
+          next: (res) => {
+            this.ngZone.run(() =>
+              this.router.navigate(['/home/solicitudes/tabla-solicitudes'])
+            );
+          },
+          error: (err) => {
+            if (err.status === 404 || err.status === 401) {
+              this.error = err.error.msg;
+              this.loading = false;
+            }
+          },
         });
     }
 

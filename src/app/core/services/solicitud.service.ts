@@ -124,7 +124,7 @@ export class SolicitudService {
     return this.http.get<Solicitud>(`${this.urlEndPoint}/${id}`).pipe(
       map((res) => {
         const lenEstados = res.intermediate_comisiones.length;
-        const final_estado = res.intermediate_comisiones[lenEstados - 1]; //['intermediate_estados']['nombre'];
+        const final_estado = res.intermediate_comisiones[lenEstados - 1];
         res.intermediate_comisiones = final_estado;
         return res;
       })
@@ -137,7 +137,7 @@ export class SolicitudService {
 
   // Update
   updateSolicitud(id: string, data: Solicitud): Observable<any> {
-    return this.http.put<Solicitud>(`${this.urlEndPoint}/${id}`, data);
+    return this.http.patch<Solicitud>(`${this.urlEndPoint}/${id}`, data);
   }
 
   // SORTING AND FILTERING

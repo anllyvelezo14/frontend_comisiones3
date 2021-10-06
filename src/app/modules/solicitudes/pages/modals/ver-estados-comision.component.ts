@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { SolicitudService } from '../../../../core/services/solicitud.service';
+import { Solicitud } from '../../../../core/models/solicitud';
 import {
   NgbModalConfig,
   NgbModal,
@@ -10,19 +13,6 @@ interface Estado {
   observacion: String;
 }
 
-const ESTADOS: Estado[] = [
-  {
-    fecha: '20 Ene 2021',
-    observacion:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-  },
-  {
-    fecha: '20 Ene 2021',
-    observacion:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua',
-  },
-];
-
 //// --- COMPONENTE TABLA DENTRO DEL MODAL ------
 
 @Component({
@@ -30,9 +20,20 @@ const ESTADOS: Estado[] = [
   templateUrl: './modal-historial-estados.component.html',
 })
 export class ModalHistorialEstados {
-  estados = ESTADOS;
+  solicitud: Solicitud;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private activateRoute: ActivatedRoute,
+    private solicitudService: SolicitudService
+  ) {
+    this.activateRoute.params.subscribe((params) => {
+      const id = params.id;
+      this.solicitudService
+        .getSolicitud(id)
+        .subscribe((resSolicitud) => (this.solicitud = resSolicitud));
+    });
+  }
 }
 
 /////------- MODAL --------

@@ -22,12 +22,11 @@ export class EditarSolicitudComponent implements OnInit {
   lugar = true;
   idioma = true;
   disponible = true;
-  // tiposSolicitud: any;
+  error = '';
   options$: Observable<TipoSolicitud[]>;
 
   constructor(
     private solicitudService: SolicitudService,
-    // private tipoSolicitudService: TipoSolicitudService,
     private activateRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private ngZone: NgZone,
@@ -36,15 +35,21 @@ export class EditarSolicitudComponent implements OnInit {
   ) {
     this.getId = this.activateRoute.snapshot.paramMap.get('id');
 
-    // this.options$ = this.tipoSolicitudService.getTipoSolicitud();
-
-    this.solicitudService.getSolicitud(this.getId).subscribe((res) => {
-      this.updateSolicitud.setValue({
-        tipos_solicitud: res.tipos_solicitud.nombre,
-        justificacion: res.justificacion,
-        lugar: res.lugar,
-        idioma: res.idioma,
-      });
+    this.solicitudService.getSolicitud(this.getId).subscribe({
+      next: (res) => {
+        this.updateSolicitud.setValue({
+          tipos_solicitud: res.tipos_solicitud.nombre,
+          justificacion: res.justificacion,
+          lugar: res.lugar,
+          idioma: res.idioma,
+        });
+      },
+      error: (err) => {
+        if (err.status === 404 || err.status === 401) {
+          this.error = err.error.msg; // mensaje desde el back
+          this.loading = false;
+        }
+      },
     });
 
     this.updateSolicitud = this.formBuilder.group({
@@ -86,10 +91,18 @@ export class EditarSolicitudComponent implements OnInit {
 
     this.solicitudService
       .updateSolicitud(this.getId, this.updateSolicitud.value)
-      .subscribe(() => {
-        this.ngZone.run(() =>
-          this.router.navigateByUrl('/home/solicitudes/tabla-solicitudes')
-        );
+      .subscribe({
+        next: (res) => {
+          this.ngZone.run(() =>
+            this.router.navigateByUrl('/home/solicitudes/tabla-solicitudes')
+          );
+        },
+        error: (err) => {
+          if (err.status === 404 || err.status === 401) {
+            this.error = err.error.msg;
+            this.loading = false;
+          }
+        },
       });
   }
 }

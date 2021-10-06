@@ -4,7 +4,7 @@
 >
   <div class="row header-row">
     <div class="col">
-      <a class="text-secondary">COMISIÓN</a>
+      <span class="text-secondary">COMISIÓN</span>
     </div>
   </div>
   <hr />
@@ -53,35 +53,46 @@
   <div class="row"></div>
   <div class="row secondary-header-row">
     <div class="col">
-      <a class="text-secondary">ESTADO ACTUAL DE LA COMISIÓN</a>
+      <span class="text-secondary">ESTADO ACTUAL DE LA COMISIÓN</span>
     </div>
   </div>
   <hr />
-  <div class="row header-row">
-    <div class="col-4"></div>
-    <div class="col-4 label">Fecha</div>
-    <div class="col-4 label">Observación</div>
-  </div>
   <div class="row regular-row">
     <div class="col-4">
-      <span class="badge badge-pill badge-success bg-green">{{
-        solicitud.intermediate_comisiones
-      }}</span>
+      <span class="badge badge-pill pill badge-primary">
+        {{
+          solicitud.intermediate_comisiones["intermediate_estados"]["nombre"]
+        }}
+      </span>
     </div>
-    <div class="col-4">4 Nov 2020</div>
     <div class="col-4">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
+      {{ solicitud.intermediate_comisiones["fecha_actualizacion"] | date }}
+    </div>
+    <div class="col-8"></div>
+  </div>
+  <div class="row regular-row">
+    <div class="col-4"></div>
+    <div class="col-8">
+      {{ solicitud.intermediate_comisiones["observacion"] }}
     </div>
   </div>
   <div class="container-fluid secondary-header-row align-items-center">
-    <!--<app-ver-estados-comision></app-ver-estados-comision>-->
+    <app-ver-estados-comision></app-ver-estados-comision>
   </div>
   <hr />
   <div class="row footer-row">
-    <div class="col-8">
+    <div class="col-4">
       <button type="button" class="btn btn-success btn-green">
         Agregar Estado
+      </button>
+    </div>
+    <div class="col-4">
+      <button
+        type="button"
+        class="btn btn-success btn-green"
+        [routerLink]="['/subir-cumplido']"
+      >
+        Subir cumplido
       </button>
     </div>
     <div class="col-2">

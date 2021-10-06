@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { VerEstadosComisionComponent } from './ver-estados-comision.component';
 
 describe('VerEstadosComisionComponent', () => {
@@ -8,9 +7,8 @@ describe('VerEstadosComisionComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VerEstadosComisionComponent ]
-    })
-    .compileComponents();
+      declarations: [VerEstadosComisionComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
