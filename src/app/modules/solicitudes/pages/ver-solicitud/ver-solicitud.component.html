@@ -79,6 +79,9 @@
   <div class="container-fluid secondary-header-row align-items-center">
     <app-ver-estados-comision></app-ver-estados-comision>
   </div>
+  <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+    {{ error }}
+  </div>
   <hr />
   <div class="row footer-row">
     <div class="col-4">
@@ -96,7 +99,17 @@
       </button>
     </div>
     <div class="col-2">
-      <button type="button" class="btn btn-danger">Eliminar</button>
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="delete(solicitud.id)"
+      >
+        <span
+          *ngIf="loading"
+          class="spinner-border spinner-border-sm mr-1"
+        ></span>
+        Eliminar
+      </button>
     </div>
     <div class="col-2">
       <button

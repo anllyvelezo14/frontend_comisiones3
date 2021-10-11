@@ -1,19 +1,19 @@
 import { Injectable, PipeTransform } from '@angular/core';
-import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
-
+import { async, BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
-import { debounceTime, delay, switchMap, tap } from 'rxjs/operators';
-import { COUNTRIES } from '../models/countries';
+import { debounceTime, delay, switchMap, tap, map } from 'rxjs/operators';
 import {
   SortColumn,
   SortDirection,
 } from '../../shared/directives/sortable-header.directive';
-import { Country } from '../models/country';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Solicitud } from '../models/solicitud';
 import { AuthService } from './auth.service';
+import { SolicitudService } from './solicitud.service';
 
 interface SearchResult {
-  countries: Country[];
+  solicitudes: Solicitud[];
   total: number;
 }
 
@@ -28,40 +28,43 @@ interface State {
 const compare = (v1: string | number, v2: string | number) =>
   v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-function sort(
-  countries: Country[],
-  column: SortColumn,
-  direction: string
-): Country[] {
-  if (direction === '' || column === '') {
-    return countries;
-  } else {
-    return [...countries].sort((a, b) => {
-      const res = compare(a[column], b[column]);
-      return direction === 'asc' ? res : -res;
-    });
-  }
-}
+// function sort(
+//   solicitudes: Solicitud[],
+//   column: SortColumn,
+//   direction: string
+// ): Solicitud[] {
+//   if (direction === '' || column === '') {
+//     return solicitudes;
+//   } else {
+//     return [...solicitudes].sort((a, b) => {
+//       const res = compare(a[column], b[column]);
+//       return direction === 'asc' ? res : -res;
+//     });
+//   }
+// }
 
-function matches(country: Country, term: string, pipe: PipeTransform) {
+function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
   return (
-    country.name.toLowerCase().includes(term.toLowerCase()) ||
-    pipe.transform(country.area).includes(term) ||
-    pipe.transform(country.population).includes(term)
+    solicitudes.tipos_solicitud.nombre
+      .toLowerCase()
+      .includes(term.toLowerCase()) ||
+    pipe.transform(solicitudes.createdAt).includes(term) ||
+    pipe.transform(solicitudes.usuarios.nombre.toLowerCase()).includes(term) ||
+    pipe
+      .transform(solicitudes.usuarios.departamentos.nombre.toLowerCase())
+      .includes(term)
   );
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class CountryService {
+export class SearchSolicitudesService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _countries$ = new BehaviorSubject<Country[]>([]);
+  private _solicitudes$ = new BehaviorSubject<Solicitud[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-  private urlEndPoint: string = 'http://localhost:3000/api/comisiones';
-
-  // private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
+  public solicitudesList = [];
 
   private _state: State = {
     page: 1,
@@ -71,10 +74,13 @@ export class CountryService {
     sortDirection: '',
   };
 
+  headers = new HttpHeaders().set('Content-Type', 'application/json');
+
   constructor(
+    private http: HttpClient,
     private pipe: DecimalPipe,
-    private authService: AuthService,
-    private http: HttpClient
+    private authUser: AuthService,
+    private solicitudService: SolicitudService
   ) {
     this._search$
       .pipe(
@@ -85,16 +91,25 @@ export class CountryService {
         tap(() => this._loading$.next(false))
       )
       .subscribe((result) => {
-        this._countries$.next(result.countries);
+        this._solicitudes$.next(result.solicitudes);
         this._total$.next(result.total);
       });
 
     this._search$.next();
+
+    this.solicitudService.getSolicitudes().subscribe({
+      next: (res) => {
+        this.solicitudesList = res as Solicitud[];
+        console.log('subscription', res, this.solicitudesList);
+      },
+    });
   }
 
-  get countries$() {
-    return this._countries$.asObservable();
+  // SORTING AND FILTERING
+  get solicitudes$() {
+    return this._solicitudes$.asObservable();
   }
+
   get total$() {
     return this._total$.asObservable();
   }
@@ -127,6 +142,8 @@ export class CountryService {
     this._set({ sortDirection });
   }
 
+  // Set and search:
+
   private _set(patch: Partial<State>) {
     Object.assign(this._state, patch);
     this._search$.next();
@@ -136,20 +153,23 @@ export class CountryService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } =
       this._state;
 
-    // 1. sort
-    let countries = sort(COUNTRIES, sortColumn, sortDirection);
+    let solicitudes = this.solicitudesList;
+
+    console.log('solicitudesList', this.solicitudesList);
+    console.log('solicitudes', solicitudes);
 
     // 2. filter
-    countries = countries.filter((country) =>
-      matches(country, searchTerm, this.pipe)
+    solicitudes = solicitudes.filter((solicitud) =>
+      matches(solicitud, searchTerm, this.pipe)
     );
-    const total = countries.length;
+
+    const total = solicitudes.length;
 
     // 3. paginate
-    countries = countries.slice(
+    solicitudes = solicitudes.slice(
       (page - 1) * pageSize,
       (page - 1) * pageSize + pageSize
     );
-    return of({ countries, total });
+    return of({ solicitudes, total });
   }
 }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { TipoSolicitudService } from '../../../../core/services/tipo-solicitud.service';
 import { Observable } from 'rxjs';
 import { TipoSolicitud } from '../../../../core/models/tipo-solicitud';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-solicitud',
@@ -86,7 +87,6 @@ export class CrearSolicitudComponent implements OnInit {
     }
 
     if (this.crearSolicitudForm.valid) {
-      console.log('valid form');
       return this.solicitudService
         .createSolicitud(this.crearSolicitudForm.value)
         .subscribe({
@@ -94,6 +94,12 @@ export class CrearSolicitudComponent implements OnInit {
             this.ngZone.run(() =>
               this.router.navigate(['/home/solicitudes/tabla-solicitudes'])
             );
+            Swal.fire({
+              title: 'Creada',
+              text: '¡La solicitud se creó con éxito!',
+              icon: 'success',
+              confirmButtonColor: '#3AB795',
+            });
           },
           error: (err) => {
             if (err.status === 404 || err.status === 401) {

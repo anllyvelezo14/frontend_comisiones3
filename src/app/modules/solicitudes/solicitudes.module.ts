@@ -17,6 +17,7 @@ import { TablaSolicitudesComponent } from './pages/tabla-solicitudes.component';
 import { TipoSolicitudService } from '../../core/services/tipo-solicitud.service';
 import { EditarSolicitudComponent } from './pages/editar-solicitud/editar-solicitud.component';
 import { CumplidosModule } from '../cumplidos/cumplidos.module';
+import { ModalMensajeEliminarComponent } from './pages/modals/modal-mensaje-eliminar/modal-mensaje-eliminar.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CumplidosModule } from '../cumplidos/cumplidos.module';
     ModalHistorialEstados,
     TablaSolicitudesComponent,
     EditarSolicitudComponent,
+    ModalMensajeEliminarComponent,
   ],
   imports: [
     CommonModule,

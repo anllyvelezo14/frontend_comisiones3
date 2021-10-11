@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SolicitudService } from '../../../core/services/solicitud.service';
 import { Solicitud } from '../../../core/models/solicitud';
 import { Router, ActivatedRoute } from '@angular/router';
+import { SearchSolicitudesService } from '../../../core/services/search-solicitudes.service';
 
 import {
   NgbdSortableHeader,
@@ -17,26 +18,33 @@ import {
   styleUrls: ['./tabla-solicitudes.component.css'],
   providers: [SolicitudService, DecimalPipe],
 })
-export class TablaSolicitudesComponent {
-  //implements OnInit {
-  solicitudes$: Observable<Solicitud[]>;
+export class TablaSolicitudesComponent implements OnInit {
+  // solicitudes$: Observable<Solicitud[]>;
   total$: Observable<number>;
-  solicitudes: Solicitud[];
-  // solicitudes: Solicitud[];
+  Solicitudes: any = [];
+  listSolicitudes = false;
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
   constructor(
     public solicitudService: SolicitudService,
+    public searchSolicitudesService: SearchSolicitudesService,
     public router: Router
   ) {
-    this.solicitudes$ = solicitudService.getSolicitudes();
-    this.total$ = solicitudService.total$;
+    // this.solicitudes$ = solicitudService.getSolicitudes();
+    this.total$ = searchSolicitudesService.total$;
   }
 
-  // ngOnInit(): void {
-  //   this.solicitudService.getSolicitudes().subscribe((res)=> this.solicitudes = res)
-  // }
+  ngOnInit(): void {
+    this.solicitudService.getSolicitudes().subscribe({
+      next: (res) => {
+        this.Solicitudes = res;
+        if (this.Solicitudes.length !== 0) {
+          this.listSolicitudes = true;
+        }
+      },
+    });
+  }
 
   onSort({ column, direction }: SortEvent) {
     // resetting other headers
@@ -46,7 +54,7 @@ export class TablaSolicitudesComponent {
       }
     });
 
-    this.solicitudService.sortColumn = column;
-    this.solicitudService.sortDirection = direction;
+    this.searchSolicitudesService.sortColumn = column;
+    this.searchSolicitudesService.sortDirection = direction;
   }
 }

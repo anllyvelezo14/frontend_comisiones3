@@ -7,6 +7,7 @@ import { TipoSolicitudService } from '../../../../core/services/tipo-solicitud.s
 import { TipoSolicitud } from '../../../../core/models/tipo-solicitud';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-editar-solicitud',
@@ -96,6 +97,12 @@ export class EditarSolicitudComponent implements OnInit {
           this.ngZone.run(() =>
             this.router.navigateByUrl('/home/solicitudes/tabla-solicitudes')
           );
+          Swal.fire({
+            title: 'Actulizada',
+            text: '¡La solicitud se actualizó con éxito!',
+            icon: 'success',
+            confirmButtonColor: '#3AB795',
+          });
         },
         error: (err) => {
           if (err.status === 404 || err.status === 401) {
