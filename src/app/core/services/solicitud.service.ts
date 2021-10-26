@@ -15,11 +15,7 @@ export class SolicitudService {
 
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-  constructor(
-    private http: HttpClient,
-    private pipe: DecimalPipe,
-    private authUser: AuthService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   // CRUD
 

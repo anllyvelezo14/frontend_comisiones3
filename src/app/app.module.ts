@@ -61,6 +61,7 @@ registerLocaleData(localeCl, 'es');
     CumplidosModule,
     UsuariosModule,
     AuthModule,
+    //EstadosModule,
     // CoreModule,
     SidebarModule.forRoot(),
   ],

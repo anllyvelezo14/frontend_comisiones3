@@ -91,9 +91,7 @@ export class CrearSolicitudComponent implements OnInit {
         .createSolicitud(this.crearSolicitudForm.value)
         .subscribe({
           next: (res) => {
-            this.ngZone.run(() =>
-              this.router.navigate(['/home/solicitudes/tabla-solicitudes'])
-            );
+            this.ngZone.run(() => this.router.navigate(['/home/solicitudes']));
             Swal.fire({
               title: 'Creada',
               text: '¡La solicitud se creó con éxito!',

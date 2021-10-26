@@ -35,4 +35,18 @@ export class SidebarComponent implements OnInit {
   irCrearSolicitud(): void {
     this.router.navigateByUrl('/home/crear-solicitud');
   }
+
+  irAsociarEstado(): void {
+    this.router.navigateByUrl('/estado');
+  }
+
+  irPerfil(): void {
+    const id = localStorage.getItem('ACCESS_USER_ID') || null;
+    console.log('ID DEL USER', id);
+    this.router.navigateByUrl(`/usuarios/ver-perfil/${id}`);
+  }
+
+  verUsuarios(): void {
+    this.router.navigateByUrl('/usuarios/tabla-usuarios');
+  }
 }

@@ -18,6 +18,7 @@ import { TipoSolicitudService } from '../../core/services/tipo-solicitud.service
 import { EditarSolicitudComponent } from './pages/editar-solicitud/editar-solicitud.component';
 import { CumplidosModule } from '../cumplidos/cumplidos.module';
 import { ModalMensajeEliminarComponent } from './pages/modals/modal-mensaje-eliminar/modal-mensaje-eliminar.component';
+import { EstadosModule } from '../estados/estados.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ModalMensajeEliminarComponent } from './pages/modals/modal-mensaje-elim
     HomeRoutingModule,
     ReactiveFormsModule,
     CumplidosModule,
+    EstadosModule,
   ],
   exports: [
     VerEstadosComisionComponent,

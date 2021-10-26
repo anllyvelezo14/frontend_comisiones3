@@ -13,11 +13,17 @@ export interface UsuarioResponse {
     email: string;
     estado: number;
     contrasena: string;
-    dia_dispobible: number;
+    dia_disponible: number;
     createdAt: Date;
     fecha_actualizacion: Date;
     departamentos_id: number;
     roles_id: number;
+    departamentos: {
+      nombre: string;
+      facultad: {
+        nombre: string;
+      };
+    };
   };
   token: string;
 }

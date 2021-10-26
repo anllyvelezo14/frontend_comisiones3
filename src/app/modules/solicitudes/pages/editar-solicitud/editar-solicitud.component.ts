@@ -95,7 +95,7 @@ export class EditarSolicitudComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.ngZone.run(() =>
-            this.router.navigateByUrl('/home/solicitudes/tabla-solicitudes')
+            this.router.navigateByUrl(`/home/ver-solicitud/${this.getId}`)
           );
           Swal.fire({
             title: 'Actulizada',

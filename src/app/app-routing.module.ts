@@ -29,6 +29,13 @@ const routes: Routes = [
             (m) => m.UsuariosModule
           ),
       },
+      // {
+      //   path: 'estados',
+      //   loadChildren: () =>
+      //     import('./modules/estados/estados.module').then(
+      //       (m) => m.EstadosModule
+      //     ),
+      // },
     ],
   },
   {

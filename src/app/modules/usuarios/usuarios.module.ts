@@ -8,6 +8,7 @@ import { UsuariosRouting } from './usuarios.routes';
 import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.component';
 import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
 import { UsuarioComponent } from './pages/usuario.component';
+import { SolicitudService } from '../../core/services/solicitud.service';
 
 @NgModule({
   declarations: [VerPerfilComponent, EditarPerfilComponent, UsuarioComponent],
@@ -20,5 +21,6 @@ import { UsuarioComponent } from './pages/usuario.component';
     SharedModule,
     UsuariosRouting,
   ],
+  providers: [SolicitudService],
 })
 export class UsuariosModule {}

@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
   private subscription: Subscription;
 
   private isEmailValid = /^[a-zA-Z0-9._%+-]+@udea.edu.co$/;
+  hide = true;
   loading = false;
   submitted = false;
   usuario: Usuario;

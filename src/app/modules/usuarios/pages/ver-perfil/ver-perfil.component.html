@@ -1,4 +1,7 @@
-<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+<div
+  *ngIf="usuario"
+  class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded"
+>
   <div class="row header-row">
     <div class="col">
       <a class="text-secondary">PERFIL</a>
@@ -11,51 +14,66 @@
       <ng-template ngbNavContent>
         <div class="row regular-row">
           <div class="col-4 label">Documento</div>
-          <div class="col-8">Cedula de Ciudadania</div>
+          <div class="col-8">{{ usuario.tipo_identificacion }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Identificación</div>
-          <div class="col-8">123393939</div>
+          <div class="col-8">{{ usuario.identificacion }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Nombre</div>
-          <div class="col-8">Daniela</div>
+          <div class="col-8">{{ usuario.nombre }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Apellido</div>
-          <div class="col-8">Torrez</div>
+          <div class="col-8">{{ usuario.apellido }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Email</div>
-          <div class="col-8">daniela@udea.edu.co</div>
+          <div class="col-8">{{ usuario.email }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Estado</div>
-          <div class="col-8">Inactivo</div>
+          <div class="col-8">{{ usuario.estado }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Dias de Permiso Disponibles</div>
-          <div class="col-8">3</div>
+          <div class="col-8">{{ usuario.dia_dispobible }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Facultad</div>
-          <div class="col-8">Ciencias Exactas y Naturales</div>
+          <div class="col-8">{{ usuario.departamentos.facultad.nombre }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Departamento</div>
-          <div class="col-8">Instituto de Física</div>
+          <div class="col-8">{{ usuario.departamentos.nombre }}</div>
         </div>
 
-        <div class="row footer-row"></div>
-
+        <hr />
+        <div class="row footer-row">
+          <div class="col-10">
+            <button type="button" class="btn btn-secondary float-right">
+              Cancelar
+            </button>
+          </div>
+          <div class="col-2">
+            <button
+              type="button"
+              class="btn btn-warning"
+              [routerLink]="['/usuarios/editar-perfil', usuario.id]"
+            >
+              Editar
+            </button>
+          </div>
+        </div>
         <div class="row footer-row"></div>
       </ng-template>
     </li>

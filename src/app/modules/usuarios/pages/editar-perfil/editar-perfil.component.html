@@ -1,1 +1,147 @@
-<p>editar-perfil works!</p>
+<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+  <form [formGroup]="updateUsuario" (ngSubmit)="onUpdate()">
+    <div class="row regular-row">
+      <div class="col-3 label">
+        <label for="inputPassword6" class="col-form-label label"
+          >Documento</label
+        >
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          id="disabledTextInput"
+          class="form-control"
+          formControlName="tipo_identificacion"
+          [ngClass]="{
+            'is-invalid': submitted && f.tipo_identificacion.errors
+          }"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-3 label">
+        <label for="inputPassword6" class="col-form-label label"
+          >Identificación</label
+        >
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          id="disabledTextInput"
+          class="form-control"
+          formControlName="identificacion"
+          [ngClass]="{
+            'is-invalid': submitted && f.identificacion.errors
+          }"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-3 label">
+        <label class="col-form-label label">Nombre</label>
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombre"
+          [ngClass]="{
+            'is-invalid': submitted && f.nombre.errors
+          }"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-3 label">
+        <label class="col-form-label label">Apellido</label>
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="apellido"
+          [ngClass]="{
+            'is-invalid': submitted && f.apellido.errors
+          }"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-3 label">
+        <label class="col-form-label label">Email</label>
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="email"
+          [ngClass]="{
+            'is-invalid': submitted && f.email.errors
+          }"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-3 label">
+        <label class="col-form-label label">Estado</label>
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          id="disabledTextInput"
+          class="form-control"
+          formControlName="estado"
+          [ngClass]="{
+            'is-invalid': submitted && f.estado.errors
+          }"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-3 label">
+        <label class="col-form-label label">Dias de Permiso Disponibles</label>
+      </div>
+      <div class="col-sm-6">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="dia_disponible"
+          [ngClass]="{
+            'is-invalid': submitted && f.dia_disponible.errors
+          }"
+        />
+      </div>
+    </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+      {{ error }}
+    </div>
+
+    <hr />
+    <div class="row footer-row">
+      <div class="col-10">
+        <button type="button" class="btn btn-secondary float-right">
+          Cancelar
+        </button>
+      </div>
+      <div class="col-2">
+        <button
+          [disabled]="loading"
+          class="btn btn-green btn-success btn-block"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Enviar
+        </button>
+      </div>
+    </div>
+    <div class="row footer-row"></div>
+  </form>
+</div>

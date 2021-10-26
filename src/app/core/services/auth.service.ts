@@ -56,6 +56,7 @@ export class AuthService {
     const { token, usuario } = user;
     localStorage.setItem('ACCESS_TOKEN', token);
     localStorage.setItem('ACCESS_USER_ROLE', usuario.roles_id.toString());
+    localStorage.setItem('ACCESS_USER_ID', usuario.id.toString());
   }
 
   public get tokenStorage(): string {
@@ -86,6 +87,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('ACCESS_USER_ROLE');
+    localStorage.removeItem('ACCESS_USER_ID');
     this.authSubject.next(false);
     this.router.navigate(['/auth/login']);
   }

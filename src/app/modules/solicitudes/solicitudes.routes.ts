@@ -7,26 +7,54 @@ import { EditarSolicitudComponent } from './pages/editar-solicitud/editar-solici
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'solicitudes',
+    component: TablaSolicitudesComponent,
+  },
+  {
+    path: 'ver-solicitud/:id',
+    component: VerSolicitudComponent,
     children: [
       {
-        path: 'solicitudes',
-        component: TablaSolicitudesComponent,
+        path: 'estado',
+        loadChildren: () =>
+          import('../estados/estados.module').then((m) => m.EstadosModule),
       },
-      {
-        path: 'ver-solicitud/:id',
-        component: VerSolicitudComponent,
-      },
-      {
-        path: 'crear-solicitud',
-        component: CrearSolicitudComponent,
-      },
-      {
-        path: 'editar-solicitud/:id',
-        component: EditarSolicitudComponent,
-      },
-      { path: '**', redirectTo: 'solicitudes' },
     ],
+  },
+  {
+    path: 'crear-solicitud',
+    component: CrearSolicitudComponent,
+  },
+  {
+    path: 'editar-solicitud/:id',
+    component: EditarSolicitudComponent,
+  },
+  // { path: '**', redirectTo: '/home/solicitudes', pathMatch: 'full' },
+
+  {
+    // path: '',
+    // children: [
+    // {
+    //   path: 'ver-solicitud/:id',
+    //   component: VerSolicitudComponent,
+    //   children: [
+    //     {
+    //       path: 'estado',
+    //       loadChildren: () =>
+    //         import('../estados/estados.module').then((m) => m.EstadosModule),
+    //     },
+    //   ],
+    // },
+    // {
+    //   path: 'crear-solicitud',
+    //   component: CrearSolicitudComponent,
+    // },
+    // {
+    //   path: 'editar-solicitud/:id',
+    //   component: EditarSolicitudComponent,
+    // },
+    // { path: '', redirectTo: 'solicitudes', pathMatch: 'full' },
+    // ],
   },
 ];
 
