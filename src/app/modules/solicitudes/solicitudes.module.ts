@@ -31,12 +31,14 @@ import { EstadosModule } from '../estados/estados.module';
     ModalMensajeEliminarComponent,
   ],
   imports: [
+    HomeRoutingModule,
+
     CommonModule,
     SharedModule,
     NgbModule,
     FormsModule,
-    HomeRoutingModule,
     ReactiveFormsModule,
+
     CumplidosModule,
     EstadosModule,
   ],

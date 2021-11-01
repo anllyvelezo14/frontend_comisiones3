@@ -27,20 +27,20 @@ interface State {
 const compare = (v1: string | number, v2: string | number) =>
   v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-// function sort(
-//   usuarios: Usuario[],
-//   column: SortColumn,
-//   direction: string
-// ): Usuario[] {
-//   if (direction === '' || column === '') {
-//     return usuarios;
-//   } else {
-//     return [...usuarios].sort((a, b) => {
-//       const res = compare(a[column], b[column]);
-//       return direction === 'asc' ? res : -res;
-//     });
-//   }
-// }
+function sort(
+  usuarios: Usuario[],
+  column: SortColumn,
+  direction: string
+): Usuario[] {
+  if (direction === '' || column === '') {
+    return usuarios;
+  } else {
+    return [...usuarios].sort((a, b) => {
+      const res = compare(a[column], b[column]);
+      return direction === 'asc' ? res : -res;
+    });
+  }
+}
 
 function matches(usuarios: Usuario, term: string, pipe: PipeTransform) {
   console.log('matcheeeeees', usuarios.nombre);
@@ -64,7 +64,7 @@ export class SearchUsuariosService {
   private _search$ = new Subject<void>();
   private _total$ = new BehaviorSubject<number>(0);
   private _usuarios$ = new BehaviorSubject<Usuario[]>([]);
-  public usuariosList = [];
+  //public usuariosList = [];
 
   private _state: State = {
     page: 1,
@@ -74,25 +74,25 @@ export class SearchUsuariosService {
     sortDirection: '',
   };
 
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  // headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(
     private pipe: DecimalPipe,
     private usuarioService: UsuarioService
   ) {
-    this.usuarioService.getUsuarios().subscribe({
-      next: (res) => {
-        this.usuariosList = res as Usuario[];
-        console.log('subscription', res, this.usuariosList);
-      },
-    });
+    // this.usuarioService.getUsuarios().subscribe({
+    //   next: (res) => {
+    //     this.usuariosList = res as Usuario[];
+    //     console.log('subscription', res, this.usuariosList);
+    //   },
+    // });
 
     this._search$
       .pipe(
         tap(() => this._loading$.next(true)),
-        debounceTime(200),
+        //debounceTime(200),
         switchMap(() => this._search()),
-        delay(200),
+        //delay(200),
         tap(() => this._loading$.next(false))
       )
       .subscribe((result) => {
@@ -147,29 +147,42 @@ export class SearchUsuariosService {
   }
 
   private _search(): Observable<SearchResult> {
-    const { sortColumn, sortDirection, pageSize, page, searchTerm } =
-      this._state;
+    // ALL THE CODE GOES INSIDE THE server call
+    return this.usuarioService.getUsuarios().pipe(
+      map((data) => {
+        const { sortColumn, sortDirection, pageSize, page, searchTerm } =
+          this._state;
 
-    // 1. sort
-    let usuarios = this.usuariosList;
+        let usuariosList: Usuario[] = [];
+        if (data) {
+          usuariosList = data; //.Accounts;
+          console.log('========== From Service ==============');
+          console.log('usuariosList', usuariosList);
 
-    //console.log('usuariosList', this.usuariosList);
+          let usuarios = sort(usuariosList, sortColumn, sortDirection);
 
-    //let usuarios = sort(this.usuariosList, sortColumn, sortDirection);
+          // 2. filter
+          usuarios = usuarios.filter((usuarios) =>
+            matches(usuarios, searchTerm, this.pipe)
+          );
 
-    // 2. filter
-    usuarios = usuarios.filter((usuarios) =>
-      matches(usuarios, searchTerm, this.pipe)
+          const total = usuarios.length;
+          usuarios = usuarios.slice(
+            (page - 1) * pageSize,
+            (page - 1) * pageSize + pageSize
+          );
+
+          console.log('usuarios', usuarios);
+          // map() operator will automatically convert the returned value into an observable for me
+          return {
+            usuarios,
+            total,
+          };
+        } else {
+          // In case data is null
+          return null;
+        }
+      })
     );
-
-    const total = usuarios.length;
-
-    // 3. paginate
-    usuarios = usuarios.slice(
-      (page - 1) * pageSize,
-      (page - 1) * pageSize + pageSize
-    );
-    console.log('usuarios', usuarios);
-    return of({ usuarios, total });
   }
 }

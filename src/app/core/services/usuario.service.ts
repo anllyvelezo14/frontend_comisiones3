@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
 import { AuthService } from './auth.service';
-import { Usuario } from '../models/usuario';
+import { Usuario, UsuarioResponse, UsuarioAuth } from '../models/usuario';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 

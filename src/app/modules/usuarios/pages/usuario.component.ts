@@ -4,6 +4,7 @@ import { UsuarioService } from '../../../core/services/usuario.service';
 import { Router } from '@angular/router';
 import { SearchUsuariosService } from '../../../core/services/search-usuarios.service';
 import { DecimalPipe } from '@angular/common';
+import { Usuario } from '../../../core/models/usuario';
 import {
   NgbdSortableHeader,
   SortEvent,
@@ -17,6 +18,7 @@ import {
 })
 export class UsuarioComponent implements OnInit {
   total$: Observable<number>;
+  usuarios$: Observable<Usuario[]>;
   Usuarios: any = [];
   listUsuarios = false;
   error = '';
@@ -27,12 +29,15 @@ export class UsuarioComponent implements OnInit {
     public usuarioService: UsuarioService,
     public searchUsuariosService: SearchUsuariosService,
     public router: Router
-  ) {
-    this.total$ = searchUsuariosService.total$;
-    this.usuarioService.getUsuarios().subscribe({
-      next: (res) => {
-        this.Usuarios = res;
-        if (this.Usuarios.length !== 0) {
+  ) {}
+
+  ngOnInit(): void {
+    this.usuarios$ = this.searchUsuariosService.usuarios$;
+
+    this.searchUsuariosService.usuarios$.subscribe({
+      next: (data) => {
+        console.log('---- In component --', data);
+        if (this.usuarios$) {
           this.listUsuarios = true;
         }
       },
@@ -42,22 +47,8 @@ export class UsuarioComponent implements OnInit {
         }
       },
     });
-  }
 
-  ngOnInit(): void {
-    // this.usuarioService.getUsuarios().subscribe({
-    //   next: (res) => {
-    //     this.Usuarios = res;
-    //     if (this.Usuarios.length !== 0) {
-    //       this.listUsuarios = true;
-    //     }
-    //   },
-    //   error: (err) => {
-    //     if (err.status === 404 || err.status === 401) {
-    //       this.error = err.error.msg;
-    //     }
-    //   },
-    // });
+    this.total$ = this.searchUsuariosService.total$;
   }
 
   onSort({ column, direction }: SortEvent) {

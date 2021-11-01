@@ -65,24 +65,18 @@ input:focus,
 }
 
 .btn-blue {
-    background-color: #22577A;
+    background-color: #134771;
     border-color: #22577A;
+    color: #fff;
 }
 
 .btn-blue:hover {
-    background-color: #134771;
-}
-
-.span-a {
-    width: 100px;
-    height: 100px;
-    padding: 5px;
-    border: 1px solid blue;
-    background-color: yellow;
+    background-color: #0f385a;
+    color: #fff;
 }
 
 .bg-blue {
-    background-color: #3381B5;
+    background-color: #134771;
 }
 
 .bg-green {
@@ -92,4 +86,8 @@ input:focus,
 .footer {
     background-color: #134771;
     color: #fff;
+}
+
+.paggination {
+    background-color: #31a37f;
 }

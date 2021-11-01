@@ -113,7 +113,7 @@
 
     <hr />
     <div class="row footer-row">
-      <div class="col-10">
+      <div class="col-sm-9">
         <button
           type="button"
           class="btn btn-secondary float-right"
@@ -121,11 +121,12 @@
         >
           Cancelar
         </button>
+        <div class="col-sm-1"></div>
       </div>
-      <div class="col-2 form-group">
+      <div class="col-sm-2 form-group">
         <button
           [disabled]="loading"
-          class="btn btn-green btn-success btn-block"
+          class="btn btn-green btn-success float-right"
         >
           <span
             *ngIf="loading"

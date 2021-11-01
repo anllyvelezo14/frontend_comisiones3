@@ -12,16 +12,16 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'tabla-usuarios',
+    component: UsuarioComponent,
+  },
+  {
     path: 'ver-perfil/:id',
     component: VerPerfilComponent,
   },
   {
     path: 'editar-perfil/:id',
     component: EditarPerfilComponent,
-  },
-  {
-    path: 'tabla-usuarios',
-    component: UsuarioComponent,
   },
   {
     path: 'registrar-usuarios',

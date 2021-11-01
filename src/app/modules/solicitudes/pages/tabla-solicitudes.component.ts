@@ -3,8 +3,8 @@ import { Component, QueryList, ViewChildren, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SolicitudService } from '../../../core/services/solicitud.service';
-import { Solicitud } from '../../../core/models/solicitud';
-import { Router, ActivatedRoute } from '@angular/router';
+
+import { Router } from '@angular/router';
 import { SearchSolicitudesService } from '../../../core/services/search-solicitudes.service';
 
 import {
