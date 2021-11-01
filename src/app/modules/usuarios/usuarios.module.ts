@@ -9,9 +9,10 @@ import { EditarPerfilComponent } from './pages/editar-perfil/editar-perfil.compo
 import { VerPerfilComponent } from './pages/ver-perfil/ver-perfil.component';
 import { UsuarioComponent } from './pages/usuario.component';
 import { SolicitudService } from '../../core/services/solicitud.service';
+import { RegistrarUsuariosComponent } from './pages/registrar-usuarios/registrar-usuarios.component';
 
 @NgModule({
-  declarations: [VerPerfilComponent, EditarPerfilComponent, UsuarioComponent],
+  declarations: [VerPerfilComponent, EditarPerfilComponent, UsuarioComponent, RegistrarUsuariosComponent],
   imports: [
     CommonModule,
     NgbModule,

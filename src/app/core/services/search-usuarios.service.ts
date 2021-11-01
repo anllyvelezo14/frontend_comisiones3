@@ -8,11 +8,11 @@ import {
 } from '../../shared/directives/sortable-header.directive';
 
 import { HttpHeaders } from '@angular/common/http';
-import { Solicitud } from '../models/solicitud';
-import { SolicitudService } from './solicitud.service';
+import { Usuario } from '../models/usuario';
+import { UsuarioService } from './usuario.service';
 
 interface SearchResult {
-  solicitudes: Solicitud[];
+  usuarios: Usuario[];
   total: number;
 }
 
@@ -28,40 +28,43 @@ const compare = (v1: string | number, v2: string | number) =>
   v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
 // function sort(
-//   solicitudes: Solicitud[],
+//   usuarios: Usuario[],
 //   column: SortColumn,
 //   direction: string
-// ): Solicitud[] {
+// ): Usuario[] {
 //   if (direction === '' || column === '') {
-//     return solicitudes;
+//     return usuarios;
 //   } else {
-//     return [...solicitudes].sort((a, b) => {
+//     return [...usuarios].sort((a, b) => {
 //       const res = compare(a[column], b[column]);
 //       return direction === 'asc' ? res : -res;
 //     });
 //   }
 // }
 
-function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
-  console.log('matcheeeeees', solicitudes.id);
+function matches(usuarios: Usuario, term: string, pipe: PipeTransform) {
+  console.log('matcheeeeees', usuarios.nombre);
   return (
-    solicitudes.tipos_solicitud.nombre
+    usuarios.apellido.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.nombre.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.email.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.departamentos.nombre.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.departamentos.facultad.nombre
       .toLowerCase()
       .includes(term.toLowerCase()) ||
-    solicitudes.usuarios.nombre.toLowerCase().includes(term) ||
-    solicitudes.usuarios.departamentos.nombre.toLowerCase().includes(term)
+    pipe.transform(usuarios.identificacion).includes(term)
   );
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class SearchSolicitudesService {
+export class SearchUsuariosService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _solicitudes$ = new BehaviorSubject<Solicitud[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-  public solicitudesList = [];
+  private _usuarios$ = new BehaviorSubject<Usuario[]>([]);
+  public usuariosList = [];
 
   private _state: State = {
     page: 1,
@@ -75,12 +78,12 @@ export class SearchSolicitudesService {
 
   constructor(
     private pipe: DecimalPipe,
-    private solicitudService: SolicitudService
+    private usuarioService: UsuarioService
   ) {
-    this.solicitudService.getSolicitudes().subscribe({
+    this.usuarioService.getUsuarios().subscribe({
       next: (res) => {
-        this.solicitudesList = res as Solicitud[];
-        console.log('subscription', res, this.solicitudesList);
+        this.usuariosList = res as Usuario[];
+        console.log('subscription', res, this.usuariosList);
       },
     });
 
@@ -93,7 +96,7 @@ export class SearchSolicitudesService {
         tap(() => this._loading$.next(false))
       )
       .subscribe((result) => {
-        this._solicitudes$.next(result.solicitudes);
+        this._usuarios$.next(result.usuarios);
         this._total$.next(result.total);
       });
 
@@ -101,10 +104,9 @@ export class SearchSolicitudesService {
   }
 
   // SORTING AND FILTERING
-  get solicitudes$() {
-    return this._solicitudes$.asObservable();
+  get usuarios$() {
+    return this._usuarios$.asObservable();
   }
-
   get total$() {
     return this._total$.asObservable();
   }
@@ -148,25 +150,26 @@ export class SearchSolicitudesService {
     const { sortColumn, sortDirection, pageSize, page, searchTerm } =
       this._state;
 
-    let solicitudes = this.solicitudesList;
+    // 1. sort
+    let usuarios = this.usuariosList;
 
-    //console.log('solicitudesList', this.solicitudesList);
+    //console.log('usuariosList', this.usuariosList);
+
+    //let usuarios = sort(this.usuariosList, sortColumn, sortDirection);
 
     // 2. filter
-    solicitudes = solicitudes.filter((solicitud) =>
-      matches(solicitud, searchTerm, this.pipe)
+    usuarios = usuarios.filter((usuarios) =>
+      matches(usuarios, searchTerm, this.pipe)
     );
 
-    let total = solicitudes.length;
+    const total = usuarios.length;
 
     // 3. paginate
-    solicitudes = solicitudes.slice(
+    usuarios = usuarios.slice(
       (page - 1) * pageSize,
       (page - 1) * pageSize + pageSize
     );
-
-    console.log('solicitudes', solicitudes);
-
-    return of({ solicitudes, total });
+    console.log('usuarios', usuarios);
+    return of({ usuarios, total });
   }
 }

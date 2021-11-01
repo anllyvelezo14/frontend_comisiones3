@@ -93,7 +93,7 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    return this.http.post(`http://localhost:3000/olvido-contrasena`, {
+    return this.http.post(`http://localhost:3000/api/recuperar-contrasena`, {
       email,
     });
   }

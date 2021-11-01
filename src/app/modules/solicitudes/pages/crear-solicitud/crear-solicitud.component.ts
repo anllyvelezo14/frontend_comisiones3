@@ -14,7 +14,6 @@ import Swal from 'sweetalert2';
   styleUrls: ['./crear-solicitud.component.css'],
 })
 export class CrearSolicitudComponent implements OnInit {
-  private solicitud: Solicitud = new Solicitud();
   loading = false;
   submitted = false;
   lugar: boolean;

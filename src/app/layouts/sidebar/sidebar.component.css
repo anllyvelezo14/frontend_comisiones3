@@ -6,6 +6,12 @@
     left: 0;
 }
 
+.sidebar-container {
+    position: fixed;
+    width: 15rem;
+    height: 100vh;
+}
+
 .sidebar-content {
     width: 60px;
     height: 100%;

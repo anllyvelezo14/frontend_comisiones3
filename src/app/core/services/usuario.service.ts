@@ -26,7 +26,10 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`);
   }
 
-  // Update
+  createUsuario(solicitud: Usuario): Observable<any> {
+    return this.http.post<Usuario>(this.urlEndPoint, solicitud);
+  }
+
   updateUsuario(id: string, data: Usuario): Observable<any> {
     return this.http.patch<Usuario>(`${this.urlEndPoint}/${id}`, data);
   }

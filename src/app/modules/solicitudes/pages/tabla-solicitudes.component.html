@@ -1,20 +1,10 @@
 <div
-  *ngIf="listSolicitudes == false"
-  class="container shadow-sm pt-4 pl-4 pr-4 pb-3 mb-5 bg-white rounded"
->
-  <p>
-    <ngb-alert type="primary" [dismissible]="false">
-      ¡Aún no hay Solicitudes creadas!
-    </ngb-alert>
-  </p>
-</div>
-<div
   *ngIf="listSolicitudes"
   class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded"
 >
   <form>
     <div class="form-group form-inline">
-      Full text search:
+      Búsqueda:
 
       <input
         class="form-control ml-2"
@@ -31,9 +21,7 @@
       <thead>
         <tr>
           <th scope="col">id</th>
-          <th scope="col" sortable="nombre" (sort)="onSort($event)">
-            Tipo Solicitud
-          </th>
+          <th scope="col">Tipo Solicitud</th>
           <th scope="col">Fecha Creación</th>
           <th scope="col">Solicitante</th>
           <th scope="col">Departamento</th>
@@ -47,32 +35,32 @@
           <td>
             <ngb-highlight
               [result]="solicitud.tipos_solicitud.nombre"
-              [term]="solicitudService.searchTerm"
+              [term]="searchSolicitudesService.searchTerm"
               [routerLink]="['/home/ver-solicitud', solicitud.id]"
             ></ngb-highlight>
           </td>
           <td>
             <ngb-highlight
               [result]="solicitud.createdAt | date"
-              [term]="solicitudService.searchTerm"
+              [term]="searchSolicitudesService.searchTerm"
             ></ngb-highlight>
           </td>
           <td>
             <ngb-highlight
               [result]="solicitud.usuarios.nombre"
-              [term]="solicitudService.searchTerm"
+              [term]="searchSolicitudesService.searchTerm"
             ></ngb-highlight>
           </td>
           <td>
             <ngb-highlight
               [result]="solicitud.usuarios.departamentos.nombre"
-              [term]="solicitudService.searchTerm"
+              [term]="searchSolicitudesService.searchTerm"
             ></ngb-highlight>
           </td>
           <td>
             <ngb-highlight
               [result]="solicitud.intermediate_comisiones"
-              [term]="solicitudService.searchTerm"
+              [term]="searchSolicitudesService.searchTerm"
               class="badge badge-pill pill"
               [ngClass]="{
                 'bg-solicitada':
@@ -113,4 +101,15 @@
       </select>
     </div>
   </form>
+</div>
+
+<div
+  *ngIf="listSolicitudes == false"
+  class="container shadow-sm pt-4 pl-4 pr-4 pb-3 mb-5 bg-white rounded"
+>
+  <p>
+    <ngb-alert type="primary" [dismissible]="false">
+      ¡Aún no hay Solicitudes creadas!
+    </ngb-alert>
+  </p>
 </div>

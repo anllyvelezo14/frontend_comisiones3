@@ -33,9 +33,6 @@ export class TablaSolicitudesComponent implements OnInit {
   ) {
     // this.solicitudes$ = solicitudService.getSolicitudes();
     this.total$ = searchSolicitudesService.total$;
-  }
-
-  ngOnInit(): void {
     this.solicitudService.getSolicitudes().subscribe({
       next: (res) => {
         this.Solicitudes = res;
@@ -44,6 +41,17 @@ export class TablaSolicitudesComponent implements OnInit {
         }
       },
     });
+  }
+
+  ngOnInit(): void {
+    // this.solicitudService.getSolicitudes().subscribe({
+    //   next: (res) => {
+    //     this.Solicitudes = res;
+    //     if (this.Solicitudes.length !== 0) {
+    //       this.listSolicitudes = true;
+    //     }
+    //   },
+    // });
   }
 
   onSort({ column, direction }: SortEvent) {

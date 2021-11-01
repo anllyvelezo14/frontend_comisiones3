@@ -1,10 +1,18 @@
 <div
+  *ngIf="error"
+  class="container shadow-sm pt-4 pl-4 pr-4 pb-3 mb-5 bg-white rounded"
+>
+  <div class="alert alert-danger mt-3 mb-0">
+    {{ error }}
+  </div>
+</div>
+<div
   *ngIf="usuario"
   class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded"
 >
   <div class="row header-row">
     <div class="col">
-      <a class="text-secondary">PERFIL</a>
+      <span class="text-secondary">PERFIL</span>
     </div>
   </div>
   <hr />
@@ -14,53 +22,59 @@
       <ng-template ngbNavContent>
         <div class="row regular-row">
           <div class="col-4 label">Documento</div>
-          <div class="col-8">{{ usuario.tipo_identificacion }}</div>
+          <div class="col-sm-8">{{ usuario.tipo_identificacion }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Identificación</div>
-          <div class="col-8">{{ usuario.identificacion }}</div>
+          <div class="col-sm-8">{{ usuario.identificacion }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Nombre</div>
-          <div class="col-8">{{ usuario.nombre }}</div>
+          <div class="col-sm-8">{{ usuario.nombre }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Apellido</div>
-          <div class="col-8">{{ usuario.apellido }}</div>
+          <div class="col-sm-8">{{ usuario.apellido }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Email</div>
-          <div class="col-8">{{ usuario.email }}</div>
+          <div class="col-sm-8">{{ usuario.email }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Estado</div>
-          <div class="col-8">{{ usuario.estado }}</div>
+          <div class="col-sm-8">{{ usuario.estado }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Dias de Permiso Disponibles</div>
-          <div class="col-8">{{ usuario.dia_dispobible }}</div>
+          <div class="col-sm-8">{{ usuario.dia_dispobible }}</div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Facultad</div>
-          <div class="col-8">{{ usuario.departamentos.facultad.nombre }}</div>
+          <div class="col-sm-8">
+            {{ usuario.departamentos.facultad.nombre }}
+          </div>
         </div>
 
         <div class="row regular-row">
           <div class="col-4 label">Departamento</div>
-          <div class="col-8">{{ usuario.departamentos.nombre }}</div>
+          <div class="col-sm-8">{{ usuario.departamentos.nombre }}</div>
         </div>
 
         <hr />
         <div class="row footer-row">
           <div class="col-10">
-            <button type="button" class="btn btn-secondary float-right">
+            <button
+              type="button"
+              class="btn btn-secondary float-right"
+              [routerLink]="['/home/solicitudes']"
+            >
               Cancelar
             </button>
           </div>
@@ -79,169 +93,6 @@
     </li>
 
     <li [ngbNavItem]="2">
-      <a ngbNavLink class="label">Editar Información de Usuario</a>
-      <ng-template ngbNavContent>
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Documento</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Cedula de Ciudadania"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Identificación</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="123393939"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Nombre</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Daniela"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Apellido</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Torrez"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Email</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Daniela@udea.edu.co"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Estado</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Inactivo"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Dias de Permiso Disponibles</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="3"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Facultad</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Ciencias Exactas y Naturales"
-            />
-          </div>
-        </div>
-
-        <div class="row regular-row">
-          <div class="col-3 label">
-            <label for="inputPassword6" class="col-form-label label"
-              >Departamento</label
-            >
-          </div>
-          <div class="col-sm-6">
-            <input
-              type="text"
-              id="disabledTextInput"
-              class="form-control"
-              placeholder="Instituto de física"
-            />
-          </div>
-        </div>
-
-        <hr />
-        <div class="row footer-row">
-          <div class="col-10">
-            <button type="button" class="btn btn-secondary float-right">
-              Cancelar
-            </button>
-          </div>
-          <div class="col-2">
-            <button type="button" class="btn btn-success btn-green">
-              Enviar
-            </button>
-          </div>
-        </div>
-        <div class="row footer-row"></div>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="3">
       <a ngbNavLink class="label">Cambiar Contraseña</a>
       <ng-template ngbNavContent>
         <div class="row regular-row">
@@ -280,7 +131,11 @@
         <hr />
         <div class="row footer-row">
           <div class="col-10">
-            <button type="button" class="btn btn-secondary float-right">
+            <button
+              type="button"
+              class="btn btn-secondary float-right"
+              [routerLink]="['/home/solicitudes']"
+            >
               Cancelar
             </button>
           </div>
