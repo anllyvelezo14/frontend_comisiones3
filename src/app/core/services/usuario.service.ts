@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { DecimalPipe } from '@angular/common';
 import { AuthService } from './auth.service';
-import { Usuario } from '../models/usuario';
+import { Usuario, UsuarioResponse, UsuarioAuth } from '../models/usuario';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -26,7 +26,10 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`);
   }
 
-  // Update
+  createUsuario(solicitud: Usuario): Observable<any> {
+    return this.http.post<Usuario>(this.urlEndPoint, solicitud);
+  }
+
   updateUsuario(id: string, data: Usuario): Observable<any> {
     return this.http.patch<Usuario>(`${this.urlEndPoint}/${id}`, data);
   }

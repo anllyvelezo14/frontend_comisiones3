@@ -49,4 +49,12 @@ export class SidebarComponent implements OnInit {
   verUsuarios(): void {
     this.router.navigateByUrl('/usuarios/tabla-usuarios');
   }
+
+  irHome() {
+    this.router.navigateByUrl('/home/solicitudes');
+  }
+
+  irRegistrarUsuarios() {
+    this.router.navigateByUrl('/usuarios/registrar-usuarios');
+  }
 }

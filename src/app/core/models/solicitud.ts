@@ -13,8 +13,20 @@ export class Solicitud {
   tipos_solicitud_id: number;
   usuarios_id: number;
   tipos_solicitud: { nombre: string };
-  documentos: [];
-  cumplidos: [];
+  documentos: [
+    {
+      id: number;
+      nombre: string;
+      es_anexo: boolean;
+    }
+  ];
+  cumplidos: [
+    {
+      id: number;
+      fecha_envio: Date;
+      fecha_confirmacion: Date;
+    }
+  ];
   usuarios: {
     nombre: string;
     apellido: string;

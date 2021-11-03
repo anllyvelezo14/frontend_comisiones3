@@ -11,6 +11,7 @@ import { UsuarioService } from '../../../../core/services/usuario.service';
 })
 export class VerPerfilComponent implements OnInit {
   usuario: Usuario;
+  error = '';
 
   constructor(
     private usuarioService: UsuarioService,
@@ -22,9 +23,16 @@ export class VerPerfilComponent implements OnInit {
     this.activateRoute.params.subscribe((params) => {
       const id = params.id;
       if (id) {
-        this.usuarioService
-          .getUsuario(id)
-          .subscribe((resUsuario) => (this.usuario = resUsuario));
+        this.usuarioService.getUsuario(id).subscribe({
+          next: (resUsuario) => {
+            this.usuario = resUsuario;
+          },
+          error: (err) => {
+            if (err.status === 404 || err.status === 401) {
+              this.error = err.error.msg;
+            }
+          },
+        });
       }
     });
   }

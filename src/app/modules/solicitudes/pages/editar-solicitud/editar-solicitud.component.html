@@ -1,14 +1,14 @@
 <div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
   <div class="row header-row">
     <div class="col">
-      <a class="text-secondary">EDITAR SOLICITUD</a>
+      <p class="text-secondary">EDITAR SOLICITUD</p>
     </div>
   </div>
   <hr />
   <form [formGroup]="updateSolicitud" (ngSubmit)="onUpdate()">
     <div class="row regular-row">
       <div class="col-4 label">Tipo de Solicitud</div>
-      <div class="col-8">
+      <div class="col-sm-8">
         <input
           class="form-control"
           formControlName="tipos_solicitud"
@@ -23,13 +23,13 @@
       </div>
       <div class="row regular-row">
         <div class="col-4 label">Fechas *</div>
-        <div class="col-8">
+        <div class="col-sm-8">
           <app-datepicker></app-datepicker>
         </div>
       </div>
       <div class="row regular-row" *ngIf="lugar">
         <div class="col-4 label">Lugar</div>
-        <div class="col-8">
+        <div class="col-sm-8">
           <div class="input-group">
             <input
               type="text"
@@ -48,13 +48,13 @@
       </div>
       <div class="row regular-row" *ngIf="idioma">
         <div class="col-4 label">Idioma</div>
-        <div class="col-8">
+        <div class="col-sm-8">
           <input class="form-control" type="text" formControlName="idioma" />
         </div>
       </div>
       <div class="row regular-row">
         <div class="col-4 label">Justificación *</div>
-        <div class="col-8">
+        <div class="col-sm-8">
           <div class="form-group">
             <textarea
               class="form-control"
@@ -76,7 +76,7 @@
 
       <div class="row regular-row">
         <div class="col-4 label">Anexos</div>
-        <div class="col-8">
+        <div class="col-sm-8">
           <div class="mb-3">
             <input
               class="form-control"
@@ -94,15 +94,20 @@
 
     <hr />
     <div class="row footer-row">
-      <div class="col-10">
-        <!--<button type="button" class="btn btn-secondary float-right">
+      <div class="col-sm-9">
+        <button
+          type="button"
+          class="btn btn-secondary float-right"
+          [routerLink]="['/home/solicitudes']"
+        >
           Cancelar
-        </button>-->
+        </button>
+        <div class="col-sm-1"></div>
       </div>
-      <div class="col-2 form-group">
+      <div class="col-sm-2 form-group">
         <button
           [disabled]="loading"
-          class="btn btn-green btn-success btn-block"
+          class="btn btn-green btn-success float-right"
         >
           <span
             *ngIf="loading"

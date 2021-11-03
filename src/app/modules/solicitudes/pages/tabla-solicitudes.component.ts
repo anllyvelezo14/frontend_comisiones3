@@ -3,9 +3,10 @@ import { Component, QueryList, ViewChildren, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SolicitudService } from '../../../core/services/solicitud.service';
-import { Solicitud } from '../../../core/models/solicitud';
-import { Router, ActivatedRoute } from '@angular/router';
+
+import { Router } from '@angular/router';
 import { SearchSolicitudesService } from '../../../core/services/search-solicitudes.service';
+import { Solicitud } from '../../../core/models/solicitud';
 
 import {
   NgbdSortableHeader,
@@ -19,10 +20,11 @@ import {
   providers: [SolicitudService, DecimalPipe],
 })
 export class TablaSolicitudesComponent implements OnInit {
-  // solicitudes$: Observable<Solicitud[]>;
+  solicitudes$: Observable<Solicitud[]>;
   total$: Observable<number>;
   Solicitudes: any = [];
   listSolicitudes = false;
+  error = '';
 
   @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
 
@@ -30,20 +32,26 @@ export class TablaSolicitudesComponent implements OnInit {
     public solicitudService: SolicitudService,
     public searchSolicitudesService: SearchSolicitudesService,
     public router: Router
-  ) {
-    // this.solicitudes$ = solicitudService.getSolicitudes();
-    this.total$ = searchSolicitudesService.total$;
-  }
+  ) {}
 
   ngOnInit(): void {
-    this.solicitudService.getSolicitudes().subscribe({
-      next: (res) => {
-        this.Solicitudes = res;
-        if (this.Solicitudes.length !== 0) {
+    this.solicitudes$ = this.searchSolicitudesService.solicitudes$;
+
+    this.searchSolicitudesService.solicitudes$.subscribe({
+      next: (data) => {
+        //console.log('---- In component --', data);
+        if (this.solicitudes$) {
           this.listSolicitudes = true;
         }
       },
+      error: (err) => {
+        if (err.status === 404 || err.status === 401) {
+          this.error = err.error.msg;
+        }
+      },
     });
+
+    this.total$ = this.searchSolicitudesService.total$;
   }
 
   onSort({ column, direction }: SortEvent) {

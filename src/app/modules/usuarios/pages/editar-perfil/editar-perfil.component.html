@@ -1,4 +1,10 @@
 <div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+  <div class="row header-row">
+    <div class="col">
+      <span class="text-secondary">EDITAR PERFIL</span>
+    </div>
+  </div>
+  <hr />
   <form [formGroup]="updateUsuario" (ngSubmit)="onUpdate()">
     <div class="row regular-row">
       <div class="col-3 label">
@@ -9,7 +15,6 @@
       <div class="col-sm-6">
         <input
           type="text"
-          id="disabledTextInput"
           class="form-control"
           formControlName="tipo_identificacion"
           [ngClass]="{
@@ -28,7 +33,6 @@
       <div class="col-sm-6">
         <input
           type="text"
-          id="disabledTextInput"
           class="form-control"
           formControlName="identificacion"
           [ngClass]="{
@@ -93,7 +97,6 @@
       <div class="col-sm-6">
         <input
           type="text"
-          id="disabledTextInput"
           class="form-control"
           formControlName="estado"
           [ngClass]="{
@@ -125,7 +128,11 @@
     <hr />
     <div class="row footer-row">
       <div class="col-10">
-        <button type="button" class="btn btn-secondary float-right">
+        <button
+          type="button"
+          class="btn btn-secondary float-right"
+          [routerLink]="['/home/solicitudes']"
+        >
           Cancelar
         </button>
       </div>

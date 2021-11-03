@@ -1,8 +1,10 @@
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UsuarioService } from '../../../core/services/usuario.service';
-import { SearchSolicitudesService } from '../../../core/services/search-solicitudes.service';
 import { Router } from '@angular/router';
+import { SearchUsuariosService } from '../../../core/services/search-usuarios.service';
+import { DecimalPipe } from '@angular/common';
+import { Usuario } from '../../../core/models/usuario';
 import {
   NgbdSortableHeader,
   SortEvent,
@@ -12,19 +14,30 @@ import {
   selector: 'app-usuario',
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css'],
+  providers: [UsuarioService, DecimalPipe],
 })
 export class UsuarioComponent implements OnInit {
+  total$: Observable<number>;
+  usuarios$: Observable<Usuario[]>;
   Usuarios: any = [];
   listUsuarios = false;
   error = '';
 
-  constructor(public usuarioService: UsuarioService, public router: Router) {}
+  @ViewChildren(NgbdSortableHeader) headers: QueryList<NgbdSortableHeader>;
+
+  constructor(
+    public usuarioService: UsuarioService,
+    public searchUsuariosService: SearchUsuariosService,
+    public router: Router
+  ) {}
 
   ngOnInit(): void {
-    this.usuarioService.getUsuarios().subscribe({
-      next: (res) => {
-        this.Usuarios = res;
-        if (this.Usuarios.length !== 0) {
+    this.usuarios$ = this.searchUsuariosService.usuarios$;
+
+    this.searchUsuariosService.usuarios$.subscribe({
+      next: (data) => {
+        console.log('---- In component --', data);
+        if (this.usuarios$) {
           this.listUsuarios = true;
         }
       },
@@ -34,5 +47,19 @@ export class UsuarioComponent implements OnInit {
         }
       },
     });
+
+    this.total$ = this.searchUsuariosService.total$;
+  }
+
+  onSort({ column, direction }: SortEvent) {
+    // resetting other headers
+    this.headers.forEach((header) => {
+      if (header.sortable !== column) {
+        header.direction = '';
+      }
+    });
+
+    this.searchUsuariosService.sortColumn = column;
+    this.searchUsuariosService.sortDirection = direction;
   }
 }

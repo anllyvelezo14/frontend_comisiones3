@@ -8,7 +8,7 @@ import {
   ReactiveFormsModule,
   FormBuilder,
 } from '@angular/forms';
-import { Usuario } from '../../models/usuario';
+import { UsuarioAuth } from '../../models/usuario';
 import { first, Subscription } from 'rxjs';
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   loading = false;
   submitted = false;
-  usuario: Usuario;
+  usuario: UsuarioAuth;
   error = '';
 
   loginForm = this.formBuilder.group({

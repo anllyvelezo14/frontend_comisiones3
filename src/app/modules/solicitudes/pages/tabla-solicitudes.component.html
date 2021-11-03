@@ -1,20 +1,10 @@
 <div
-  *ngIf="listSolicitudes == false"
-  class="container shadow-sm pt-4 pl-4 pr-4 pb-3 mb-5 bg-white rounded"
->
-  <p>
-    <ngb-alert type="primary" [dismissible]="false">
-      ¡Aún no hay Solicitudes creadas!
-    </ngb-alert>
-  </p>
-</div>
-<div
   *ngIf="listSolicitudes"
   class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded"
 >
   <form>
     <div class="form-group form-inline">
-      Full text search:
+      Búsqueda:
 
       <input
         class="form-control ml-2"
@@ -27,71 +17,96 @@
       >
     </div>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">id</th>
-          <th scope="col" sortable="nombre" (sort)="onSort($event)">
-            Tipo Solicitud
-          </th>
-          <th scope="col">Fecha Creación</th>
-          <th scope="col">Solicitante</th>
-          <th scope="col">Departamento</th>
-          <th scope="col">Estado</th>
-          <!-- <th scope="col" sortable="createdAt" (sort)="onSort($event)">Fecha Creación</th>-->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let solicitud of Solicitudes">
-          <th scope="row">{{ solicitud.id }}</th>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.tipos_solicitud.nombre"
-              [term]="solicitudService.searchTerm"
-              [routerLink]="['/home/ver-solicitud', solicitud.id]"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.createdAt | date"
-              [term]="solicitudService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.usuarios.nombre"
-              [term]="solicitudService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.usuarios.departamentos.nombre"
-              [term]="solicitudService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.intermediate_comisiones"
-              [term]="solicitudService.searchTerm"
-              class="badge badge-pill pill"
-              [ngClass]="{
-                'bg-solicitada':
-                  solicitud.intermediate_comisiones === 'SOLICITADA',
-                'bg-aprobada': solicitud.intermediate_comisiones === 'APROBADA',
-                'bg-visto-bueno':
-                  solicitud.intermediate_comisiones === 'VISTO BUENO',
-                'bg-finalizada':
-                  solicitud.intermediate_comisiones === 'FINALIZADA',
-                'bg-rechazada-decanato':
-                  solicitud.intermediate_comisiones === 'RECHAZADA DECANATO',
-                'bg-rechazada-coordinacion':
-                  solicitud.intermediate_comisiones === 'RECHAZADA COORDINACIÓN'
-              }"
-            ></ngb-highlight>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tipo Solicitud</th>
+            <th scope="col">Fecha Actualización</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Departamento</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Documentos</th>
+            <!-- <th scope="col" sortable="createdAt" (sort)="onSort($event)">Fecha Creación</th>-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let solicitud of solicitudes$ | async"
+            [routerLink]="['/home/ver-solicitud', solicitud.id]"
+            class="click-table"
+          >
+            <th scope="row">
+              {{ solicitud.id }}
+            </th>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.tipos_solicitud.nombre"
+                [term]="searchSolicitudesService.searchTerm"
+                [routerLink]="['/home/ver-solicitud', solicitud.id]"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.fecha_actualizacion | date"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="[solicitud.usuarios.nombre]"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="[solicitud.usuarios.apellido]"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.usuarios.departamentos.nombre"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.intermediate_comisiones"
+                [term]="searchSolicitudesService.searchTerm"
+                class="badge badge-pill pill"
+                [ngClass]="{
+                  'bg-solicitada':
+                    solicitud.intermediate_comisiones === 'SOLICITADA',
+                  'bg-aprobada':
+                    solicitud.intermediate_comisiones === 'APROBADA',
+                  'bg-visto-bueno':
+                    solicitud.intermediate_comisiones === 'VISTO BUENO',
+                  'bg-finalizada':
+                    solicitud.intermediate_comisiones === 'FINALIZADA',
+                  'bg-rechazada-decanato':
+                    solicitud.intermediate_comisiones === 'RECHAZADA DECANATO',
+                  'bg-rechazada-coordinacion':
+                    solicitud.intermediate_comisiones ===
+                    'RECHAZADA COORDINACIÓN'
+                }"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight>
+                <!--<table>
+                  <tr *ngFor="let sol of solicitud.documentos">
+                    <th [result]="sol"></th>
+                  </tr>
+                </table>-->
+              </ngb-highlight>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="d-flex justify-content-between p-2">
       <ngb-pagination
@@ -107,10 +122,21 @@
         name="pageSize"
         [(ngModel)]="searchSolicitudesService.pageSize"
       >
-        <option [ngValue]="2">2 items per page</option>
-        <option [ngValue]="4">4 items per page</option>
-        <option [ngValue]="6">6 items per page</option>
+        <option [ngValue]="2">2 solicitudes por página</option>
+        <option [ngValue]="4">4 solicitudes por página</option>
+        <option [ngValue]="6">6 solicitudes por página</option>
       </select>
     </div>
   </form>
+</div>
+
+<div
+  *ngIf="listSolicitudes == false"
+  class="container shadow-sm pt-4 pl-4 pr-4 pb-3 mb-5 bg-white rounded"
+>
+  <p>
+    <ngb-alert type="primary" [dismissible]="false">
+      ¡Aún no hay Solicitudes creadas!
+    </ngb-alert>
+  </p>
 </div>

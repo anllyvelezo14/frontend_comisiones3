@@ -15,9 +15,16 @@ export const routes: Routes = [
     component: VerSolicitudComponent,
     children: [
       {
-        path: 'estado',
+        path: 'estados',
         loadChildren: () =>
           import('../estados/estados.module').then((m) => m.EstadosModule),
+      },
+      {
+        path: 'subir-cumplido',
+        loadChildren: () =>
+          import('../cumplidos/cumplidos.module').then(
+            (m) => m.CumplidosModule
+          ),
       },
     ],
   },
@@ -29,33 +36,33 @@ export const routes: Routes = [
     path: 'editar-solicitud/:id',
     component: EditarSolicitudComponent,
   },
-  // { path: '**', redirectTo: '/home/solicitudes', pathMatch: 'full' },
+  { path: '**', redirectTo: 'solicitudes', pathMatch: 'full' },
 
-  {
-    // path: '',
-    // children: [
-    // {
-    //   path: 'ver-solicitud/:id',
-    //   component: VerSolicitudComponent,
-    //   children: [
-    //     {
-    //       path: 'estado',
-    //       loadChildren: () =>
-    //         import('../estados/estados.module').then((m) => m.EstadosModule),
-    //     },
-    //   ],
-    // },
-    // {
-    //   path: 'crear-solicitud',
-    //   component: CrearSolicitudComponent,
-    // },
-    // {
-    //   path: 'editar-solicitud/:id',
-    //   component: EditarSolicitudComponent,
-    // },
-    // { path: '', redirectTo: 'solicitudes', pathMatch: 'full' },
-    // ],
-  },
+  //{
+  // path: '',
+  // children: [
+  // {
+  //   path: 'ver-solicitud/:id',
+  //   component: VerSolicitudComponent,
+  //   children: [
+  //     {
+  //       path: 'estado',
+  //       loadChildren: () =>
+  //         import('../estados/estados.module').then((m) => m.EstadosModule),
+  //     },
+  //   ],
+  // },
+  // {
+  //   path: 'crear-solicitud',
+  //   component: CrearSolicitudComponent,
+  // },
+  // {
+  //   path: 'editar-solicitud/:id',
+  //   component: EditarSolicitudComponent,
+  // },
+  // { path: '', redirectTo: 'solicitudes', pathMatch: 'full' },
+  // ],
+  //},
 ];
 
 @NgModule({

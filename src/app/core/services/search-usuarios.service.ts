@@ -8,11 +8,11 @@ import {
 } from '../../shared/directives/sortable-header.directive';
 
 import { HttpHeaders } from '@angular/common/http';
-import { Solicitud } from '../models/solicitud';
-import { SolicitudService } from './solicitud.service';
+import { Usuario } from '../models/usuario';
+import { UsuarioService } from './usuario.service';
 
 interface SearchResult {
-  solicitudes: Solicitud[];
+  usuarios: Usuario[];
   total: number;
 }
 
@@ -27,41 +27,43 @@ interface State {
 const compare = (v1: string | number, v2: string | number) =>
   v1 < v2 ? -1 : v1 > v2 ? 1 : 0;
 
-// function sort(
-//   solicitudes: Solicitud[],
-//   column: SortColumn,
-//   direction: string
-// ): Solicitud[] {
-//   if (direction === '' || column === '') {
-//     return solicitudes;
-//   } else {
-//     return [...solicitudes].sort((a, b) => {
-//       const res = compare(a[column], b[column]);
-//       return direction === 'asc' ? res : -res;
-//     });
-//   }
-// }
+function sort(
+  usuarios: Usuario[],
+  column: SortColumn,
+  direction: string
+): Usuario[] {
+  if (direction === '' || column === '') {
+    return usuarios;
+  } else {
+    return [...usuarios].sort((a, b) => {
+      const res = compare(a[column], b[column]);
+      return direction === 'asc' ? res : -res;
+    });
+  }
+}
 
-function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
+function matches(usuarios: Usuario, term: string, pipe: PipeTransform) {
   return (
-    solicitudes.tipos_solicitud.nombre
+    usuarios.apellido.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.nombre.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.email.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.departamentos.nombre.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.departamentos.facultad.nombre
       .toLowerCase()
       .includes(term.toLowerCase()) ||
-    solicitudes.usuarios.nombre.toLowerCase().includes(term) ||
-    solicitudes.usuarios.apellido.toLowerCase().includes(term) ||
-    solicitudes.usuarios.departamentos.nombre.toLowerCase().includes(term)
+    pipe.transform(usuarios.identificacion).includes(term)
   );
 }
 
 @Injectable({
   providedIn: 'root',
 })
-export class SearchSolicitudesService {
+export class SearchUsuariosService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
   private _total$ = new BehaviorSubject<number>(0);
-  private _solicitudes$ = new BehaviorSubject<Solicitud[]>([]);
-  // public solicitudesList = [];
+  private _usuarios$ = new BehaviorSubject<Usuario[]>([]);
+  //public usuariosList = [];
 
   private _state: State = {
     page: 1,
@@ -73,7 +75,7 @@ export class SearchSolicitudesService {
 
   constructor(
     private pipe: DecimalPipe,
-    private solicitudService: SolicitudService
+    private usuarioService: UsuarioService
   ) {
     this._search$
       .pipe(
@@ -84,7 +86,7 @@ export class SearchSolicitudesService {
         tap(() => this._loading$.next(false))
       )
       .subscribe((result) => {
-        this._solicitudes$.next(result.solicitudes);
+        this._usuarios$.next(result.usuarios);
         this._total$.next(result.total);
       });
 
@@ -92,10 +94,9 @@ export class SearchSolicitudesService {
   }
 
   // SORTING AND FILTERING
-  get solicitudes$() {
-    return this._solicitudes$.asObservable();
+  get usuarios$() {
+    return this._usuarios$.asObservable();
   }
-
   get total$() {
     return this._total$.asObservable();
   }
@@ -137,36 +138,35 @@ export class SearchSolicitudesService {
 
   private _search(): Observable<SearchResult> {
     // ALL THE CODE GOES INSIDE THE server call
-    return this.solicitudService.getSolicitudes().pipe(
+    return this.usuarioService.getUsuarios().pipe(
       map((data) => {
         const { sortColumn, sortDirection, pageSize, page, searchTerm } =
           this._state;
 
-        let solicitudesList: Solicitud[] = [];
+        let usuariosList: Usuario[] = [];
 
         if (data) {
-          solicitudesList = data;
+          usuariosList = data;
           // console.log('========== From Service ==============');
-          // console.log('solicitudesList', solicitudesList);
+          // console.log('usuariosList', usuariosList);
 
-          //let solicitudes = sort(solicitudesList, sortColumn, sortDirection);
+          // let usuarios = sort(usuariosList, sortColumn, sortDirection);
 
           // 2. filter
-
-          let solicitudes = solicitudesList.filter((solicitudes) =>
-            matches(solicitudes, searchTerm, this.pipe)
+          let usuarios = usuariosList.filter((usuarios) =>
+            matches(usuarios, searchTerm, this.pipe)
           );
 
-          const total = solicitudes.length;
-          solicitudes = solicitudes.slice(
+          const total = usuarios.length;
+          usuarios = usuarios.slice(
             (page - 1) * pageSize,
             (page - 1) * pageSize + pageSize
           );
 
-          console.log('solicitudes', solicitudes);
+          console.log('usuarios', usuarios);
           // map() operator will automatically convert the returned value into an observable for me
           return {
-            solicitudes,
+            usuarios,
             total,
           };
         } else {

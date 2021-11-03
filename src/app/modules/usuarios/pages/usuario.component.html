@@ -1,3 +1,104 @@
+<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+  <form>
+    <div class="form-group form-inline">
+      Búsqueda:
+      <input
+        class="form-control ml-2"
+        type="text"
+        name="searchTerm"
+        [(ngModel)]="searchUsuariosService.searchTerm"
+      />
+      <span class="ml-3" *ngIf="searchUsuariosService.loading$ | async"
+        >Loading...</span
+      >
+    </div>
+
+    <div class="col-sm-4">
+      <button
+        type="button"
+        class="btn btn-success btn-green"
+        [routerLink]="['/usuarios/registrar-usuarios']"
+      >
+        Registrar usuarios nuevos
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Identificacion</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Departamento</th>
+            <th scope="col">Facultad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let user of usuarios$ | async"
+            class="click-table"
+            [routerLink]="['/usuarios/ver-perfil', user.id]"
+          >
+            <th scope="row">{{ user.identificacion }}</th>
+            <td>
+              <ngb-highlight
+                [result]="user.nombre"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.apellido"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.email"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.departamentos.nombre"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.departamentos.facultad.nombre"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination
+        [collectionSize]="(total$ | async)!"
+        [(page)]="searchUsuariosService.page"
+        [pageSize]="searchUsuariosService.pageSize"
+      >
+      </ngb-pagination>
+
+      <select
+        class="custom-select"
+        style="width: auto"
+        name="pageSize"
+        [(ngModel)]="searchUsuariosService.pageSize"
+      >
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+      </select>
+    </div>
+  </form>
+</div>
+
 <div
   *ngIf="listUsuarios == false"
   class="container shadow-sm pt-4 pl-4 pr-4 pb-3 mb-5 bg-white rounded"
@@ -7,67 +108,6 @@
       ¡Aún no hay Usuarios registrados!
     </ngb-alert>
   </p>
-</div>
-<div
-  *ngIf="listUsuarios"
-  class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded"
->
-  <form>
-    <div class="form-group form-inline">
-      Full text search:
-
-      <input class="form-control ml-2" type="text" name="searchTerm" />
-      <span class="ml-3">Loading...</span>
-    </div>
-
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col" sortable="nombre">Identificacion</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellido</th>
-          <th scope="col">Correo</th>
-          <th scope="col">Departamento</th>
-          <th scope="col">Facultad</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of Usuarios">
-          <th scope="row">{{ user.identificacion }}</th>
-          <td>
-            <ngb-highlight
-              [result]="user.nombre"
-              [routerLink]="['/usuarios/ver-perfil', user.id]"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="user.apellido"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="user.email"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight [result]="user.departamentos.nombre"></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="user.departamentos.facultad.nombre"
-            ></ngb-highlight>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="d-flex justify-content-between p-2">
-      <ngb-pagination> </ngb-pagination>
-
-      <select class="custom-select" style="width: auto" name="pageSize">
-        <option>2 items per page</option>
-        <option>4 items per page</option>
-        <option>6 items per page</option>
-      </select>
-    </div>
-  </form>
 </div>
 
 <div

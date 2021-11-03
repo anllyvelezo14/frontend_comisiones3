@@ -5,52 +5,55 @@
     </div>
   </div>
   <hr />
-  <div class="row regular-row">
-    <div class="col-3 label">id Comisión</div>
-    <div class="col-9">123393939</div>
-  </div>
-  <div class="row regular-row">
-    <div class="col-3 label">Fecha Resolución</div>
-    <div class="col-9">20 Mar 2020</div>
-  </div>
-  <div class="row regular-row">
-    <div class="col-3 label">Fecha Inicio Comisión</div>
-    <div class="col-3">12 Ago 2020</div>
-    <div class="col-3 label">Fecha Fin Comisión</div>
-    <div class="col-3">12 Ago 2020</div>
-  </div>
-  <hr />
 
-  <form>
+  <form [formGroup]="cumplidosForm" (ngSubmit)="subirCumplido()">
+    <div class="row header-row">
+      <div class="col-4 label">ID de la Solicitud</div>
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          disabled="disabled"
+          formControlName="comisiones_id"
+        />
+      </div>
+    </div>
+
     <div class="row regular-row">
       <div class="col-4 label">Destinatarios</div>
-      <div class="col-8">
+      <div class="col-sm-8">
         <div class="form-check">
           <input
             class="form-check-input"
             type="checkbox"
-            value=""
-            id="defaultCheck1"
+            formControlName="correos"
           />
-          <label class="form-check-label" for="defaultCheck1">
-            Default checkbox
+          <label class="form-check-label"> Secretaria del CIEN </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" />
+          <label class="form-check-label"> Programa de Extensión </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" />
+          <label class="form-check-label">
+            Fondo de Pasajes Internacionales
           </label>
         </div>
         <div class="form-check">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="defaultCheck1"
-          />
-          <label class="form-check-label" for="defaultCheck1">
-            Default checkbox
+          <input class="form-check-input" type="checkbox" />
+          <label class="form-check-label">
+            Vicerrectoría de Investigación
           </label>
         </div>
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck1" />
-          <label class="form-check-label" for="gridCheck1">
-            Example checkbox
+          <input class="form-check-input" type="checkbox" />
+          <label class="form-check-label"> Centro de Investigaciones SIU</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" />
+          <label class="form-check-label">
+            Fondos de Vicerrectoría de Docencia
           </label>
         </div>
       </div>
@@ -58,60 +61,77 @@
 
     <div class="row regular-row">
       <div class="col-4 label">Otros Destinatarios</div>
-      <div class="col-8">
-        <input
-          type="email"
-          class="form-control"
-          id="inputEmail3"
-          placeholder="Correos separados por comas"
-        />
+      <div class="col-sm-8">
+        <div class="form-group">
+          <textarea
+            class="form-control"
+            rows="3"
+            placeholder="Correos separados por comas"
+          ></textarea>
+        </div>
       </div>
     </div>
     <div class="row regular-row">
       <div class="col-4 label">Anexos</div>
-      <div class="col-8">
+      <div class="col-sm-8">
         <div class="custom-file">
-          <input
-            type="file"
-            class="custom-file-input"
-            id="customFileLang"
-            lang="es"
-          />
-          <label class="custom-file-label" for="customFileLang"
-            >Seleccionar Archivo</label
-          >
+          <input type="file" class="custom-file-input" lang="es" />
+          <label class="custom-file-label">Seleccionar Archivo</label>
         </div>
       </div>
     </div>
     <div class="row regular-row">
       <div class="col-4 label">Información Complementaria</div>
-      <div class="col-8">
+      <div class="col-sm-8">
         <div class="form-group">
-          <textarea class="form-control" rows="3"></textarea>
+          <textarea
+            class="form-control"
+            rows="3"
+            formControlName="informacion_complementaria"
+            placeholder="Incluya aquí otra información complementaria que pueda ser de importancia para los destinatarios del cumplido. Así por ejemplo, si el cumplido esta relacionado con un Proyecto de Investigación y desea enviarlo a la dependencia que otorgo recursos relacionados, indique el nombre del Proyecto."
+          ></textarea>
         </div>
       </div>
     </div>
     <div class="row regular-row">
       <div class="col-4 label"></div>
-      <div class="col-8">
+      <div class="col-sm-8">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck1" />
+          <input class="form-check-input" type="checkbox" />
           <label class="form-check-label" for="gridCheck1">
             ¿Confirma que desea enviar correo de notificación?
           </label>
         </div>
       </div>
     </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+      {{ error }}
+    </div>
+
+    <hr />
+    <div class="row footer-row">
+      <div class="col-sm-9">
+        <button
+          type="button"
+          class="btn btn-secondary float-right"
+          [routerLink]="['/home/solicitudes']"
+        >
+          Cancelar
+        </button>
+        <div class="col-sm-1"></div>
+      </div>
+      <div class="col-sm-2 form-group">
+        <button
+          [disabled]="loading"
+          class="btn btn-green btn-success float-right"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Enviar
+        </button>
+      </div>
+    </div>
   </form>
-  <hr />
-  <div class="row footer-row">
-    <div class="col-10">
-      <button type="button" class="btn btn-secondary float-right">
-        Cancelar
-      </button>
-    </div>
-    <div class="col-2">
-      <button type="button" class="btn btn-success btn-green">Enviar</button>
-    </div>
-  </div>
 </div>

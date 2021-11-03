@@ -1,0 +1,219 @@
+<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+  <div class="row header-row">
+    <div class="col">
+      <span class="text-secondary">REGISTRAR USUARIOS</span>
+    </div>
+  </div>
+  <hr />
+  <form [formGroup]="registrarUsuariosForm" (ngSubmit)="registrarUsuario()">
+    <div class="row regular-row">
+      <div class="col-4 label">Tipo de Documento</div>
+      <div class="col-sm-8">
+        <select
+          formControlName="tipo_identificacion"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && f.tipo_identificacion.errors
+          }"
+        >
+          <option *ngFor="let tipo of tipoIdentificacion">{{ tipo }}</option>
+        </select>
+        <div
+          *ngIf="submitted && f.tipo_identificacion.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.tipo_identificacion.errors.required">
+            Elige un tipo de Identificación
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-4 label">
+        <label class="col-form-label label">Identificación</label>
+      </div>
+      <div class="col-sm-8">
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="identificacion"
+            [ngClass]="{
+              'is-invalid': submitted && f.identificacion.errors
+            }"
+          />
+          <div
+            *ngIf="submitted && f.identificacion.errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f.identificacion.errors.required">
+              Ingresa tu número de Identificación
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-4 label">
+        <label class="col-form-label label">Nombre</label>
+      </div>
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="nombre"
+          [ngClass]="{
+            'is-invalid': submitted && f.nombre.errors
+          }"
+        />
+        <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+          <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-4 label">
+        <label class="col-form-label label">Apellido</label>
+      </div>
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="apellido"
+          [ngClass]="{
+            'is-invalid': submitted && f.apellido.errors
+          }"
+        />
+        <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
+          <div *ngIf="f.apellido.errors.required">El apellido es requerido</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-4 label">
+        <label class="col-form-label label">Departamento</label>
+      </div>
+      <div class="col-sm-8">
+        <select
+          formControlName="departamentos_id"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && f.departamentos_id.errors
+          }"
+        >
+          <option
+            [value]="dep.id | number"
+            *ngFor="let dep of departamentos$ | async"
+          >
+            {{ dep.nombre }}
+          </option>
+        </select>
+        <div
+          *ngIf="submitted && f.departamentos_id.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.departamentos_id.errors.required">
+            Ingresa el departamento al que pertenece el usuario
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-4 label">
+        <label class="col-form-label label">Rol</label>
+      </div>
+      <div class="col-sm-8">
+        <select
+          formControlName="roles_id"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && f.roles_id.errors
+          }"
+        >
+          <option [value]="rol.id | number" *ngFor="let rol of roles$ | async">
+            {{ rol.nombre }}
+          </option>
+        </select>
+        <div *ngIf="submitted && f.roles_id.errors" class="invalid-feedback">
+          <div *ngIf="f.roles_id.errors.required">
+            Ingresa el rol del usuario
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="row regular-row">
+      <div class="col-4 label">
+        <label class="col-form-label label">Email</label>
+      </div>
+      <div class="col-sm-8">
+        <input
+          type="text"
+          class="form-control"
+          formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+        />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.email.errors.required">
+            El email es requerido
+          </div>
+          <div *ngIf="submitted && f.email.errors.pattern">
+            Ingresa un email institucional
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-4 label">
+        <label class="col-form-label label">Contraseña</label>
+      </div>
+      <div class="col-sm-8">
+        <input
+          type="password"
+          class="form-control"
+          formControlName="contrasena"
+          [ngClass]="{
+            'is-invalid': submitted && f.contrasena.errors
+          }"
+        />
+        <div *ngIf="submitted && f.contrasena.errors" class="invalid-feedback">
+          <div *ngIf="f.contrasena.errors.required">Ingresa una contrasena</div>
+        </div>
+      </div>
+    </div>
+
+    <hr />
+    <div class="row footer-row">
+      <div class="col-10">
+        <button
+          type="button"
+          class="btn btn-secondary float-right"
+          [routerLink]="['/home/solicitudes']"
+        >
+          Cancelar
+        </button>
+      </div>
+      <div class="col-2">
+        <button
+          [disabled]="loading"
+          class="btn btn-green btn-success btn-block"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Enviar
+        </button>
+      </div>
+    </div>
+    <div class="row footer-row"></div>
+  </form>
+</div>
