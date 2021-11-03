@@ -17,69 +17,88 @@
       >
     </div>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">id</th>
-          <th scope="col">Tipo Solicitud</th>
-          <th scope="col">Fecha Creación</th>
-          <th scope="col">Solicitante</th>
-          <th scope="col">Departamento</th>
-          <th scope="col">Estado</th>
-          <!-- <th scope="col" sortable="createdAt" (sort)="onSort($event)">Fecha Creación</th>-->
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let solicitud of Solicitudes">
-          <th scope="row">{{ solicitud.id }}</th>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.tipos_solicitud.nombre"
-              [term]="searchSolicitudesService.searchTerm"
-              [routerLink]="['/home/ver-solicitud', solicitud.id]"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.createdAt | date"
-              [term]="searchSolicitudesService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.usuarios.nombre"
-              [term]="searchSolicitudesService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.usuarios.departamentos.nombre"
-              [term]="searchSolicitudesService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="solicitud.intermediate_comisiones"
-              [term]="searchSolicitudesService.searchTerm"
-              class="badge badge-pill pill"
-              [ngClass]="{
-                'bg-solicitada':
-                  solicitud.intermediate_comisiones === 'SOLICITADA',
-                'bg-aprobada': solicitud.intermediate_comisiones === 'APROBADA',
-                'bg-visto-bueno':
-                  solicitud.intermediate_comisiones === 'VISTO BUENO',
-                'bg-finalizada':
-                  solicitud.intermediate_comisiones === 'FINALIZADA',
-                'bg-rechazada-decanato':
-                  solicitud.intermediate_comisiones === 'RECHAZADA DECANATO',
-                'bg-rechazada-coordinacion':
-                  solicitud.intermediate_comisiones === 'RECHAZADA COORDINACIÓN'
-              }"
-            ></ngb-highlight>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Tipo Solicitud</th>
+            <th scope="col">Fecha Actualización</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Departamento</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Documentos</th>
+            <th scope="col">Acciones</th>
+            <!-- <th scope="col" sortable="createdAt" (sort)="onSort($event)">Fecha Creación</th>-->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let solicitud of solicitudes$ | async">
+            <th scope="row">{{ solicitud.id }}</th>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.tipos_solicitud.nombre"
+                [term]="searchSolicitudesService.searchTerm"
+                [routerLink]="['/home/ver-solicitud', solicitud.id]"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.fecha_actualizacion | date"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="[solicitud.usuarios.nombre]"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="[solicitud.usuarios.apellido]"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.usuarios.departamentos.nombre"
+                [term]="searchSolicitudesService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="solicitud.intermediate_comisiones"
+                [term]="searchSolicitudesService.searchTerm"
+                class="badge badge-pill pill"
+                [ngClass]="{
+                  'bg-solicitada':
+                    solicitud.intermediate_comisiones === 'SOLICITADA',
+                  'bg-aprobada':
+                    solicitud.intermediate_comisiones === 'APROBADA',
+                  'bg-visto-bueno':
+                    solicitud.intermediate_comisiones === 'VISTO BUENO',
+                  'bg-finalizada':
+                    solicitud.intermediate_comisiones === 'FINALIZADA',
+                  'bg-rechazada-decanato':
+                    solicitud.intermediate_comisiones === 'RECHAZADA DECANATO',
+                  'bg-rechazada-coordinacion':
+                    solicitud.intermediate_comisiones ===
+                    'RECHAZADA COORDINACIÓN'
+                }"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight></ngb-highlight>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="d-flex justify-content-between p-2">
       <ngb-pagination

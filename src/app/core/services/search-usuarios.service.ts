@@ -43,7 +43,6 @@ function sort(
 }
 
 function matches(usuarios: Usuario, term: string, pipe: PipeTransform) {
-  console.log('matcheeeeees', usuarios.nombre);
   return (
     usuarios.apellido.toLowerCase().includes(term.toLowerCase()) ||
     usuarios.nombre.toLowerCase().includes(term.toLowerCase()) ||
@@ -74,19 +73,10 @@ export class SearchUsuariosService {
     sortDirection: '',
   };
 
-  // headers = new HttpHeaders().set('Content-Type', 'application/json');
-
   constructor(
     private pipe: DecimalPipe,
     private usuarioService: UsuarioService
   ) {
-    // this.usuarioService.getUsuarios().subscribe({
-    //   next: (res) => {
-    //     this.usuariosList = res as Usuario[];
-    //     console.log('subscription', res, this.usuariosList);
-    //   },
-    // });
-
     this._search$
       .pipe(
         tap(() => this._loading$.next(true)),
@@ -154,15 +144,16 @@ export class SearchUsuariosService {
           this._state;
 
         let usuariosList: Usuario[] = [];
+
         if (data) {
-          usuariosList = data; //.Accounts;
+          usuariosList = data;
           console.log('========== From Service ==============');
           console.log('usuariosList', usuariosList);
 
-          let usuarios = sort(usuariosList, sortColumn, sortDirection);
+          // let usuarios = sort(usuariosList, sortColumn, sortDirection);
 
           // 2. filter
-          usuarios = usuarios.filter((usuarios) =>
+          let usuarios = usuariosList.filter((usuarios) =>
             matches(usuarios, searchTerm, this.pipe)
           );
 

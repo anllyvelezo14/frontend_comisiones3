@@ -43,12 +43,12 @@ const compare = (v1: string | number, v2: string | number) =>
 // }
 
 function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
-  console.log('matcheeeeees', solicitudes.id);
   return (
     solicitudes.tipos_solicitud.nombre
       .toLowerCase()
       .includes(term.toLowerCase()) ||
     solicitudes.usuarios.nombre.toLowerCase().includes(term) ||
+    solicitudes.usuarios.apellido.toLowerCase().includes(term) ||
     solicitudes.usuarios.departamentos.nombre.toLowerCase().includes(term)
   );
 }
@@ -59,9 +59,9 @@ function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
 export class SearchSolicitudesService {
   private _loading$ = new BehaviorSubject<boolean>(true);
   private _search$ = new Subject<void>();
-  private _solicitudes$ = new BehaviorSubject<Solicitud[]>([]);
   private _total$ = new BehaviorSubject<number>(0);
-  public solicitudesList = [];
+  private _solicitudes$ = new BehaviorSubject<Solicitud[]>([]);
+  // public solicitudesList = [];
 
   private _state: State = {
     page: 1,
@@ -71,25 +71,16 @@ export class SearchSolicitudesService {
     sortDirection: '',
   };
 
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
-
   constructor(
     private pipe: DecimalPipe,
     private solicitudService: SolicitudService
   ) {
-    this.solicitudService.getSolicitudes().subscribe({
-      next: (res) => {
-        this.solicitudesList = res as Solicitud[];
-        console.log('subscription', res, this.solicitudesList);
-      },
-    });
-
     this._search$
       .pipe(
         tap(() => this._loading$.next(true)),
-        debounceTime(200),
+        //debounceTime(200),
         switchMap(() => this._search()),
-        delay(200),
+        //delay(200),
         tap(() => this._loading$.next(false))
       )
       .subscribe((result) => {
@@ -145,28 +136,44 @@ export class SearchSolicitudesService {
   }
 
   private _search(): Observable<SearchResult> {
-    const { sortColumn, sortDirection, pageSize, page, searchTerm } =
-      this._state;
+    // ALL THE CODE GOES INSIDE THE server call
+    return this.solicitudService.getSolicitudes().pipe(
+      map((data) => {
+        const { sortColumn, sortDirection, pageSize, page, searchTerm } =
+          this._state;
 
-    let solicitudes = this.solicitudesList;
+        let solicitudesList: Solicitud[] = [];
 
-    //console.log('solicitudesList', this.solicitudesList);
+        if (data) {
+          solicitudesList = data;
+          console.log('========== From Service ==============');
+          console.log('solicitudesList', solicitudesList);
 
-    // 2. filter
-    solicitudes = solicitudes.filter((solicitud) =>
-      matches(solicitud, searchTerm, this.pipe)
+          //let solicitudes = sort(solicitudesList, sortColumn, sortDirection);
+
+          // 2. filter
+
+          let solicitudes = solicitudesList.filter((solicitudes) =>
+            matches(solicitudes, searchTerm, this.pipe)
+          );
+
+          const total = solicitudes.length;
+          solicitudes = solicitudes.slice(
+            (page - 1) * pageSize,
+            (page - 1) * pageSize + pageSize
+          );
+
+          console.log('solicitudes', solicitudes);
+          // map() operator will automatically convert the returned value into an observable for me
+          return {
+            solicitudes,
+            total,
+          };
+        } else {
+          // In case data is null
+          return null;
+        }
+      })
     );
-
-    let total = solicitudes.length;
-
-    // 3. paginate
-    solicitudes = solicitudes.slice(
-      (page - 1) * pageSize,
-      (page - 1) * pageSize + pageSize
-    );
-
-    console.log('solicitudes', solicitudes);
-
-    return of({ solicitudes, total });
   }
 }

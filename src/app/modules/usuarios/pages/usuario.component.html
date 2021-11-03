@@ -2,7 +2,6 @@
   <form>
     <div class="form-group form-inline">
       Búsqueda:
-
       <input
         class="form-control ml-2"
         type="text"
@@ -14,54 +13,66 @@
       >
     </div>
 
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">Identificacion</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Apellido</th>
-          <th scope="col">Correo</th>
-          <th scope="col">Departamento</th>
-          <th scope="col">Facultad</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of usuarios$ | async">
-          <th scope="row">{{ user.identificacion }}</th>
-          <td>
-            <ngb-highlight
-              [result]="user.nombre"
-              [routerLink]="['/usuarios/ver-perfil', user.id]"
-              [term]="searchUsuariosService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="user.apellido"
-              [term]="searchUsuariosService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="user.email"
-              [term]="searchUsuariosService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="user.departamentos.nombre"
-              [term]="searchUsuariosService.searchTerm"
-            ></ngb-highlight>
-          </td>
-          <td>
-            <ngb-highlight
-              [result]="user.departamentos.facultad.nombre"
-              [term]="searchUsuariosService.searchTerm"
-            ></ngb-highlight>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-sm-4">
+      <button
+        type="button"
+        class="btn btn-success btn-green"
+        [routerLink]="['/usuarios/registrar-usuarios']"
+      >
+        Registrar usuarios nuevos
+      </button>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Identificacion</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Departamento</th>
+            <th scope="col">Facultad</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of usuarios$ | async">
+            <th scope="row">{{ user.identificacion }}</th>
+            <td>
+              <ngb-highlight
+                [result]="user.nombre"
+                [routerLink]="['/usuarios/ver-perfil', user.id]"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.apellido"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.email"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.departamentos.nombre"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+            <td>
+              <ngb-highlight
+                [result]="user.departamentos.facultad.nombre"
+                [term]="searchUsuariosService.searchTerm"
+              ></ngb-highlight>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <div class="d-flex justify-content-between p-2">
       <ngb-pagination

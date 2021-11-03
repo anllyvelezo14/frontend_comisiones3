@@ -1,22 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AsociarEstadoComponent } from './asociar-estado/asociar-estado.component';
+import { SubirCumplidoComponent } from './subir-cumplido/subir-cumplido.component';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'estados',
+    redirectTo: 'subir-cumplido',
     pathMatch: 'full',
   },
   {
     path: '',
-    component: AsociarEstadoComponent,
+    component: SubirCumplidoComponent,
   },
-  //{ path: '**', redirectTo: '/home/solicitudes', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class EstadosRoutingModule {}
+export class CumplidosRoutingModule {}

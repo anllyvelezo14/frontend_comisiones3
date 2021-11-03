@@ -1,13 +1,14 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UsuarioService } from '../../../../core/services/usuario.service';
-import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Departamento } from '../../../../core/models/departamento';
 import { Rol } from '../../../../core/models/rol';
 import { DepartamentoService } from '../../../../core/services/departamento.service';
 import { RolService } from '../../../../core/services/rol.service';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-registrar-usuarios',
@@ -38,11 +39,9 @@ export class RegistrarUsuariosComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone
   ) {
-    this.departamentos$ = departamentoService.getDepartamentos();
-    this.roles$ = rolService.getRoles();
+    this.departamentos$ = this.departamentoService.getDepartamentos();
+    this.roles$ = this.rolService.getRoles();
   }
-
-  ngOnInit(): void {}
 
   registrarUsuariosForm = this.formBuilder.group({
     tipo_identificacion: ['', [Validators.required, Validators.nullValidator]],
@@ -54,6 +53,8 @@ export class RegistrarUsuariosComponent implements OnInit {
     departamentos_id: ['', Validators.required],
     roles_id: ['', Validators.required],
   });
+
+  ngOnInit(): void {}
 
   // convenience getters for easy access to form fields
   get f() {
