@@ -146,8 +146,8 @@ export class SearchSolicitudesService {
 
         if (data) {
           solicitudesList = data;
-          console.log('========== From Service ==============');
-          console.log('solicitudesList', solicitudesList);
+          // console.log('========== From Service ==============');
+          // console.log('solicitudesList', solicitudesList);
 
           //let solicitudes = sort(solicitudesList, sortColumn, sortDirection);
 

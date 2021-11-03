@@ -29,13 +29,18 @@
             <th scope="col">Departamento</th>
             <th scope="col">Estado</th>
             <th scope="col">Documentos</th>
-            <th scope="col">Acciones</th>
             <!-- <th scope="col" sortable="createdAt" (sort)="onSort($event)">Fecha Creación</th>-->
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let solicitud of solicitudes$ | async">
-            <th scope="row">{{ solicitud.id }}</th>
+          <tr
+            *ngFor="let solicitud of solicitudes$ | async"
+            [routerLink]="['/home/ver-solicitud', solicitud.id]"
+            class="click-table"
+          >
+            <th scope="row">
+              {{ solicitud.id }}
+            </th>
             <td>
               <ngb-highlight
                 [result]="solicitud.tipos_solicitud.nombre"
@@ -90,10 +95,13 @@
               ></ngb-highlight>
             </td>
             <td>
-              <ngb-highlight></ngb-highlight>
-            </td>
-            <td>
-              <ngb-highlight></ngb-highlight>
+              <ngb-highlight>
+                <!--<table>
+                  <tr *ngFor="let sol of solicitud.documentos">
+                    <th [result]="sol"></th>
+                  </tr>
+                </table>-->
+              </ngb-highlight>
             </td>
           </tr>
         </tbody>

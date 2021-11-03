@@ -147,8 +147,8 @@ export class SearchUsuariosService {
 
         if (data) {
           usuariosList = data;
-          console.log('========== From Service ==============');
-          console.log('usuariosList', usuariosList);
+          // console.log('========== From Service ==============');
+          // console.log('usuariosList', usuariosList);
 
           // let usuarios = sort(usuariosList, sortColumn, sortDirection);
 

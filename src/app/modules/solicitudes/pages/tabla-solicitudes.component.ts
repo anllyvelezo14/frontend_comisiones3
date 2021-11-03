@@ -39,7 +39,7 @@ export class TablaSolicitudesComponent implements OnInit {
 
     this.searchSolicitudesService.solicitudes$.subscribe({
       next: (data) => {
-        console.log('---- In component --', data);
+        //console.log('---- In component --', data);
         if (this.solicitudes$) {
           this.listSolicitudes = true;
         }
