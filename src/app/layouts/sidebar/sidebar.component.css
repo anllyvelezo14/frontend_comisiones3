@@ -3,7 +3,7 @@
   box-sizing: border-box;
   text-decoration: none;
 }
-.ng-sidebar-container{
+.ng-sidebar-container {
   width: 15rem;
   height: 100vh;
   position:absolute;
