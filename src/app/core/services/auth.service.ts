@@ -21,7 +21,7 @@ export class AuthService {
     this.checkToken();
   }
 
-  // Verifica si user ha hecho  login
+  // Verifica si user ha hecho login
   isLogged(): boolean {
     this.token = this.tokenStorage;
     if (this.token != null) {

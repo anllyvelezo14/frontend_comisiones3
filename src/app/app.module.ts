@@ -49,8 +49,9 @@ registerLocaleData(localeCl, 'es');
   imports: [
     BrowserModule,
     CommonModule,
-    AppRoutingModule,
     NgbModule,
+
+    AppRoutingModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -61,18 +62,18 @@ registerLocaleData(localeCl, 'es');
     CumplidosModule,
     UsuariosModule,
     AuthModule,
-    //EstadosModule,
     // CoreModule,
     SidebarModule.forRoot(),
   ],
   providers: [
+    DecimalPipe,
+
     AuthGuard,
     AuthService,
-    DecimalPipe,
     // SolicitudService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
-    { provide: LOCALE_ID, useValue: 'es' },
-  ], // en español
+    { provide: LOCALE_ID, useValue: 'es' }, // en español
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })

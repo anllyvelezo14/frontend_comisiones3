@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Solicitud } from '../models/solicitud';
-import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,7 @@ import { AuthService } from './auth.service';
 export class SolicitudService {
   private urlEndPoint = 'http://localhost:3000/api/comisiones';
 
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  // headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {}
 
