@@ -16,10 +16,10 @@
           <div class="user-info">
             <span class="user-name">
               {{ Name }}
-              <br/>
+              <br />
               {{ LastName }}
             </span>
-            <br/>
+            <br />
             <span class="user-role">
               <span class="user-status">
                 <i class="fa fa-circle"></i>
@@ -27,83 +27,81 @@
               {{ Role }}
             </span>
           </div>
-        <!-- sidebar-header  -->
-        <hr color="#f5f5f5" />
-        <div class="create-request ">
-          <button type="button" class="btn-request" >
-            <span style="color: #ffff; margin: 0">
-              <i class="fas fa-plus-circle"></i>
-            </span>
-            Crear Solicitud
-          </button>
-        </div>
-        <!-- sidebar-search  -->
-        <hr color="#f5f5f5" />
-        <div class="sidebar-menu">
-          <div class="header-menu">
-            <span>GENERAL</span>
-          </div>
-          <ul>
-            <li>
-              <a href="#">
-                <span>
-                  <i class="far fa-user"></i>
-                  Mi Perfil
-                  </span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <i class="far fa-file-alt"></i>
-                  Comisiones
-                  </span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <i class="fas fa-info-circle" style="color: #000;"></i>
-                  Información
-                </span>
-              </a>
-            </li>
-          </ul>
-          <div class="header-menu">
-            <span>
-              ESPECÍFICO
-            </span>
-          </div>
-          <ul>
-            <li>
-              <a href="#">
-                <span>
-                  <i class="far fa-building"></i>
-                  Departamentos
-                </span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <span>
-                  <i class="fas fa-university"></i>
-                  Facultades
-                </span>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <!-- sidebar-menu  -->
-        <!-- sidebar-content  -->
-        <div class="sidebar-footer">
-          <hr/>
-          <a href="#">
-            <span>
-              <i class="fas fa-power-off"></i>
-              Cerrar Sesi&iacute;n
+          <!-- sidebar-header  -->
+          <hr color="#f5f5f5" />
+          <div class="create-request">
+            <button type="button" class="btn-request">
+              <span style="color: #ffff; margin: 0">
+                <i class="fas fa-plus-circle"></i>
               </span>
-          </a>
-        </div>
+              Crear Solicitud
+            </button>
+          </div>
+          <!-- sidebar-search  -->
+          <hr color="#f5f5f5" />
+          <div class="sidebar-menu">
+            <div class="header-menu">
+              <span>GENERAL</span>
+            </div>
+            <ul>
+              <li>
+                <a href="#">
+                  <span>
+                    <i class="far fa-user"></i>
+                    Mi Perfil
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span>
+                    <i class="fas fa-home"></i>
+                    Solicitudes
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span>
+                    <i class="fas fa-info-circle" style="color: #000"></i>
+                    Información
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <div class="header-menu">
+              <span> ESPECÍFICO </span>
+            </div>
+            <ul>
+              <li>
+                <a href="#">
+                  <span>
+                    <i class="far fa-building"></i>
+                    Departamentos
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <span>
+                    <i class="fas fa-university"></i>
+                    Facultades
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- sidebar-menu  -->
+          <!-- sidebar-content  -->
+          <div class="sidebar-footer">
+            <hr />
+            <a href="#">
+              <span>
+                <i class="fas fa-power-off"></i>
+                Cerrar Sesi&oacute;n
+              </span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -135,31 +133,42 @@
           </span>
         </div>
 
-      <!-- <img src="./icon.png" alt=""> -->
+        <!-- <img src="./icon.png" alt=""> -->
 
-      <!-- sidebar-header  -->
+        <!-- sidebar-header  -->
         <hr color="#f5f5f5" />
         <div>
-          <button type="button" (click)="irCrearSolicitud()" class="btn-small-request' title='Crear Solicitud">
+          <button type="button" (click)="irCrearSolicitud()" class="btn-small-request" title="Crear Solicitud">
             <span>
-            <i class="fas fa-plus-circle"></i>
+              <i class="fas fa-plus-circle"></i>
             </span>
           </button>
         </div>
         <hr color="#f5f5f5" />
-          <!-- sidebar-search  -->
+        <!-- sidebar-search  -->
         <div class="sidebar-small-menu">
           <div>
-            <button type="button" (click)="irPerfil()" class="icon-small-sidebar" title="Mi Perfil">
+            <button
+              type="button"
+              (click)="irPerfil()"
+              class="icon-small-sidebar"
+              title="Mi Perfil"
+            >
               <span>
                 <i class="far fa-user"></i>
               </span>
             </button>
           </div>
           <div class="sidebar-small-menu">
-            <button type="button" (click)="irAsociarEstado()" class="icon-small-sidebar' title='Comisiones">
+            <button
+              type="button"
+              (click)="irHome()"
+              class="icon-small-sidebar"
+              title="Solicitudes"
+            >
               <span>
-                <i class="far fa-file-alt"></i>
+                <!--<i class="far fa-file-alt"></i>-->
+                <i class="fas fa-home"></i>
               </span>
             </button>
           </div>
@@ -184,7 +193,7 @@
             </button>
           </div>
           <div class="sidebar-small-menu">
-            <button class="icon-small-sidebar' title='Departamentos">
+            <button class="icon-small-sidebar" title="Departamentos">
               <span>
                 <i class="far fa-building"></i>
               </span>
@@ -205,7 +214,7 @@
     <hr />
     <div class="sidebar-small-footer">
       <a (click)="onLogout()">
-        <span title="Cerrar Ses&iacute;on">
+        <span title="Cerrar Sesi&oacute;n">
           <i class="fas fa-power-off"></i>
         </span>
       </a>

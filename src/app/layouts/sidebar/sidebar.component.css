@@ -10,7 +10,7 @@
 }
 
 .ng-sidebar {
-  background: #fdfdfd;
+  background: #ffffff;
   width: 15rem;
   height: 100vh;
   display: flex;
@@ -216,7 +216,11 @@
 /************Small devices only ****************/
 @media (min-width: 768px) and (max-width: 991px) {
   .sidebar-content{
-    position: fixed;
+    /* position:fixed; */
+  }
+  .ng-sidebar {
+    height:100%;
+    display: inline-table;
   }
   .user-icon{
     margin-top: 1.6em;
