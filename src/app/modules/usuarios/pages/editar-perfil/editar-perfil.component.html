@@ -5,30 +5,36 @@
     </div>
   </div>
   <hr />
+
   <form [formGroup]="updateUsuario" (ngSubmit)="onUpdate()">
     <div class="row regular-row">
       <div class="col-3 label">
-        <label for="inputPassword6" class="col-form-label label"
-          >Documento</label
-        >
+        <label class="col-form-label label">Documento</label>
       </div>
       <div class="col-sm-6">
-        <input
-          type="text"
-          class="form-control"
+        <select
           formControlName="tipo_identificacion"
+          class="form-control"
           [ngClass]="{
             'is-invalid': submitted && f.tipo_identificacion.errors
           }"
-        />
+        >
+          <option *ngFor="let tipo of tipoIdentificacion">{{ tipo }}</option>
+        </select>
+        <div
+          *ngIf="submitted && f.tipo_identificacion.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.tipo_identificacion.errors.required">
+            Elige un tipo de Identificación
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="row regular-row">
       <div class="col-3 label">
-        <label for="inputPassword6" class="col-form-label label"
-          >Identificación</label
-        >
+        <label class="col-form-label label">Identificación</label>
       </div>
       <div class="col-sm-6">
         <input
@@ -39,6 +45,14 @@
             'is-invalid': submitted && f.identificacion.errors
           }"
         />
+        <div
+          *ngIf="submitted && f.identificacion.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="f.identificacion.errors.required">
+            La Identificacion es requerida
+          </div>
+        </div>
       </div>
     </div>
 
@@ -55,6 +69,9 @@
             'is-invalid': submitted && f.nombre.errors
           }"
         />
+        <div *ngIf="submitted && f.nombre.errors" class="invalid-feedback">
+          <div *ngIf="f.nombre.errors.required">El nombre es requerido</div>
+        </div>
       </div>
     </div>
 
@@ -71,6 +88,9 @@
             'is-invalid': submitted && f.apellido.errors
           }"
         />
+        <div *ngIf="submitted && f.apellido.errors" class="invalid-feedback">
+          <div *ngIf="f.apellido.errors.required">El apellido es requerido</div>
+        </div>
       </div>
     </div>
 
@@ -87,6 +107,12 @@
             'is-invalid': submitted && f.email.errors
           }"
         />
+        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <div *ngIf="f.email.errors.required">El email es requerido</div>
+          <div *ngIf="submitted && f.email.errors.pattern">
+            Ingresa un email institucional
+          </div>
+        </div>
       </div>
     </div>
 
@@ -103,6 +129,17 @@
             'is-invalid': submitted && f.estado.errors
           }"
         />
+        <select
+          formControlName="estado"
+          class="form-control"
+          [ngClass]="{
+            'is-invalid': submitted && f.estado.errors
+          }"
+        >
+          <option *ngFor="let estado of estadoUsuario.nombre">
+            {{ estado }}
+          </option>
+        </select>
       </div>
     </div>
 
@@ -126,8 +163,9 @@
     </div>
 
     <hr />
+
     <div class="row footer-row">
-      <div class="col-10">
+      <div class="col-sm-9">
         <button
           type="button"
           class="btn btn-secondary float-right"
@@ -135,11 +173,12 @@
         >
           Cancelar
         </button>
+        <div class="col-sm-1"></div>
       </div>
-      <div class="col-2">
+      <div class="col-sm-2 form-group">
         <button
           [disabled]="loading"
-          class="btn btn-green btn-success btn-block"
+          class="btn btn-green btn-success float-right"
         >
           <span
             *ngIf="loading"
@@ -149,6 +188,5 @@
         </button>
       </div>
     </div>
-    <div class="row footer-row"></div>
   </form>
 </div>

@@ -1,0 +1,73 @@
+<div class="container shadow-sm pt-4 pl-4 pr-4 mb-5 bg-white rounded">
+  <div class="row header-row">
+    <div class="col">
+      <span class="text-secondary">MODIFICAR CONTRASEÑA</span>
+    </div>
+  </div>
+  <hr />
+
+  <form [formGroup]="updateContrasena" (click)="onUpdatePassword()">
+    <div class="row regular-row">
+      <div class="col-sm-6">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Contraseña Actual"
+          name="contrasenaActual"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-sm-6">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Nueva Contraseña"
+          name="contrasena"
+        />
+      </div>
+    </div>
+
+    <div class="row regular-row">
+      <div class="col-sm-6">
+        <input
+          type="password"
+          class="form-control"
+          placeholder="Confirmar Contraseña"
+          name="confirmarContrasena"
+        />
+      </div>
+    </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
+      {{ error }}
+    </div>
+
+    <hr />
+
+    <div class="row footer-row">
+      <div class="col-sm-9">
+        <button
+          type="button"
+          class="btn btn-secondary float-right"
+          [routerLink]="['/usuarios/ver-perfil', getId]"
+        >
+          Cancelar
+        </button>
+        <div class="col-sm-1"></div>
+      </div>
+      <div class="col-sm-2 form-group">
+        <button
+          [disabled]="loading"
+          class="btn btn-green btn-success float-right"
+        >
+          <span
+            *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"
+          ></span>
+          Enviar
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -12,6 +12,7 @@ import { RegistrarUsuariosComponent } from './pages/registrar-usuarios/registrar
 import { UsuarioService } from '../../core/services/usuario.service';
 import { RolService } from '../../core/services/rol.service';
 import { DepartamentoService } from '../../core/services/departamento.service';
+import { ModificarContrasenaComponent } from './pages/editar-perfil/modificar-contrasena.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { DepartamentoService } from '../../core/services/departamento.service';
     EditarPerfilComponent,
     UsuarioComponent,
     RegistrarUsuariosComponent,
+    ModificarContrasenaComponent,
   ],
   imports: [
     UsuariosRouting,

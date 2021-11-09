@@ -75,7 +75,9 @@ export class RegistrarUsuariosComponent implements OnInit {
         .createUsuario(this.registrarUsuariosForm.value)
         .subscribe({
           next: (res) => {
-            this.ngZone.run(() => this.router.navigate(['/home/solicitudes']));
+            this.ngZone.run(() =>
+              this.router.navigate(['/usuarios/tabla-usuarios'])
+            );
             Swal.fire({
               title: 'Registro',
               text: '¡El usuario se registró con éxito!',

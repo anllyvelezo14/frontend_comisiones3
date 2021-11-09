@@ -18,7 +18,7 @@ import { CoreModule } from './core/core.module';
 
 // SERVICES
 import { AuthService } from './core/services/auth.service';
-import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { TokenInterceptor } from './core/helpers/token.interceptor';
 import { SolicitudService } from './core/services/solicitud.service';
 
 // GUARDS

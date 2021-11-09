@@ -24,7 +24,9 @@ export class SolicitudService {
         const solicitud = res as Solicitud[];
         return solicitud.map((newSolicitud) => {
           console.log(newSolicitud.documentos.length);
+
           const lenEstados = newSolicitud.intermediate_comisiones.length;
+
           const final_estado =
             newSolicitud.intermediate_comisiones[lenEstados - 1][
               'intermediate_estados'

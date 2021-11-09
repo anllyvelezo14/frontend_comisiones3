@@ -3,36 +3,21 @@ import { UsuarioService } from '../../../../core/services/usuario.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../../../core/models/usuario';
-
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-editar-perfil',
-  templateUrl: './editar-perfil.component.html',
-  styleUrls: ['./editar-perfil.component.css'],
+  selector: 'app-modificar-contrasena',
+  templateUrl: './modificar-contrasena.component.html',
+  styleUrls: ['./modificar-contrasena.component.css'],
 })
-export class EditarPerfilComponent implements OnInit {
+export class ModificarContrasenaComponent implements OnInit {
   usuario: Usuario;
   getId: any;
-  updateUsuario: FormGroup;
   updateContrasena: FormGroup;
   loading = false;
   submitted = false;
   error = '';
-  isEmailValid = /^[a-zA-Z0-9._%+-]+@udea.edu.co$/;
   active = 1;
-  tipoIdentificacion = [
-    '',
-    'Cédula de Ciudadanía',
-    'Tarjeta de Identidad',
-    'Cédula de Extrangería',
-    'Pasaporte',
-  ];
-
-  estadoUsuario = {
-    nombre: ['activo', 'inactivo'],
-    status: [1, 2],
-  };
 
   constructor(
     private usuarioService: UsuarioService,
@@ -45,14 +30,8 @@ export class EditarPerfilComponent implements OnInit {
 
     this.usuarioService.getUsuario(this.getId).subscribe({
       next: (res) => {
-        this.updateUsuario.setValue({
-          tipo_identificacion: res.tipo_identificacion,
-          identificacion: res.identificacion,
-          nombre: res.nombre,
-          apellido: res.apellido,
-          email: res.email,
-          estado: res.estado,
-          dia_disponible: res.dia_disponible,
+        this.updateContrasena.setValue({
+          contrasena: '',
         });
       },
       error: (err) => {
@@ -63,41 +42,34 @@ export class EditarPerfilComponent implements OnInit {
       },
     });
 
-    this.updateUsuario = this.formBuilder.group({
-      tipo_identificacion: ['', Validators.required],
-      identificacion: ['', Validators.required],
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      email: ['', [Validators.required, Validators.pattern(this.isEmailValid)]],
-      estado: ['', Validators.required],
-      dia_disponible: ['', Validators.required],
+    this.updateContrasena = this.formBuilder.group({
+      contrasena: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {}
 
   get f() {
-    return this.updateUsuario.controls;
+    return this.updateContrasena.controls;
   }
 
-  onUpdate(): any {
+  onUpdatePassword() {
     this.submitted = true;
-
     // stop here if form is invalid
-    if (this.updateUsuario.invalid) {
+    if (this.updateContrasena.invalid) {
       return;
     }
 
     this.usuarioService
-      .updateUsuario(this.getId, this.updateUsuario.value)
+      .updateUsuario(this.getId, this.updateContrasena.value)
       .subscribe({
         next: (res) => {
           this.ngZone.run(() =>
             this.router.navigateByUrl(`/usuarios/ver-perfil/${this.getId}`)
           );
           Swal.fire({
-            title: 'Actulizado',
-            text: '¡El usuario se actualizó con éxito!',
+            title: 'Actulizada',
+            text: '¡La contraseña se actualizó con éxito!',
             icon: 'success',
             confirmButtonColor: '#3AB795',
           });

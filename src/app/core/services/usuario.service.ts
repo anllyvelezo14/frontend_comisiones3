@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class UsuarioService {
   private urlEndPoint = 'http://localhost:3000/api/usuarios';
 
-  headers = new HttpHeaders().set('Content-Type', 'application/json');
+  // headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private http: HttpClient) {}
 
