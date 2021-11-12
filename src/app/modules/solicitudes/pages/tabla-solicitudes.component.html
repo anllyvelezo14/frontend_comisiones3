@@ -74,23 +74,21 @@
             </td>
             <td>
               <ngb-highlight
-                [result]="solicitud.intermediate_comisiones"
+                [result]="solicitud.nombreEstadoActual"
                 [term]="searchSolicitudesService.searchTerm"
                 class="badge badge-pill pill"
                 [ngClass]="{
                   'bg-solicitada':
-                    solicitud.intermediate_comisiones === 'SOLICITADA',
-                  'bg-aprobada':
-                    solicitud.intermediate_comisiones === 'APROBADA',
+                    solicitud.nombreEstadoActual === 'SOLICITADA',
+                  'bg-aprobada': solicitud.nombreEstadoActual === 'APROBADA',
                   'bg-visto-bueno':
-                    solicitud.intermediate_comisiones === 'VISTO BUENO',
+                    solicitud.nombreEstadoActual === 'VISTO BUENO',
                   'bg-finalizada':
-                    solicitud.intermediate_comisiones === 'FINALIZADA',
+                    solicitud.nombreEstadoActual === 'FINALIZADA',
                   'bg-rechazada-decanato':
-                    solicitud.intermediate_comisiones === 'RECHAZADA DECANATO',
+                    solicitud.nombreEstadoActual === 'RECHAZADA DECANATO',
                   'bg-rechazada-coordinacion':
-                    solicitud.intermediate_comisiones ===
-                    'RECHAZADA COORDINACIÓN'
+                    solicitud.nombreEstadoActual === 'RECHAZADA COORDINACIÓN'
                 }"
               ></ngb-highlight>
             </td>

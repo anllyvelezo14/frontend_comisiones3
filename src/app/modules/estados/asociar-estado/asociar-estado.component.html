@@ -38,6 +38,7 @@
           class="form-control"
           formControlName="estados_id"
           [ngClass]="{ 'is-invalid': submitted && f.estados_id.errors }"
+          autofocus
         >
           <option
             [value]="estado.id | number"

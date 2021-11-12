@@ -87,14 +87,34 @@
 
   <div class="row regular-row">
     <div class="col-4">
-      <span class="badge badge-pill pill badge-secondary">
-        {{
-          solicitud.intermediate_comisiones["intermediate_estados"]["nombre"]
-        }}
+      <span
+        class="badge badge-pill pill"
+        [ngClass]="{
+          'bg-solicitada':
+            solicitud.estadoActual['intermediate_estados']['nombre'] ===
+            'SOLICITADA',
+          'bg-aprobada':
+            solicitud.estadoActual['intermediate_estados']['nombre'] ===
+            'APROBADA',
+          'bg-visto-bueno':
+            solicitud.estadoActual['intermediate_estados']['nombre'] ===
+            'VISTO BUENO',
+          'bg-finalizada':
+            solicitud.estadoActual['intermediate_estados']['nombre'] ===
+            'FINALIZADA',
+          'bg-rechazada-decanato':
+            solicitud.estadoActual['intermediate_estados']['nombre'] ===
+            'RECHAZADA DECANATO',
+          'bg-rechazada-coordinacion':
+            solicitud.estadoActual['intermediate_estados']['nombre'] ===
+            'RECHAZADA COORDINACIÓN'
+        }"
+      >
+        {{ solicitud.estadoActual["intermediate_estados"]["nombre"] }}
       </span>
     </div>
     <div class="col-sm-4">
-      {{ solicitud.intermediate_comisiones["fecha_actualizacion"] | date }}
+      {{ solicitud.estadoActual["fecha_actualizacion"] | date }}
     </div>
     <div class="col-4"></div>
   </div>
@@ -102,7 +122,7 @@
   <div class="row regular-row">
     <div class="col-4"></div>
     <div class="col-sm-8">
-      {{ solicitud.intermediate_comisiones["observacion"] }}
+      {{ solicitud.estadoActual["observacion"] }}
     </div>
   </div>
 

@@ -10,45 +10,45 @@
   </button>
 </div>
 
-<table class="table table-striped" *ngIf="solicitud">
-  <thead>
-    <tr>
-      <th scope="col">Estado</th>
-      <th scope="col">Fecha de Actualización</th>
-      <th scope="col">Observación</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let solicitud of solicitud.intermediate_comisiones">
-      <th scope="row">
-        <span class="badge badge-pill badge-success bg-green">{{
-          solicitud
-        }}</span>
-      </th>
-      <td>{{ solicitud }}</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="row regular-row">
-  <div class="col-2 label">Estado</div>
-  <div class="col-2 label">Fecha de Actualización</div>
-  <div class="col-6 label">Observación</div>
-  <div class="col-2 label">Acciones</div>
-</div>
-<hr />
-
-<div class="row regular-row">
-  <div class="col-2 label">
-    <span class="badge badge-pill badge-success bg-green">Visto bueno</span>
-  </div>
-  <div class="col-2"></div>
-  <div class="col-6"></div>
-  <div class="col-1"><i class="fas fa-trash"></i></div>
-  <div class="col-1"><i class="fas fa-pencil-alt"></i></div>
+<div class="table-responsive">
+  <table class="table table-striped" *ngIf="intermediateComisiones">
+    <thead>
+      <tr>
+        <th scope="col">Estado</th>
+        <th scope="col">Fecha de Actualización</th>
+        <th scope="col">Observación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let inter of intermediateComisiones">
+        <th>
+          <ngb-highlight
+            [result]="inter.intermediate_estados.nombre"
+            class="badge badge-pill pill"
+            [ngClass]="{
+              'bg-solicitada':
+                inter.intermediate_estados.nombre === 'SOLICITADA',
+              'bg-aprobada': inter.intermediate_estados.nombre === 'APROBADA',
+              'bg-visto-bueno':
+                inter.intermediate_estados.nombre === 'VISTO BUENO',
+              'bg-finalizada':
+                inter.intermediate_estados.nombre === 'FINALIZADA',
+              'bg-rechazada-decanato':
+                inter.intermediate_estados.nombre === 'RECHAZADA DECANATO',
+              'bg-rechazada-coordinacion':
+                inter.intermediate_estados.nombre === 'RECHAZADA COORDINACIÓN'
+            }"
+          ></ngb-highlight>
+        </th>
+        <td>
+          <ngb-highlight
+            [result]="inter.fecha_actualizacion | date"
+          ></ngb-highlight>
+        </td>
+        <td><ngb-highlight [result]="inter.observacion"></ngb-highlight></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <div class="modal-footer">

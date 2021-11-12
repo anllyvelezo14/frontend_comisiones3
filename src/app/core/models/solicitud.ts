@@ -13,6 +13,12 @@ export class Solicitud {
   tipos_solicitud_id: number;
   usuarios_id: number;
   tipos_solicitud: { nombre: string };
+  nombreEstadoActual: string;
+  estadoActual: {
+    createdAt: Date;
+    fecha_actualizacion: Date;
+    intermediate_estados: { nombre: string };
+  };
   documentos: [
     {
       id: number;
@@ -42,5 +48,13 @@ export class Solicitud {
       };
     };
   };
-  intermediate_comisiones: [];
+  intermediate_comisiones: [
+    {
+      createdAt: Date;
+      fecha_actualizacion: Date;
+      intermediate_estados: {
+        nombre: string;
+      };
+    }
+  ];
 }

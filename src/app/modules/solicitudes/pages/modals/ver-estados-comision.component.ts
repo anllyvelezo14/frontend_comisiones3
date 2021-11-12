@@ -18,9 +18,10 @@ interface Estado {
 @Component({
   selector: 'ngbd-modal-content',
   templateUrl: './modal-historial-estados.component.html',
+  styleUrls: ['./ver-estados-comision.component.css'],
 })
 export class ModalHistorialEstados {
-  solicitud: Solicitud;
+  intermediateComisiones: Solicitud;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -29,9 +30,10 @@ export class ModalHistorialEstados {
   ) {
     this.activateRoute.params.subscribe((params) => {
       const id = params.id;
-      this.solicitudService
-        .getSolicitud(id)
-        .subscribe((resSolicitud) => (this.solicitud = resSolicitud));
+      this.solicitudService.getSolicitud(id).subscribe((resSolicitud) => {
+        this.intermediateComisiones = resSolicitud.intermediate_comisiones;
+        console.log('intermediate_comisiones', this.intermediateComisiones);
+      });
     });
   }
 }
@@ -41,7 +43,6 @@ export class ModalHistorialEstados {
 @Component({
   selector: 'app-ver-estados-comision',
   templateUrl: './ver-estados-comision.component.html',
-  styleUrls: ['./ver-estados-comision.component.css'],
 
   // add NgbModalConfig and NgbModal to the component providers
   providers: [NgbModalConfig, NgbModal],

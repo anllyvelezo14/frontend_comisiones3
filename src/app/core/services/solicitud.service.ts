@@ -31,7 +31,7 @@ export class SolicitudService {
             newSolicitud.intermediate_comisiones[lenEstados - 1][
               'intermediate_estados'
             ]['nombre'];
-          newSolicitud.intermediate_comisiones = final_estado;
+          newSolicitud.nombreEstadoActual = final_estado;
           return newSolicitud;
         });
       })
@@ -43,7 +43,7 @@ export class SolicitudService {
       map((res) => {
         const lenEstados = res.intermediate_comisiones.length;
         const final_estado = res.intermediate_comisiones[lenEstados - 1];
-        res.intermediate_comisiones = final_estado;
+        res.estadoActual = final_estado;
         return res;
       })
     ); // Cast: json a tipo solicitud
