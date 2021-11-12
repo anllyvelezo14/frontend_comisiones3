@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Usuario } from '../../../../core/models/usuario';
 import Swal from 'sweetalert2';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-modificar-contrasena',
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class ModificarContrasenaComponent implements OnInit {
   usuario: Usuario;
+  usuario$: Observable<Usuario>;
   getId: any;
   updateContrasena: FormGroup;
   loading = false;
@@ -28,26 +30,59 @@ export class ModificarContrasenaComponent implements OnInit {
   ) {
     this.getId = this.activateRoute.snapshot.paramMap.get('id');
 
-    this.usuarioService.getUsuario(this.getId).subscribe({
-      next: (res) => {
-        this.updateContrasena.setValue({
-          contrasena: '',
-        });
-      },
-      error: (err) => {
-        if (err.status === 404 || err.status === 401) {
-          this.error = err.error.msg; // mensaje desde el back
-          this.loading = false;
-        }
-      },
-    });
+    // this.usuarioService
+    //   .getUsuario(this.getId)
+    //   .subscribe((resUsuario) => (this.usuario = resUsuario));
 
-    this.updateContrasena = this.formBuilder.group({
-      contrasena: ['', Validators.required],
-    });
+    // this.usuarioService.getUsuario(this.getId).subscribe({
+    //   next: (resUsuario) => {
+    //     this.usuario = resUsuario;
+    //     console.log(this.usuario.contrasena);
+    //     // this.updateContrasena.setValue({
+    //     //   contrasena: '',
+    //     //   confirmContrasena: '',
+    //     //   contrasenaActual: '',
+    //     // });
+    //   },
+    //   error: (err) => {
+    //     if (err.status === 404 || err.status === 401) {
+    //       this.error = err.error.msg; // mensaje desde el back
+    //       this.loading = false;
+    //     }
+    //   },
+    // });
+
+    this.updateContrasena = this.formBuilder.group(
+      {
+        contrasena: ['', Validators.required],
+        confirmContrasena: ['', Validators.required],
+        //contrasenaActual: ['', Validators.required],
+      },
+      {
+        validators: [
+          //this.MustMatch('contrasena', 'contrasenaActual'),
+          this.MustMatch('contrasena', 'confirmContrasena'),
+        ],
+      }
+    );
   }
 
   ngOnInit(): void {}
+
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        return;
+      }
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
+  }
 
   get f() {
     return this.updateContrasena.controls;
@@ -59,6 +94,8 @@ export class ModificarContrasenaComponent implements OnInit {
     if (this.updateContrasena.invalid) {
       return;
     }
+
+    console.log(this.updateContrasena.value);
 
     this.usuarioService
       .updateUsuario(this.getId, this.updateContrasena.value)

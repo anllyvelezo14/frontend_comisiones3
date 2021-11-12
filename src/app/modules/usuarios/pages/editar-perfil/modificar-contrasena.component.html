@@ -7,25 +7,43 @@
   <hr />
 
   <form [formGroup]="updateContrasena" (click)="onUpdatePassword()">
-    <div class="row regular-row">
+    <!--<div class="row regular-row">
       <div class="col-sm-6">
         <input
           type="password"
           class="form-control"
           placeholder="Contraseña Actual"
-          name="contrasenaActual"
+          formControlName="contrasenaActual"
+          [ngClass]="{ 'is-invalid': submitted && f.contrasenaActual.errors }"
         />
+        <div
+          *ngIf="submitted && f.contrasenaActual.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="submitted && f.contrasenaActual.errors.mustMatch">
+            Las contraseñas no coinciden
+          </div>
+          <div *ngIf="submitted && f.contrasenaActual.errors.required">
+            Contraseña actual incorrecta
+          </div>
+        </div>
       </div>
-    </div>
+    </div>-->
 
     <div class="row regular-row">
       <div class="col-sm-6">
         <input
           type="password"
-          class="form-control"
           placeholder="Nueva Contraseña"
-          name="contrasena"
+          formControlName="contrasena"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f.contrasena.errors }"
         />
+        <div *ngIf="submitted && f.contrasena.errors" class="invalid-feedback">
+          <div *ngIf="submitted && f.contrasena.errors.required">
+            La contrasena es requerida
+          </div>
+        </div>
       </div>
     </div>
 
@@ -35,8 +53,20 @@
           type="password"
           class="form-control"
           placeholder="Confirmar Contraseña"
-          name="confirmarContrasena"
+          formControlName="confirmContrasena"
+          [ngClass]="{ 'is-invalid': submitted && f.confirmContrasena.errors }"
         />
+        <div
+          *ngIf="submitted && f.confirmContrasena.errors"
+          class="invalid-feedback"
+        >
+          <div *ngIf="submitted && f.confirmContrasena.errors.mustMatch">
+            Las contraseñas no coinciden
+          </div>
+          <div *ngIf="submitted && f.confirmContrasena.errors.required">
+            Confirmar la contraseña es requerido
+          </div>
+        </div>
       </div>
     </div>
     <div *ngIf="error" class="alert alert-danger mt-3 mb-0">

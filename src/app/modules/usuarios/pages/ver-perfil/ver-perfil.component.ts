@@ -26,6 +26,7 @@ export class VerPerfilComponent implements OnInit {
         this.usuarioService.getUsuario(id).subscribe({
           next: (resUsuario) => {
             this.usuario = resUsuario;
+            console.log(resUsuario);
           },
           error: (err) => {
             if (err.status === 404 || err.status === 401) {
