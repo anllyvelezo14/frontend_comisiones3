@@ -11,6 +11,7 @@
 
 .ng-sidebar {
   background: #ffffff;
+  display: inline-table;
   width: 15rem;
   height: 100vh;
   display: flex;
@@ -205,12 +206,25 @@
 
 /************Large devices only ****************/
 @media (min-width:1200px) {
-
+  .ng-sidebar {
+    height:100%;
+    display: inline-table;
+  }
 }
 /************Medium devices only ****************/
 @media (min-width: 992px) and (max-width: 1199px) {
+  .ng-sidebar {
+    height:100%;
+    display: inline-table;
+  }
   .ng-sidebar-container{
     height: 100%;
+  }
+  .user-icon {
+    display: none;
+  }
+  .btn-small-request {
+    margin-top: 1em;
   }
 }
 /************Small devices only ****************/
@@ -222,8 +236,11 @@
     height:100%;
     display: inline-table;
   }
-  .user-icon{
-    margin-top: 1.6em;
+  .user-icon {
+    display: none;
+  }
+  .btn-small-request {
+    margin-top: 1em;
   }
 }
 /************Extra Small devices only ****************/
@@ -254,7 +271,7 @@
     display: none;
   }
 }
-  /*********** hamburger *******************/
+/*********** hamburger *******************/
 .hamburger {
   position: fixed;
   top: 20px;
