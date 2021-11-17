@@ -43,13 +43,17 @@ const compare = (v1: string | number, v2: string | number) =>
 // }
 
 function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
+  console.log('solicitudes.estadoActual',solicitudes.nombreEstadoActual);
   return (
+    
     solicitudes.tipos_solicitud.nombre
       .toLowerCase()
       .includes(term.toLowerCase()) ||
     solicitudes.usuarios.nombre.toLowerCase().includes(term) ||
     solicitudes.usuarios.apellido.toLowerCase().includes(term) ||
-    solicitudes.usuarios.departamentos.nombre.toLowerCase().includes(term)
+    solicitudes.usuarios.departamentos.nombre.toLowerCase().includes(term) ||
+    solicitudes.nombreEstadoActual.toLowerCase().includes(term) ||
+    pipe.transform(solicitudes.id).includes(term) 
   );
 }
 

@@ -44,8 +44,8 @@ function sort(
 
 function matches(usuarios: Usuario, term: string, pipe: PipeTransform) {
   return (
-    usuarios.apellido.toLowerCase().includes(term.toLowerCase()) ||
     usuarios.nombre.toLowerCase().includes(term.toLowerCase()) ||
+    usuarios.apellido.toLowerCase().includes(term.toLowerCase()) ||
     usuarios.email.toLowerCase().includes(term.toLowerCase()) ||
     usuarios.departamentos.nombre.toLowerCase().includes(term.toLowerCase()) ||
     usuarios.departamentos.facultad.nombre
