@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import {
   NgbDate,
   NgbCalendar,
@@ -18,11 +19,17 @@ export class DatepickerComponent {
 
   constructor(
     private calendar: NgbCalendar,
-    public formatter: NgbDateParserFormatter
+    public formatter: NgbDateParserFormatter,
+    private formBuilder: FormBuilder,
   ) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
+
+
+  fechaSolicitudForm = this.formBuilder.group({
+    fechasInicioFin: ['']
+  });
 
   onDateSelection(date: NgbDate) {
     if (!this.fromDate && !this.toDate) {

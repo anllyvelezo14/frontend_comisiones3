@@ -7,6 +7,8 @@ import { TipoSolicitudService } from '../../../../core/services/tipo-solicitud.s
 import { Observable } from 'rxjs';
 import { TipoSolicitud } from '../../../../core/models/tipo-solicitud';
 import Swal from 'sweetalert2';
+import { UsuarioService } from 'src/app/core/services/usuario.service';
+import { Usuario } from 'src/app/core/models/usuario';
 
 @Component({
   selector: 'app-crear-solicitud',
@@ -23,24 +25,32 @@ export class CrearSolicitudComponent implements OnInit {
   anexo: boolean;
   disponible: boolean;
   options$: Observable<TipoSolicitud[]>;
+  usuario$: Observable<Usuario>;
+  solicitud: Solicitud;
   error = '';
 
   constructor(
     private solicitudService: SolicitudService,
     private tipoSolicitudService: TipoSolicitudService,
+    private usuarioService: UsuarioService,
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
     private router: Router,
     private ngZone: NgZone
   ) {
     this.options$ = this.tipoSolicitudService.getTipoSolicitud();
+    //this.usuario$ = this.usuarioService.getUsuario();
   }
 
   crearSolicitudForm = this.formBuilder.group({
     tipos_solicitud_id: ['', Validators.required],
     justificacion: ['', Validators.required],
+    // fecha_inicio: [''],
+    // fecha_fin: [''],
     lugar: [''],
     idioma: [''],
+    //anexo: [''],
+    fechasInicioFin: ['']
   });
 
   ngOnInit(): void {
@@ -78,6 +88,7 @@ export class CrearSolicitudComponent implements OnInit {
 
   crearSolicitud(): any {
     this.submitted = true;
+    this.loading = true;
 
     // stop here if form is invalid
 
@@ -86,8 +97,24 @@ export class CrearSolicitudComponent implements OnInit {
     }
 
     if (this.crearSolicitudForm.valid) {
+      
+
+      // let myDateObj = this.crearSolicitudForm.value.fechasInicioFin.date;
+      // let convertedDate =  new Date(
+      //   myDateObj.year, 
+      //   myDateObj.month-1, 
+      //   myDateObj.day);
+
+      //   let p = Object.assign({},this.solicitud, this.crearSolicitudForm.value, {
+      //     fechasInicioFin: convertedDate
+      //   });
+
+        console.log('formulario crear',this.crearSolicitudForm.value);
+
+
       return this.solicitudService
         .createSolicitud(this.crearSolicitudForm.value)
+        //.createSolicitud(p)
         .subscribe({
           next: (res) => {
             this.ngZone.run(() => this.router.navigate(['/home/solicitudes']));
@@ -107,8 +134,7 @@ export class CrearSolicitudComponent implements OnInit {
         });
     }
 
-    this.loading = true;
+    
 
-    console.log(this.crearSolicitudForm.value);
   }
 }

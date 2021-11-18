@@ -53,6 +53,16 @@
   </div>
 
   <div class="row regular-row">
+    <div class="col-6 label">Día que Inicia</div>
+    <div class="col-sm-6">{{ solicitud.fecha_inicio | date }}</div>
+  </div>
+
+  <div class="row regular-row">
+    <div class="col-6 label">Día que Termina</div>
+    <div class="col-sm-6">{{ solicitud.fecha_fin | date }}</div>
+  </div>
+
+  <div class="row regular-row">
     <div class="col-6 label">Justificación</div>
     <div class="col-sm-6">
       {{ solicitud.justificacion }}

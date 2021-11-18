@@ -2,6 +2,7 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { DecimalPipe } from '@angular/common';
 import { debounceTime, delay, switchMap, tap, map } from 'rxjs/operators';
+import { DatePipe } from '@angular/common'
 import {
   SortColumn,
   SortDirection,
@@ -42,8 +43,7 @@ const compare = (v1: string | number, v2: string | number) =>
 //   }
 // }
 
-function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
- 
+function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform, datepipe: DatePipe) {
   return (
     
     solicitudes.tipos_solicitud.nombre
@@ -53,7 +53,9 @@ function matches(solicitudes: Solicitud, term: string, pipe: PipeTransform) {
     solicitudes.usuarios.apellido.toLowerCase().includes(term) ||
     solicitudes.usuarios.departamentos.nombre.toLowerCase().includes(term) ||
     solicitudes.nombreEstadoActual.toLowerCase().includes(term) ||
-    pipe.transform(solicitudes.id).includes(term) 
+    pipe.transform(solicitudes.id).includes(term) || 
+   datepipe.transform(solicitudes.fecha_actualizacion, 'dd/MM/yyyy').includes(term)
+  
   );
 }
 
@@ -77,7 +79,8 @@ export class SearchSolicitudesService {
 
   constructor(
     private pipe: DecimalPipe,
-    private solicitudService: SolicitudService
+    private solicitudService: SolicitudService,
+    private datepipe: DatePipe
   ) {
     this._search$
       .pipe(
@@ -150,15 +153,11 @@ export class SearchSolicitudesService {
 
         if (data) {
           solicitudesList = data;
-          // console.log('========== From Service ==============');
-          // console.log('solicitudesList', solicitudesList);
-
-          //let solicitudes = sort(solicitudesList, sortColumn, sortDirection);
 
           // 2. filter
 
           let solicitudes = solicitudesList.filter((solicitudes) =>
-            matches(solicitudes, searchTerm, this.pipe)
+            matches(solicitudes, searchTerm, this.pipe, this.datepipe)
           );
 
           const total = solicitudes.length;

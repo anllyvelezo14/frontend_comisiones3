@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common'
 
 // MODULES
 import { SharedModule } from './shared/shared.module';
@@ -67,6 +68,7 @@ registerLocaleData(localeCl, 'es');
   ],
   providers: [
     DecimalPipe,
+    DatePipe,
 
     AuthGuard,
     AuthService,
