@@ -11,7 +11,7 @@
 
 .ng-sidebar {
   background: #ffffff;
-  display: inline-table;
+  display: flex;
   width: 15rem;
   height: 100vh;
   display: flex;
