@@ -30,9 +30,10 @@ export class VerSolicitudComponent implements OnInit {
     this.activateRoute.params.subscribe((params) => {
       const id = params.id;
       if (id) {
-        this.solicitudService
-          .getSolicitud(id)
-          .subscribe((resSolicitud) => (this.solicitud = resSolicitud));
+        this.solicitudService.getSolicitud(id).subscribe((resSolicitud) => {
+          this.solicitud = resSolicitud;
+          console.log(this.solicitud);
+        });
       }
     });
   }
