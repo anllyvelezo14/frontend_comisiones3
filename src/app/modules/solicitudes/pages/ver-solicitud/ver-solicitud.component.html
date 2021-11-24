@@ -34,12 +34,14 @@
 
   <div class="row regular-row">
     <div class="col-6 label">Fecha de Creación</div>
-    <div class="col-sm-6">{{ solicitud.createdAt | date }}</div>
+    <div class="col-sm-6">{{ solicitud.createdAt | date: "fullDate" }}</div>
   </div>
 
   <div class="row regular-row">
     <div class="col-6 label">Fecha de Actualización</div>
-    <div class="col-sm-6">{{ solicitud.fecha_actualizacion | date }}</div>
+    <div class="col-sm-6">
+      {{ solicitud.fecha_actualizacion | date: "fullDate" }}
+    </div>
   </div>
 
   <div class="row regular-row">
@@ -54,12 +56,14 @@
 
   <div class="row regular-row">
     <div class="col-6 label">Día que Inicia</div>
-    <div class="col-sm-6">{{ solicitud.fecha_inicio | date }}</div>
+    <div class="col-sm-6">
+      {{ solicitud.fecha_inicio | date: "fullDate" }}
+    </div>
   </div>
 
   <div class="row regular-row">
     <div class="col-6 label">Día que Termina</div>
-    <div class="col-sm-6">{{ solicitud.fecha_fin | date }}</div>
+    <div class="col-sm-6">{{ solicitud.fecha_fin | date: "fullDate" }}</div>
   </div>
 
   <div class="row regular-row">

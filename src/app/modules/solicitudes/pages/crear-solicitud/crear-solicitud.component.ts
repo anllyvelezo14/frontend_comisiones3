@@ -9,6 +9,12 @@ import { TipoSolicitud } from '../../../../core/models/tipo-solicitud';
 import Swal from 'sweetalert2';
 import { UsuarioService } from 'src/app/core/services/usuario.service';
 import { Usuario } from 'src/app/core/models/usuario';
+import {
+  NgbCalendar,
+  NgbDate,
+  NgbDateParserFormatter,
+  NgbDateStruct,
+} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-crear-solicitud',
@@ -29,6 +35,11 @@ export class CrearSolicitudComponent implements OnInit {
   solicitud: Solicitud;
   error = '';
 
+  hoveredDate: NgbDate | null = null;
+
+  fromDate: NgbDate | null;
+  toDate: NgbDate | null;
+
   constructor(
     private solicitudService: SolicitudService,
     private tipoSolicitudService: TipoSolicitudService,
@@ -36,21 +47,25 @@ export class CrearSolicitudComponent implements OnInit {
     private formBuilder: FormBuilder,
     private cd: ChangeDetectorRef,
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private calendar: NgbCalendar,
+    public formatter: NgbDateParserFormatter
   ) {
     this.options$ = this.tipoSolicitudService.getTipoSolicitud();
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getNext(calendar.getToday(), 'd', 2);
     //this.usuario$ = this.usuarioService.getUsuario();
   }
 
+  // ----------- FORM  -----------
   crearSolicitudForm = this.formBuilder.group({
     tipos_solicitud_id: ['', Validators.required],
     justificacion: ['', Validators.required],
-    // fecha_inicio: [''],
-    // fecha_fin: [''],
+    fecha_inicio: [''],
+    fecha_fin: [''],
     lugar: [''],
     idioma: [''],
     //anexo: [''],
-    fechasInicioFin: ['']
   });
 
   ngOnInit(): void {
@@ -86,9 +101,22 @@ export class CrearSolicitudComponent implements OnInit {
     this.cd.detectChanges();
   }
 
+  newDateFormat(date) {
+    const fechaInicioObject = date;
+
+    const convertedDate = new Date(
+      fechaInicioObject.year,
+      fechaInicioObject.month - 1,
+      fechaInicioObject.day
+    );
+
+    return convertedDate;
+  }
+
+  // ------------- CREAR SOLICITUD  -------------
+
   crearSolicitud(): any {
     this.submitted = true;
-    this.loading = true;
 
     // stop here if form is invalid
 
@@ -96,45 +124,86 @@ export class CrearSolicitudComponent implements OnInit {
       return;
     }
 
+    this.loading = true;
+
     if (this.crearSolicitudForm.valid) {
-      
+      const newForm = Object.assign(
+        {},
+        this.solicitud,
+        this.crearSolicitudForm.value,
+        {
+          fecha_inicio: this.newDateFormat(this.fromDate),
+          fecha_fin: this.newDateFormat(this.toDate),
+        }
+      );
 
-      // let myDateObj = this.crearSolicitudForm.value.fechasInicioFin.date;
-      // let convertedDate =  new Date(
-      //   myDateObj.year, 
-      //   myDateObj.month-1, 
-      //   myDateObj.day);
+      console.log('luego del converter', newForm);
 
-      //   let p = Object.assign({},this.solicitud, this.crearSolicitudForm.value, {
-      //     fechasInicioFin: convertedDate
-      //   });
-
-        console.log('formulario crear',this.crearSolicitudForm.value);
-
-
-      return this.solicitudService
-        .createSolicitud(this.crearSolicitudForm.value)
-        //.createSolicitud(p)
-        .subscribe({
-          next: (res) => {
-            this.ngZone.run(() => this.router.navigate(['/home/solicitudes']));
-            Swal.fire({
-              title: 'Creada',
-              text: '¡La solicitud se creó con éxito!',
-              icon: 'success',
-              confirmButtonColor: '#3AB795',
-            });
-          },
-          error: (err) => {
-            if (err.status === 404 || err.status === 401) {
-              this.error = err.error.msg;
-              this.loading = false;
-            }
-          },
-        });
+      return this.solicitudService.createSolicitud(newForm).subscribe({
+        next: (res) => {
+          this.ngZone.run(() => this.router.navigate(['/home/solicitudes']));
+          Swal.fire({
+            title: 'Creada',
+            text: '¡La solicitud se creó con éxito!',
+            icon: 'success',
+            confirmButtonColor: '#3AB795',
+          });
+        },
+        error: (err) => {
+          if (err.status === 404 || err.status === 401) {
+            this.error = err.error.msg;
+            this.loading = false;
+          }
+        },
+      });
     }
+  }
 
-    
+  // ------------- DATEPICKER -------------
 
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.fromDate = date;
+    } else if (
+      this.fromDate &&
+      !this.toDate &&
+      date &&
+      date.after(this.fromDate)
+    ) {
+      this.toDate = date;
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+    }
+  }
+
+  isHovered(date: NgbDate) {
+    return (
+      this.fromDate &&
+      !this.toDate &&
+      this.hoveredDate &&
+      date.after(this.fromDate) &&
+      date.before(this.hoveredDate)
+    );
+  }
+
+  isInside(date: NgbDate) {
+    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+  }
+
+  isRange(date: NgbDate) {
+    return (
+      date.equals(this.fromDate) ||
+      (this.toDate && date.equals(this.toDate)) ||
+      this.isInside(date) ||
+      this.isHovered(date)
+    );
+  }
+
+  validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
+    const parsed = this.formatter.parse(input);
+    return parsed && this.calendar.isValid(NgbDate.from(parsed))
+      ? NgbDate.from(parsed)
+      : currentValue;
   }
 }
