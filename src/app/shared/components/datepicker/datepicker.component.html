@@ -1,4 +1,4 @@
-<form class="form-inline">
+<form class="form-inline"  [formGroup]="dateForm">
   <div class="form-group hidden">
     <div class="input-group">
       <input
@@ -58,7 +58,7 @@
         (input)="toDate = validateInput(toDate, dpToDate.value)"
       />
       <div class="input-group-append">
-        <button
+        <buttons
           class="btn btn-outline-secondary calendar"
           (click)="datepicker.toggle()"
           type="button"
