@@ -9,20 +9,13 @@
     <div class="row regular-row">
       <div class="col-4 label">Tipo de Solicitud</div>
       <div class="col-sm-8">
-        <select
-          formControlName="tipos_solicitud_id"
-          class="form-control"
-          (change)="onChangeSolicitud($event)"
-          [ngClass]="{ 'is-invalid': submitted && f.tipos_solicitud_id.errors }"
-        >
+        <select formControlName="tipos_solicitud_id" class="form-control" (change)="onChangeSolicitud($event)"
+          [ngClass]="{ 'is-invalid': submitted && f.tipos_solicitud_id.errors }">
           <option [value]="op.id | number" *ngFor="let op of options$ | async">
             {{ op.nombre }}
           </option>
         </select>
-        <div
-          *ngIf="submitted && f.tipos_solicitud_id.errors"
-          class="invalid-feedback"
-        >
+        <div *ngIf="submitted && f.tipos_solicitud_id.errors" class="invalid-feedback">
           <div *ngIf="f.tipos_solicitud_id.errors.required">
             Elige un tipo de Solicitud
           </div>
@@ -41,28 +34,13 @@
           <div class="form-inline">
             <div class="form-group hidden">
               <div class="input-group">
-                <input
-                  name="datepicker"
-                  class="form-control"
-                  ngbDatepicker
-                  #datepicker="ngbDatepicker"
-                  [autoClose]="'outside'"
-                  (dateSelect)="onDateSelection($event)"
-                  [displayMonths]="2"
-                  [dayTemplate]="t"
-                  outsideDays="hidden"
-                  [startDate]="fromDate!"
-                  tabindex="-1"
-                />
+                <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                  [autoClose]="'outside'" (dateSelect)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t"
+                  outsideDays="hidden" [startDate]="fromDate!" tabindex="-1" />
                 <ng-template #t let-date let-focused="focused">
-                  <span
-                    class="custom-day"
-                    [class.focused]="focused"
-                    [class.range]="isRange(date)"
-                    [class.faded]="isHovered(date) || isInside(date)"
-                    (mouseenter)="hoveredDate = date"
-                    (mouseleave)="hoveredDate = null"
-                  >
+                  <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                    [class.faded]="isHovered(date) || isInside(date)" (mouseenter)="hoveredDate = date"
+                    (mouseleave)="hoveredDate = null">
                     {{ date.day }}
                   </span>
                 </ng-template>
@@ -70,39 +48,21 @@
             </div>
             <div class="form-group">
               <div class="input-group">
-                <input
-                  #dpFromDate
-                  class="form-control"
-                  placeholder="Inicio"
-                  name="dpFromDate"
-                  [value]="formatter.format(fromDate)"
-                  (input)="fromDate = validateInput(fromDate, dpFromDate.value)"
-                />
+                <input #dpFromDate class="form-control" placeholder="Inicio" name="dpFromDate"
+                  [value]="formatter.format(fromDate)" (input)="fromDate = validateInput(fromDate, dpFromDate.value)" />
                 <div class="input-group-append">
-                  <button
-                    class="btn btn-outline-secondary calendar"
-                    (click)="datepicker.toggle()"
-                    type="button"
-                  ></button>
+                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()"
+                    type="button"></button>
                 </div>
               </div>
             </div>
             <div class="form-group ml-2">
               <div class="input-group">
-                <input
-                  #dpToDate
-                  class="form-control"
-                  placeholder="Fin"
-                  name="dpToDate"
-                  [value]="formatter.format(toDate)"
-                  (input)="toDate = validateInput(toDate, dpToDate.value)"
-                />
+                <input #dpToDate class="form-control" placeholder="Fin" name="dpToDate"
+                  [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)" />
                 <div class="input-group-append">
-                  <button
-                    class="btn btn-outline-secondary calendar"
-                    (click)="datepicker.toggle()"
-                    type="button"
-                  ></button>
+                  <button class="btn btn-outline-secondary calendar" (click)="datepicker.toggle()"
+                    type="button"></button>
                 </div>
               </div>
             </div>
@@ -113,18 +73,10 @@
         <div class="col-4 label">Lugar</div>
         <div class="col-sm-8">
           <div class="input-group">
-            <input
-              type="text"
-              class="form-control border-right-0"
-              placeholder="Lugar donde se realizará la comisión"
-              aria-label="from"
-              aria-describedby="from"
-              formControlName="lugar"
-            />
+            <input type="text" class="form-control border-right-0" placeholder="Lugar donde se realizará la comisión"
+              aria-label="from" aria-describedby="from" formControlName="lugar" />
             <div class="input-group-append">
-              <span class="input-group-text"
-                ><i class="fas fa-map-marker-alt"></i
-              ></span>
+              <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
             </div>
           </div>
         </div>
@@ -132,28 +84,17 @@
       <div class="row regular-row" *ngIf="idioma">
         <div class="col-4 label">Idioma</div>
         <div class="col-sm-8">
-          <input
-            class="form-control"
-            type="text"
-            placeholder="Idioma en se realizará la comisión"
-            formControlName="idioma"
-          />
+          <input class="form-control" type="text" placeholder="Idioma en se realizará la comisión"
+            formControlName="idioma" />
         </div>
       </div>
       <div class="row regular-row" *ngIf="justificacion">
         <div class="col-4 label">Justificación *</div>
         <div class="col-sm-8">
           <div class="form-group">
-            <textarea
-              class="form-control"
-              rows="3"
-              formControlName="justificacion"
-              [ngClass]="{ 'is-invalid': submitted && f.justificacion.errors }"
-            ></textarea>
-            <div
-              *ngIf="submitted && f.justificacion.errors"
-              class="invalid-feedback"
-            >
+            <textarea class="form-control" rows="3" formControlName="justificacion"
+              [ngClass]="{ 'is-invalid': submitted && f.justificacion.errors }"></textarea>
+            <div *ngIf="submitted && f.justificacion.errors" class="invalid-feedback">
               <div *ngIf="f.justificacion.errors.required">
                 La justificacion es requerida
               </div>
@@ -162,19 +103,32 @@
         </div>
       </div>
 
+      <!--ANEXOS-->
+
       <div class="row regular-row" *ngIf="anexo">
         <div class="col-4 label">Anexos</div>
         <div class="col-sm-8">
           <div class="mb-3">
-            <input
-              class="form-control"
-              type="file"
-              id="formFileMultiple"
-              multiple
-            />
+            <input class="form-control" type="file" name="fileUplaod" id="fileUpload" multiple ng2FileSelect
+              [uploader]="uploader" />
+          </div>
+          <div>
+            <div class="row uploadList" *ngFor="let item of uploader.queue">
+              <div class="col-sm-4">{{item.file.name}}</div>
+              <div class="col-sm-4">
+                <div class="progress">
+                  <div class="progress-bar bg-success" [ngStyle]="{'width':item.progress+'%'}"></div>
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <button type="button" class="btn btn-blue" (click)="item.upload()">Upload</button>
+                <button type="button" class="btn btn-secondary" (click)="item.remove()">Cancel</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+
       <div *ngIf="error" class="alert alert-danger mt-3 mb-0">
         {{ error }}
       </div>
@@ -183,24 +137,14 @@
     <hr />
     <div class="row footer-row">
       <div class="col-sm-9">
-        <button
-          type="button"
-          class="btn btn-secondary float-right"
-          [routerLink]="['/home/solicitudes']"
-        >
+        <button type="button" class="btn btn-secondary float-right" [routerLink]="['/home/solicitudes']">
           Cancelar
         </button>
         <div class="col-sm-1"></div>
       </div>
       <div class="col-sm-2 form-group">
-        <button
-          [disabled]="loading"
-          class="btn btn-green btn-success float-right"
-        >
-          <span
-            *ngIf="loading"
-            class="spinner-border spinner-border-sm mr-1"
-          ></span>
+        <button [disabled]="loading" class="btn btn-green btn-success float-right">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
           Enviar
         </button>
       </div>

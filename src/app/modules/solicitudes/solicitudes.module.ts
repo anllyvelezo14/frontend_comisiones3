@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {FileUploadModule} from 'ng2-file-upload';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   VerEstadosComisionComponent,
@@ -36,6 +37,7 @@ import { EstadosModule } from '../estados/estados.module';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
+    FileUploadModule,
 
     CumplidosModule,
     EstadosModule,

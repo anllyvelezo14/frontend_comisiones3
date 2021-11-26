@@ -36,3 +36,10 @@ button.calendar:active {
     background-size: 23px;
     background-position: center;
 }
+
+
+.uploadList{
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

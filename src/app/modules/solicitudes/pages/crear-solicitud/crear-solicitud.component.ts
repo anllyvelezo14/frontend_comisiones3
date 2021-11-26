@@ -15,6 +15,9 @@ import {
   NgbDateParserFormatter,
   NgbDateStruct,
 } from '@ng-bootstrap/ng-bootstrap';
+import { FileSelectDirective, FileUploader} from 'ng2-file-upload';
+
+const URL = 'http://localhost:3000/file/upload';
 
 @Component({
   selector: 'app-crear-solicitud',
@@ -40,6 +43,10 @@ export class CrearSolicitudComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
+  uploader:FileUploader = new FileUploader({url:URL});
+
+  attachmentList:any = [];
+
   constructor(
     private solicitudService: SolicitudService,
     private tipoSolicitudService: TipoSolicitudService,
@@ -54,6 +61,10 @@ export class CrearSolicitudComponent implements OnInit {
     this.options$ = this.tipoSolicitudService.getTipoSolicitud();
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 2);
+
+    this.uploader.onCompleteItem = (item:any, response:any , status:any, headers:any) => {
+      this.attachmentList.push(JSON.parse(response));
+    }
     //this.usuario$ = this.usuarioService.getUsuario();
   }
 
