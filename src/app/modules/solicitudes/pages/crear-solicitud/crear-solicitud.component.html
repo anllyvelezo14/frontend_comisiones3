@@ -108,24 +108,7 @@
       <div class="row regular-row" *ngIf="anexo">
         <div class="col-4 label">Anexos</div>
         <div class="col-sm-8">
-          <div class="mb-3">
-            <input class="form-control" type="file" name="fileUplaod" id="fileUpload" multiple ng2FileSelect
-              [uploader]="uploader" />
-          </div>
-          <div>
-            <div class="row uploadList" *ngFor="let item of uploader.queue">
-              <div class="col-sm-4">{{item.file.name}}</div>
-              <div class="col-sm-4">
-                <div class="progress">
-                  <div class="progress-bar bg-success" [ngStyle]="{'width':item.progress+'%'}"></div>
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <button type="button" class="btn btn-blue" (click)="item.upload()">Upload</button>
-                <button type="button" class="btn btn-secondary" (click)="item.remove()">Cancel</button>
-              </div>
-            </div>
-          </div>
+          <app-upload-files></app-upload-files>
         </div>
       </div>
 
