@@ -27,7 +27,7 @@ export class UploadFilesService {
 
   }
 
-  getFiles(): Observable<any> {
-    return this.http.get(`${this.urlEndPoint}/files`);
-  }
+  // getFiles(): Observable<any> {
+  //   return this.http.get(`${this.urlEndPoint}/files`);
+  // }
 }
