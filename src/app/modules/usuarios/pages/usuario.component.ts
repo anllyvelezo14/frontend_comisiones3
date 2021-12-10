@@ -36,14 +36,16 @@ export class UsuarioComponent implements OnInit {
 
     this.searchUsuariosService.usuarios$.subscribe({
       next: (data) => {
-        console.log('---- In component --', data);
         if (this.usuarios$) {
           this.listUsuarios = true;
+          console.log('entro a next', this.listUsuarios)
         }
       },
       error: (err) => {
+        console.log('entro a error', this.listUsuarios)
         if (err.status === 404 || err.status === 401) {
           this.error = err.error.msg;
+          console.log('entro a error msh', err.error.msg)
         }
       },
     });

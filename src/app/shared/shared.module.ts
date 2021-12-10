@@ -5,9 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbdSortableHeader } from './directives/sortable-header.directive';
 import { CompareValidatorDirective } from './directives/compare-validator.directive';
 import { UploadFilesComponent } from './components/upload-files/upload-files.component';
+import { RoleDirectiveDirective } from './directives/role-directive.directive';
 
 @NgModule({
-  declarations: [NgbdSortableHeader, CompareValidatorDirective, UploadFilesComponent],
+  declarations: [NgbdSortableHeader, CompareValidatorDirective, UploadFilesComponent, RoleDirectiveDirective],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, NgbModule],
   exports: [NgbdSortableHeader, UploadFilesComponent],
 })

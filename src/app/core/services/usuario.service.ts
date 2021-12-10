@@ -33,4 +33,9 @@ export class UsuarioService {
   updateUsuario(id: string, data: Usuario): Observable<any> {
     return this.http.patch<Usuario>(`${this.urlEndPoint}/${id}`, data);
   }
+
+  currentUser(){
+    const currentUserRole = localStorage.getItem('ACCESS_USER_ROLE');
+    return currentUserRole;
+  }
 }
