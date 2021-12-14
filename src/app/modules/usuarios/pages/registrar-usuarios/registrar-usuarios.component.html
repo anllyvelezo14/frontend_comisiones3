@@ -8,7 +8,7 @@
   <form [formGroup]="registrarUsuariosForm" (ngSubmit)="registrarUsuario()">
     <div class="row regular-row">
       <div class="col-4 label">Tipo de Documento</div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <select
           formControlName="tipo_identificacion"
           class="form-control"
@@ -33,7 +33,7 @@
       <div class="col-4 label">
         <label class="col-form-label label">Identificación</label>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <div class="input-group">
           <input
             type="text"
@@ -59,7 +59,7 @@
       <div class="col-4 label">
         <label class="col-form-label label">Nombre</label>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <input
           type="text"
           class="form-control"
@@ -78,7 +78,7 @@
       <div class="col-4 label">
         <label class="col-form-label label">Apellido</label>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <input
           type="text"
           class="form-control"
@@ -97,7 +97,7 @@
       <div class="col-4 label">
         <label class="col-form-label label">Departamento</label>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <select
           formControlName="departamentos_id"
           class="form-control"
@@ -127,7 +127,7 @@
       <div class="col-4 label">
         <label class="col-form-label label">Rol</label>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <select
           formControlName="roles_id"
           class="form-control"
@@ -153,7 +153,7 @@
       <div class="col-4 label">
         <label class="col-form-label label">Email</label>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <input
           type="text"
           class="form-control"
@@ -175,7 +175,7 @@
       <div class="col-4 label">
         <label class="col-form-label label">Contraseña</label>
       </div>
-      <div class="col-sm-8">
+      <div class="col-sm-6">
         <input
           type="password"
           class="form-control"
@@ -192,7 +192,7 @@
 
     <hr />
     <div class="row footer-row">
-      <div class="col-10">
+      <div class="col-sm-10">
         <button
           type="button"
           class="btn btn-secondary float-right"
@@ -201,7 +201,7 @@
           Cancelar
         </button>
       </div>
-      <div class="col-2">
+      <div class="col-sm-2">
         <button
           [disabled]="loading"
           class="btn btn-green btn-success btn-block"
