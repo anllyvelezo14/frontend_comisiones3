@@ -16,10 +16,18 @@ export class AuthService {
   authSubject = new BehaviorSubject<boolean>(false);
   token: string;
   usuario: Usuario;
+  private userSubject: BehaviorSubject<Usuario>;
+  public user: Observable<Usuario>;
 
   constructor(private http: HttpClient, private router: Router) {
     this.checkToken();
+    this.userSubject = new BehaviorSubject<Usuario>(JSON.parse(localStorage.getItem('ACCESS_USER_ROLE')));
+    this.user = this.userSubject.asObservable();
   }
+
+  public get userValue(): Usuario {
+    return this.userSubject.value;
+}
 
   // Verifica si user ha hecho login
   isLogged(): boolean {

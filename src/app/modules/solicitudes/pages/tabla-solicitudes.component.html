@@ -24,7 +24,7 @@
             <th scope="col">ID</th>
             <th scope="col">Tipo Solicitud</th>
             <th scope="col">Fecha Actualización</th>
-            <th scope="col" *appRole="'1'">Nombre</th>
+            <th scope="col" *appRole="1">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Departamento</th>
             <th scope="col">Estado</th>
@@ -54,7 +54,7 @@
                 [term]="searchSolicitudesService.searchTerm"
               ></ngb-highlight>
             </td>
-            <td *appRole="'1'">
+            <td *appRole="1">
               <ngb-highlight
                 [result]="[solicitud.usuarios.nombre]"
                 [term]="searchSolicitudesService.searchTerm"
